@@ -1,85 +1,115 @@
-# %%
-# %run ../../env.py
-from utils.loaders import load_rand
+import sys, os
+_project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+if _project_root not in sys.path:
+    sys.path.insert(0, _project_root)
 
-# %%
-# 随机号 随机日期
-RAND = load_rand(cols=['受试者', '受试者状态', '随机时间', '随机号'])
+from env import pd, output_path, save_table_to_docx_threeline
+from utils.loaders import load_sheet
 
-# %% [markdown]
-# ## 表格： 因其他原因而发生的提前终止治疗
+# ── 列名集中管理 ──
 
-# %%
-cols = ["受试者", "页面名称", "其他原因"]
-DS_END1 = pd.read_excel(raw_path, sheet_name = "DS_END", header = 0, skiprows = [1], usecols = cols, dtype = str).fillna("")
-DS_END1 = DS_END1[(DS_END1["页面名称"] == "治疗结束页") & (DS_END1["其他原因"] != "")]  #如果需要考虑研究者判断，这里需要补充条件
-DS_END1 = DS_END1.drop(columns = ["页面名称"], axis = 1)
+# 导入列名
+IMPORT_DS_END   = ['受试者', '页面名称', '其他原因']
+IMPORT_EC       = ['受试者', '服药日期']
+IMPORT_DS_END2  = ['受试者', '页面名称', '是否完成试验_TXT']
+IMPORT_AE       = ['受试者', '不良事件名称', '对试验药物采取的措施_TXT',
+                   '与试验药物的关系_TXT', '导致死亡']
+IMPORT_RAND     = ['受试者', '随机号']
 
-cols = ["受试者", "服药日期"]
-EC = pd.read_excel(raw_path, sheet_name = "EC", header = 0, skiprows = [1], usecols = cols, dtype = str).fillna("")
-EC["服药日期"] = pd.to_datetime(EC["服药日期"], errors="coerce")
-EC = EC[EC["服药日期"].notna()]
-EC = (
-    EC.groupby("受试者", dropna=False)["服药日期"]
-      .agg(["min", "max"])
-      .rename(columns={"min": "首次用药日期", "max": "末次用药日期"})
+# 中间列名
+VAR_SUBJ         = "受试者"
+VAR_OTHER_REASON = "其他原因"
+VAR_DOSE_DATE    = "服药日期"
+VAR_FIRST_DOSE   = "首次用药日期"
+VAR_LAST_DOSE    = "末次用药日期"
+VAR_TREAT_DAYS   = "治疗天数（天）"
+VAR_COMPLETE     = "是否完成试验_TXT"
+VAR_AE_MEASURE   = "对试验药物采取的措施_TXT"
+VAR_RELATION     = "与试验药物的关系_TXT"
+VAR_DEATH        = "导致死亡"
+
+# 输出列名
+VAR_SCREEN_NO    = "筛选号"
+VAR_RAND_NO      = "随机号"
+VAR_RELATION_OUT = "与试验用药品的关系"
+VAR_TERM_REASON  = "提前终止治疗的原因"
+VAR_COMPLETED    = "是否完成试验"
+OUTPUT_COLS = [VAR_SCREEN_NO, VAR_RAND_NO, VAR_FIRST_DOSE, VAR_LAST_DOSE,
+               VAR_TREAT_DAYS, "不良事件名称", VAR_RELATION_OUT,
+               VAR_TERM_REASON, VAR_COMPLETED]
+
+# ── 1 读取 ──
+
+df_end   = load_sheet("DS_END", IMPORT_DS_END).fillna("")
+df_ec    = load_sheet("EC", IMPORT_EC).fillna("")
+df_end2  = load_sheet("DS_END", IMPORT_DS_END2).fillna("")
+df_ae    = load_sheet("AE", IMPORT_AE)
+df_rand  = load_sheet("DS_RAND", IMPORT_RAND)
+
+# ── 3 筛选 ──
+
+df_end = df_end[(df_end["页面名称"] == "治疗结束页") & (df_end[VAR_OTHER_REASON] != "")]
+df_end = df_end.drop(columns=["页面名称"])
+
+df_end2 = df_end2[df_end2["页面名称"] == "试验完成情况总结"]
+df_end2 = df_end2.drop(columns=["页面名称"])
+
+df_ae = df_ae[(df_ae[VAR_AE_MEASURE] == "永久停药") | (df_ae[VAR_DEATH] == "Y")]
+
+# ── 2 归一化 ──
+
+df_ec[VAR_DOSE_DATE] = pd.to_datetime(df_ec[VAR_DOSE_DATE], errors="coerce")
+df_ec = df_ec[df_ec[VAR_DOSE_DATE].notna()]
+
+# ── 5 派生 ──
+
+df_ec = (
+    df_ec.groupby(VAR_SUBJ, dropna=False)[VAR_DOSE_DATE]
+         .agg(["min", "max"])
+         .rename(columns={"min": VAR_FIRST_DOSE, "max": VAR_LAST_DOSE})
 )
 
-EC["首次用药日期"] = pd.to_datetime(EC["首次用药日期"], errors="coerce")
-EC["末次用药日期"] = pd.to_datetime(EC["末次用药日期"], errors="coerce")
+df_ec[VAR_FIRST_DOSE] = pd.to_datetime(df_ec[VAR_FIRST_DOSE], errors="coerce")
+df_ec[VAR_LAST_DOSE]  = pd.to_datetime(df_ec[VAR_LAST_DOSE], errors="coerce")
+df_ec[VAR_TREAT_DAYS] = (df_ec[VAR_LAST_DOSE] - df_ec[VAR_FIRST_DOSE]).dt.days + 1
+df_ec[VAR_TREAT_DAYS] = df_ec[VAR_TREAT_DAYS].astype("Int64").astype("string").fillna("")
 
-EC["治疗天数（天）"] = (EC["末次用药日期"] - EC["首次用药日期"]).dt.days + 1
-EC["治疗天数（天）"] = (EC["治疗天数（天）"].astype("Int64").astype("string").fillna(""))
+df_ec[VAR_FIRST_DOSE] = df_ec[VAR_FIRST_DOSE].dt.strftime("%Y-%m-%d")
+df_ec[VAR_LAST_DOSE]  = df_ec[VAR_LAST_DOSE].dt.strftime("%Y-%m-%d")
 
-EC["首次用药日期"] = EC["首次用药日期"].dt.strftime("%Y-%m-%d")
-EC["末次用药日期"] = EC["末次用药日期"].dt.strftime("%Y-%m-%d")
+# ── 6 连接 ──
 
-cols = ["受试者", "页面名称", "是否完成试验_TXT"]
-DS_END2 = pd.read_excel(raw_path, sheet_name = "DS_END", header = 0, skiprows = [1], usecols = cols, dtype = str).fillna("")
-DS_END2 = DS_END2[DS_END2["页面名称"] == "试验完成情况总结"]
-DS_END2 = DS_END2.drop(columns = ["页面名称"], axis = 1)
+df_out = (df_end.merge(df_rand, on=[VAR_SUBJ], how="left")
+               .merge(df_ec,   on=[VAR_SUBJ], how="left")
+               .merge(df_end2, on=[VAR_SUBJ], how="left")
+               .merge(df_ae,   on=[VAR_SUBJ], how="left")
+        )
 
-cols = ["受试者", "不良事件名称", "对试验药物采取的措施_TXT", "与试验药物的关系_TXT", "导致死亡"]
-AE = pd.read_excel(raw_path, sheet_name = "AE", header = 0, skiprows = [1], usecols = cols, dtype = str)
-AE = AE[(AE["对试验药物采取的措施_TXT"] == "永久停药") | (AE["导致死亡"] == "Y")]
-AE
-df = (DS_END1.merge(RAND, on = "受试者", how = "left")
-             .merge(EC, on = "受试者", how = "left")
-             .merge(DS_END2, on = "受试者", how = "left")
-             .merge(AE, on = "受试者", how = "left")
-     )
-
-df = df.rename(columns = {
-    "受试者":"筛选号",
-    "其他原因":"提前终止治疗的原因",
-    "是否完成试验_TXT":"是否完成试验",
-    "与试验药物的关系_TXT":"与试验用药品的关系",
+df_out = df_out.rename(columns={
+    VAR_SUBJ:      VAR_SCREEN_NO,
+    VAR_OTHER_REASON: VAR_TERM_REASON,
+    VAR_COMPLETE:  VAR_COMPLETED,
+    VAR_RELATION:  VAR_RELATION_OUT,
 })
 
-df = df[[
- '筛选号',
- '随机号',
- '首次用药日期',
- '末次用药日期',
- '治疗天数（天）',
- '不良事件名称',
- '与试验用药品的关系',
- '提前终止治疗的原因',
- '是否完成试验'
-]]
+# ── 7 格式化 ──
 
-df.insert(0, "No.", range(1, len(df) + 1))
-df
+df_out = df_out[OUTPUT_COLS]
+
+n = len(df_out)
+df_out.insert(0, "No.", range(1, n + 1))
+
+# ── 8 输出 ──
 
 notes = [
-    "治疗天数（天）= 试验药物末次用药日期 - 试验药物首次用药日期 + 1；"
+    "治疗天数（天）= 试验药物末次用药日期 - 试验药物首次用药日期 + 1；",
 ]
 
 save_table_to_docx_threeline(
-        df,
-        f'{output_path}/table/表10 因其他原因而发生的提前终止治疗.docx',
-        '表10 因其他原因而发生的提前终止治疗',
-        notes,
-        row_height_cm=0.6,
-        auto_width=True
-    )
+    df_out,
+    f'{output_path}/table/表10 因其他原因而发生的提前终止治疗.docx',
+    '表10 因其他原因而发生的提前终止治疗',
+    notes,
+    row_height_cm=0.6,
+    auto_width=True,
+)
