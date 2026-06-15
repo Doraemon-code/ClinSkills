@@ -9,24 +9,25 @@ from utils.loaders import load_sheet
 # ── 列名集中管理 ──
 
 # 导入列名
-IMPORT_DS_END   = ['受试者', '页面名称', '其他原因']
-IMPORT_EC       = ['受试者', '服药日期']
-IMPORT_DS_END2  = ['受试者', '页面名称', '是否完成试验_TXT']
-IMPORT_AE       = ['受试者', '不良事件名称', '对试验药物采取的措施_TXT',
-                   '与试验药物的关系_TXT', '导致死亡']
+IMPORT_DS_END   = ['受试者', '页面名称', '其他受试者退出试验的原因']
+IMPORT_EC       = ['受试者', '开始日期', '结束日期']
+IMPORT_DS_END2  = ['受试者', '页面名称', '受试者是否完成试验_TXT']
+IMPORT_AE       = ['受试者', '不良事件名称', '对试验药物采取的初始措施_TXT',
+                   '与试验药物的关系_TXT', '死亡']
 IMPORT_RAND     = ['受试者', '随机号']
 
 # 中间列名
 VAR_SUBJ         = "受试者"
-VAR_OTHER_REASON = "其他原因"
-VAR_DOSE_DATE    = "服药日期"
+VAR_OTHER_REASON = "其他受试者退出试验的原因"
+VAR_START_DATE   = "开始日期"
+VAR_END_DATE     = "结束日期"
 VAR_FIRST_DOSE   = "首次用药日期"
 VAR_LAST_DOSE    = "末次用药日期"
 VAR_TREAT_DAYS   = "治疗天数（天）"
-VAR_COMPLETE     = "是否完成试验_TXT"
-VAR_AE_MEASURE   = "对试验药物采取的措施_TXT"
+VAR_COMPLETE     = "受试者是否完成试验_TXT"
+VAR_AE_MEASURE   = "对试验药物采取的初始措施_TXT"
 VAR_RELATION     = "与试验药物的关系_TXT"
-VAR_DEATH        = "导致死亡"
+VAR_DEATH        = "死亡"
 
 # 输出列名
 VAR_SCREEN_NO    = "筛选号"
@@ -41,7 +42,7 @@ OUTPUT_COLS = [VAR_SCREEN_NO, VAR_RAND_NO, VAR_FIRST_DOSE, VAR_LAST_DOSE,
 # ── 1 读取 ──
 
 df_end   = load_sheet("DS_END", IMPORT_DS_END).fillna("")
-df_ec    = load_sheet("EC", IMPORT_EC).fillna("")
+df_ec    = load_sheet("EC_ED", IMPORT_EC).fillna("")
 df_end2  = load_sheet("DS_END", IMPORT_DS_END2).fillna("")
 df_ae    = load_sheet("AE", IMPORT_AE)
 df_rand  = load_sheet("DS_RAND", IMPORT_RAND)
@@ -58,16 +59,23 @@ df_ae = df_ae[(df_ae[VAR_AE_MEASURE] == "永久停药") | (df_ae[VAR_DEATH] == "
 
 # ── 2 归一化 ──
 
-df_ec[VAR_DOSE_DATE] = pd.to_datetime(df_ec[VAR_DOSE_DATE], errors="coerce")
-df_ec = df_ec[df_ec[VAR_DOSE_DATE].notna()]
+df_ec[VAR_START_DATE] = pd.to_datetime(df_ec[VAR_START_DATE], errors="coerce")
+df_ec[VAR_END_DATE]   = pd.to_datetime(df_ec[VAR_END_DATE], errors="coerce")
+df_ec = df_ec[df_ec[VAR_START_DATE].notna()]
 
 # ── 5 派生 ──
 
-df_ec = (
-    df_ec.groupby(VAR_SUBJ, dropna=False)[VAR_DOSE_DATE]
-         .agg(["min", "max"])
-         .rename(columns={"min": VAR_FIRST_DOSE, "max": VAR_LAST_DOSE})
+df_ec1 = (
+    df_ec.groupby(VAR_SUBJ, dropna=False)[VAR_START_DATE]
+         .agg(["min"])
+         .rename(columns={"min": VAR_FIRST_DOSE})
 )
+df_ec2 = (
+    df_ec.groupby(VAR_SUBJ, dropna=False)[VAR_END_DATE]
+         .agg(["max"])
+         .rename(columns={"max": VAR_LAST_DOSE})
+)
+df_ec = df_ec1.merge(df_ec2, on=[VAR_SUBJ], how="inner")
 
 df_ec[VAR_FIRST_DOSE] = pd.to_datetime(df_ec[VAR_FIRST_DOSE], errors="coerce")
 df_ec[VAR_LAST_DOSE]  = pd.to_datetime(df_ec[VAR_LAST_DOSE], errors="coerce")

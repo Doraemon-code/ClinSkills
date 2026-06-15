@@ -99,7 +99,7 @@ summary[count_cols] = summary[count_cols].fillna(0).astype(int)
 for col in [VAR_FAIL_RATE, VAR_ENROLL_RATE, VAR_DROP_RATE]:
     summary[col] = summary[col].apply(lambda x: f"{x:.2f}%" if pd.notna(x) else "")
 
-summary = summary.reset_index().rename(columns={"index": VAR_CENTER})
+summary = summary.reset_index().rename(columns={VAR_CENTER_FULL: VAR_CENTER})
 summary = summary[OUTPUT_COLS]
 
 # ── 8 输出 ──

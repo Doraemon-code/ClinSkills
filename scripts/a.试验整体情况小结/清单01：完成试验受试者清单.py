@@ -10,7 +10,8 @@ from utils.loaders import load_rand, load_sheet
 
 # 导入列名
 IMPORT_RAND   = ['受试者', '受试者状态', '随机时间', '随机号']
-IMPORT_END    = ['受试者', '页面名称', '受试者是否完成试验_TXT']
+IMPORT_END    = ['受试者', '页面名称', '受试者是否完成试验_TXT',
+                 '试验完成日期', '提前退出日期']
 IMPORT_EC     = ['受试者', '开始日期', '结束日期']
 IMPORT_SV     = ['受试者', '访视OID', '访视日期']
 IMPORT_ICF    = ['受试者', '知情同意书签署日期']

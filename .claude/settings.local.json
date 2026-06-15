@@ -15,7 +15,10 @@
       "Bash(python tables/_replace_dose.py)",
       "Bash(python *)",
       "Bash(.\\\\.venv\\\\Scripts\\\\pip.exe install *)",
-      "PowerShell(.\\\\.venv\\\\Scripts\\\\pip.exe install -r requirements.txt)"
+      "PowerShell(.\\\\.venv\\\\Scripts\\\\pip.exe install -r requirements.txt)",
+      "Bash(.venv/Scripts/python.exe scripts/a.试验整体情况小结/表格03：筛选失败原因分类.py)",
+      "PowerShell(Get-Command *)",
+      "PowerShell(cd \"F:\\\\Git\\\\DMR-scripts\"; Get-ChildItem -Recurse -Directory | Select-Object -ExpandProperty FullName | ForEach-Object { $_.Replace\\(\"F:\\\\Git\\\\DMR-scripts\\\\\", \"\"\\) } | Sort-Object)"
     ]
   }
 }
