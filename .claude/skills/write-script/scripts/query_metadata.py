@@ -49,6 +49,21 @@ def _load(name):
         return json.load(f)
 
 
+# EDC 系统 → 解码列后缀（对应 build-metadata 写入的 _meta.edcType）
+_DECODE_SUFFIX = {
+    "taimei5": "_TXT",
+    "taimei6": "_TXT",
+    "cmis": "_DEC",
+}
+_DEFAULT_DECODE_SUFFIX = "_TXT"
+
+
+def _decode_suffix(ff):
+    """从 FormField.json 的 _meta.edcType 推断解码列后缀。"""
+    edc = ff.get("_meta", {}).get("edcType", "")
+    return _DECODE_SUFFIX.get(edc, _DEFAULT_DECODE_SUFFIX)
+
+
 def cmd_forms():
     """列出所有表单。"""
     ff = _load("FormField")
@@ -67,6 +82,7 @@ def cmd_forms():
 def cmd_fields(form_name):
     """列出指定表单的所有字段。"""
     ff = _load("FormField")
+    suffix = _decode_suffix(ff)
     matched = [v for v in ff.get("variables", [])
                if v.get("formName") == form_name or v.get("formOID") == form_name]
     if not matched:
@@ -90,7 +106,7 @@ def cmd_fields(form_name):
             cl_str = f"{cl['name']} ({cl['count']}项)"
             if cl.get("hasOther"):
                 cl_str += " [含其他]"
-            col_name = f"{v.get('itemName', '')}_TXT  ← 用此列"
+            col_name = f"{v.get('itemName', '')}{suffix}  ← 用此列"
         print(f"{v.get('sasFieldName',''):<20} {v.get('itemName',''):<30} {v.get('fieldFormat',''):<20} {cl_str:<25} {col_name}")
 
 

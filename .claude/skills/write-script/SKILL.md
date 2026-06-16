@@ -73,14 +73,12 @@ python .claude/skills/write-script/scripts/query_metadata.py <command> [args]
 
 `fields` 命令的输出已包含解码列名（标注 `← 用此列`），**直接使用即可，无需回退读 Excel 表头验证**。只有当元数据中找不到某表单或字段时，才回退到直接读 Excel。
 
-**解码后缀：** 不同 EDC 系统的解码列后缀不同：
+**解码后缀：** 带 `codeList` 的字段一定有两列——码值列（`itemName`）和解码列（`itemName` + 后缀）。脚本中始终用解码列。`fields` 命令会根据本项目 EDC 系统（元数据 `_meta.edcType`）自动给出正确的解码列名（标注 `← 用此列`），**直接采用即可，无需手动套后缀**。各系统后缀对照（仅供理解，工具已自动处理）：
 
 | EDC 系统 | 解码后缀 | 示例 |
 |---|---|---|
 | 太美5 / 太美6 | `_TXT` | `临床评估_TXT` |
-| 赛美斯 | `_DEC` | `临床评估_DEC` |
-
-带 `codeList` 的字段一定有两列：码值列（`itemName`）和解码列（`itemName` + 后缀）。脚本中始终用解码列。
+| 赛美斯（cmis） | `_DEC` | `临床评估_DEC` |
 
 **注意：** EDC 的 sheet 名就是表单 OID（如 `DS_END`、`EC_ED`、`SV`），不是中文表单名。`formOID` 字段就是 `load_sheet` 的第一个参数。
 
@@ -95,8 +93,6 @@ python .claude/skills/write-script/scripts/query_metadata.py <command> [args]
 | `fieldFormat` | 字段类型（DropDownList / RadioButton / LongText / Date 等） | 判断是否需要解码列 |
 | `codeList` | 编码表引用（name / count） | `codelist` 命令查枚举值 |
 | `codeList.hasOther` | 是否含"其他"自由文本选项 | 必须读解码列，码值列只有编码 |
-
-有 `codeList` 的字段一定有两列：码值列（`itemName`）和解码列（`itemName` + 后缀）。脚本中始终用解码列。后缀因 EDC 系统而异，见上方解码后缀表。
 
 ### 3. 编写脚本
 
