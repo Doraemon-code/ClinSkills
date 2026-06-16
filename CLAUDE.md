@@ -38,8 +38,6 @@
 编码规范（变量前缀、列名集中管理、八步操作模型、脚本模板等）详见 `/write-script` skill 的 `SKILL.md`。以下为跨 skill 的通用约定：
 
 - 表头结构：`header=0, skiprows=[1]`（第 1 行中文列名，第 2 行英文列名被跳过）
-- EDC 系统：`taimei5`（太美5）
-- 解码字段后缀：`_TXT`。EDC 中选项型字段（`fieldFormat` 为 DropDownList / RadioButton / CheckBox）有两列：码值列（`itemName`）和解码列（`itemName` + 后缀）。脚本中必须读解码列，不读码值列。不同 EDC 系统后缀不同：太美5/太美6 → `_TXT`，赛美斯 → `_DEC`
 - 报表函数来自 `utils/output_format.py`
 - 数据读取函数来自 `utils/loaders.py`（`load_sheet` / `load_rand` 等）
 - 生成文件路径由 `config.yaml` 的 `output_path` 控制（`config.py` 自动解析为绝对路径）

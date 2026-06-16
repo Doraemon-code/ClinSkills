@@ -69,7 +69,18 @@ python .claude/skills/write-script/scripts/query_metadata.py <command> [args]
 1. 先 `search` 需求中的关键字，定位候选字段
 2. 再 `fields <表单名>` 确认字段详情（格式、编码表）
 3. 涉及编码值时 `codelist <名称>` 查看枚举
-4. 确认哪些字段需要解码列（选项型字段需读 `itemName` + 解码后缀，后缀见 CLAUDE.md 的 Conventions）
+4. 确认哪些字段需要解码列（选项型字段需读 `itemName` + 解码后缀）
+
+`fields` 命令的输出已包含解码列名（标注 `← 用此列`），**直接使用即可，无需回退读 Excel 表头验证**。只有当元数据中找不到某表单或字段时，才回退到直接读 Excel。
+
+**解码后缀：** 不同 EDC 系统的解码列后缀不同：
+
+| EDC 系统 | 解码后缀 | 示例 |
+|---|---|---|
+| 太美5 / 太美6 | `_TXT` | `临床评估_TXT` |
+| 赛美斯 | `_DEC` | `临床评估_DEC` |
+
+带 `codeList` 的字段一定有两列：码值列（`itemName`）和解码列（`itemName` + 后缀）。脚本中始终用解码列。
 
 **注意：** EDC 的 sheet 名就是表单 OID（如 `DS_END`、`EC_ED`、`SV`），不是中文表单名。`formOID` 字段就是 `load_sheet` 的第一个参数。
 
@@ -85,7 +96,7 @@ python .claude/skills/write-script/scripts/query_metadata.py <command> [args]
 | `codeList` | 编码表引用（name / count） | `codelist` 命令查枚举值 |
 | `codeList.hasOther` | 是否含"其他"自由文本选项 | 必须读解码列，码值列只有编码 |
 
-有 `codeList` 的字段一定有两列：码值列（`itemName`）和解码列（`itemName` + 后缀）。脚本中始终用解码列。后缀因 EDC 系统而异，见 CLAUDE.md 的 Conventions。
+有 `codeList` 的字段一定有两列：码值列（`itemName`）和解码列（`itemName` + 后缀）。脚本中始终用解码列。后缀因 EDC 系统而异，见上方解码后缀表。
 
 ### 3. 编写脚本
 
