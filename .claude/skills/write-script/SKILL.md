@@ -60,7 +60,11 @@ python .claude/skills/write-script/scripts/query_metadata.py <command> [args]
 | `find-field <SAS名>` | 按 SAS 字段名查找 | `python .claude/skills/write-script/scripts/query_metadata.py find-field DSSTDAT4` |
 | `field-codelist <字段名>` | 根据字段名查编码表枚举值 | `python .claude/skills/write-script/scripts/query_metadata.py field-codelist "受试者是否随机入组"` |
 
-**查询策略：**
+**查询策略（渐进式披露）：**
+
+> 原则：用 `query_metadata.py` 按需逐条查询，**不要一次性读取整个 JSON 文件**。
+> 先粗后细：`search` 定位 → `fields` 确认 → `codelist` 取值，每步只获取当前需要的信息。
+
 1. 先 `search` 需求中的关键字，定位候选字段
 2. 再 `fields <表单名>` 确认字段详情（格式、编码表）
 3. 涉及编码值时 `codelist <名称>` 查看枚举
@@ -70,7 +74,13 @@ python .claude/skills/write-script/scripts/query_metadata.py <command> [args]
 
 ### 3. 编写脚本
 
-确认数据需求后，按以下规范编写。
+确认数据需求后，**在动手写代码之前**先做两项检查：
+
+**检查 utils/ 已有函数：** 读 `utils/loaders.py` 和 `utils/output_format.py`，看是否有可直接复用的函数。不重复造轮子。
+
+**检查是否应封装为通用工具：** 如果当前逻辑（如日期解析、特定域的筛选合并、格式转换）很可能在后续脚本中重复出现，先将其封装到 `utils/` 中再调用，而不是在脚本内写死。
+
+完成上述检查后，按以下规范编写。
 
 ---
 
