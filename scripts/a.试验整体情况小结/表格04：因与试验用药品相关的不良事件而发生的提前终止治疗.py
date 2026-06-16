@@ -13,10 +13,9 @@ IMPORT_DS_INTED = ['受试者', '页面名称', '永久终止试验干预原因_
 IMPORT_EC       = ['受试者', '开始日期', '结束日期']
 IMPORT_DS_END   = ['受试者', '页面名称', '受试者是否完成试验_TXT']
 IMPORT_AE       = ['受试者', '不良事件名称',
-                   '对试验药物采取的措施-1_TXT', '对试验药物采取的措施-2_TXT',
-                   '对试验药物采取的措施-3_TXT', '对试验药物采取的措施-4_TXT',
-                   '对试验药物采取的措施-5_TXT', '对试验药物采取的措施-6_TXT',
-                   '与试验药物的关系_TXT', '死亡']
+                   '对试验药物采取的初始措施_TXT',
+                   '对试验药物采取的措施-1_TXT',
+                   '与试验药物的关系_TXT']
 IMPORT_RAND     = ['受试者', '随机号']
 
 # 中间列名
@@ -28,10 +27,12 @@ VAR_FIRST_DOSE   = "首次用药日期"
 VAR_LAST_DOSE    = "末次用药日期"
 VAR_TREAT_DAYS   = "治疗天数（天）"
 VAR_COMPLETE     = "受试者是否完成试验_TXT"
-VAR_MEASURES     = "对试验药物采取的措施"
+VAR_INIT_MEASURE = "对试验药物采取的初始措施_TXT"
+VAR_MEASURE1     = "对试验药物采取的措施-1_TXT"
 VAR_AE_NAME      = "不良事件名称"
 VAR_RELATION     = "与试验药物的关系_TXT"
-VAR_DEATH        = "死亡"
+
+STOP_ACTIONS = ["停止用药", "已结束用药"]
 
 # 输出列名
 VAR_SCREEN_NO    = "筛选号"
@@ -42,12 +43,6 @@ VAR_COMPLETED    = "是否完成试验"
 OUTPUT_COLS = [VAR_SCREEN_NO, VAR_RAND_NO, VAR_FIRST_DOSE, VAR_LAST_DOSE,
                VAR_TREAT_DAYS, VAR_AE_NAME, VAR_RELATION_OUT,
                VAR_TERM_REASON_OUT, VAR_COMPLETED]
-
-MEASURE_COLS = [
-    "对试验药物采取的措施-1_TXT", "对试验药物采取的措施-2_TXT",
-    "对试验药物采取的措施-3_TXT", "对试验药物采取的措施-4_TXT",
-    "对试验药物采取的措施-5_TXT", "对试验药物采取的措施-6_TXT",
-]
 
 # ── 1 读取 ──
 
@@ -69,14 +64,17 @@ df_inted = df_inted.drop(columns=["页面名称"])
 df_ec[VAR_START_DATE] = pd.to_datetime(df_ec[VAR_START_DATE], errors="coerce")
 df_ec[VAR_END_DATE]   = pd.to_datetime(df_ec[VAR_END_DATE], errors="coerce")
 
-df_ae[VAR_MEASURES] = df_ae[MEASURE_COLS].apply(
-    lambda row: ",".join(
-        [x.strip() for x in row
-         if pd.notna(x) and str(x).strip() not in ["", "nan", "NaN"]]
-    ),
-    axis=1,
-)
-df_ae = df_ae[(df_ae[VAR_MEASURES] == "永久停药") | (df_ae[VAR_DEATH] == "Y")]
+# EC_ED 每受试者可能有多条记录，聚合为最早/最晚日期
+df_ec = (df_ec.groupby(VAR_SUBJ, dropna=False)
+              .agg({VAR_START_DATE: "min", VAR_END_DATE: "max"})
+              .reset_index()
+        )
+
+df_ae = df_ae[
+    df_ae[[VAR_INIT_MEASURE, VAR_MEASURE1]]
+    .apply(lambda col: col.isin(STOP_ACTIONS))
+    .any(axis=1)
+]
 
 # ── 5 派生 ──
 
@@ -116,8 +114,8 @@ notes = [
 
 save_table_to_docx_threeline(
     df_out,
-    f'{output_path}/table/表9 因与试验用药品相关的不良事件而发生的提前终止治疗.docx',
-    '表9 因与试验用药品相关的不良事件而发生的提前终止治疗',
+    f'{output_path}/table/表4 因与试验用药品相关的不良事件而发生的提前终止治疗.docx',
+    '表4 因与试验用药品相关的不良事件而发生的提前终止治疗',
     notes,
     row_height_cm=0.6,
     auto_width=True,

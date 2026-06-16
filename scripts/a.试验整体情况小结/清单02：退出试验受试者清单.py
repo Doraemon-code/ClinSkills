@@ -141,8 +141,11 @@ df_out[VAR_EFFICACY] = "有/无"
 
 df_out[VAR_STUDY_END]   = df_out[VAR_STUDY_END].dt.strftime("%Y-%m-%d")
 df_out[VAR_STUDY_START] = df_out[VAR_STUDY_START].dt.strftime("%Y-%m-%d")
+df_out[VAR_FIRST_DOSE]  = df_out[VAR_FIRST_DOSE].dt.strftime("%Y-%m-%d")
+df_out[VAR_LAST_DOSE]   = df_out[VAR_LAST_DOSE].dt.strftime("%Y-%m-%d")
 
 df_out = df_out[OUTPUT_COLS]
+df_out = df_out.fillna("")
 
 n = len(df_out)
 df_out.insert(0, "No.", range(1, n + 1))
@@ -159,8 +162,8 @@ notes = [
 
 save_table_to_docx_threeline(
     df_out,
-    f'{output_path}/table/表5 退出试验受试者清单（{n}例）.docx',
-    '表5 退出试验受试者清单',
+    f'{output_path}/table/退出试验受试者清单（{n}例）.docx',
+    '退出试验受试者清单',
     notes,
     row_height_cm=0.6,
     auto_width=True,

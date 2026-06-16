@@ -63,7 +63,7 @@ df_out.insert(0, "No.", range(1, n + 1))
 
 export_to_excel_with_format(
     df_out,
-    f"{output_path}/listing/表32 筛选失败受试者清单.xlsx",
-    "表32 筛选失败受试者清单",
-    f"表32 筛选失败受试者清单（{n}例）",
+    f"{output_path}/listing/筛选失败受试者清单.xlsx",
+    "筛选失败受试者清单",
+    f"筛选失败受试者清单（{n}例）",
 )

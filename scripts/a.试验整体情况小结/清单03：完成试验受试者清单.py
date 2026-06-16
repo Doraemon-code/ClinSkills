@@ -123,7 +123,7 @@ df_out.insert(0, "No.", range(1, n + 1))
 
 export_to_excel_with_format(
     df_out,
-    f"{output_path}/listing/表34 完成试验受试者清单.xlsx",
-    "表34 完成试验受试者清单",
-    f"表34 完成试验受试者清单（{n}例）",
+    f"{output_path}/listing/完成试验受试者清单.xlsx",
+    "完成试验受试者清单",
+    f"完成试验受试者清单（{n}例）",
 )
