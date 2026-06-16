@@ -65,19 +65,19 @@ def load_completion(path=None):
     返回 DataFrame，含 ["受试者", "是否完成试验"] 两列。
     """
     df = load_sheet("DS_END", ["受试者", "页面名称", "受试者是否完成试验_TXT"], path).fillna("")
-    df = df[df["页面名称"] == "试验完成情况总结"].drop(columns="页面名称")
+    df = df[df["页面名称"] == "试验总结表"].drop(columns="页面名称")
     df = df.rename(columns={"受试者是否完成试验_TXT": "是否完成试验"})
     return df
 
 
 def load_first_dose(path=None):
-    """读取 EC sheet，返回每受试者最早服药日期。"""
-    ec = load_sheet("EC", ["受试者", "服药日期"], path).fillna("")
-    ec["服药日期"] = pd.to_datetime(ec["服药日期"], errors="coerce")
-    ec = ec[ec["服药日期"].notna()]
+    """读取 EC_ED，返回每受试者最早用药开始日期。"""
+    ec = load_sheet("EC_ED", ["受试者", "开始日期"], path).fillna("")
+    ec["开始日期"] = pd.to_datetime(ec["开始日期"], errors="coerce")
+    ec = ec[ec["开始日期"].notna()]
     return (
-        ec.groupby("受试者", dropna=False)["服药日期"]
+        ec.groupby("受试者", dropna=False)["开始日期"]
         .min()
         .reset_index()
-        .rename(columns={"服药日期": "首次用药日期"})
+        .rename(columns={"开始日期": "首次用药日期"})
     )
