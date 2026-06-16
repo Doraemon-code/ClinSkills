@@ -95,10 +95,10 @@ python .claude/skills/write-script/scripts/query_metadata.py <command> [args]
 
 **检查是否应封装为通用工具：** 如果当前逻辑（如日期解析、特定域的筛选合并、格式转换）很可能在后续脚本中重复出现，先将其封装到 `utils/` 中再调用，而不是在脚本内写死。
 
-完成上述检查后，按编码规范编写。**首次编写脚本前**读取 `coding-guide.md`（同会话已读则跳过）：
+完成上述检查后，按编码规范编写。**首次编写脚本前**读取 `coding-guide.md`（同会话已读可跳过）：
 
 ```bash
-Read .claude/skills/write-script/coding-guide.md
+Read .claude/skills/write-script/reference/coding-guide.md
 ```
 
 ### 9. 运行验证
