@@ -3,6 +3,7 @@
 from utils.loaders import load_first_dose
 from utils.loaders import load_completion
 from utils.loaders import load_rand
+from utils.output_format import export_to_excel_twoheader
 
 # %%
 index = ["受试者", "受试者状态", "访视名称", "页面名称"]
@@ -132,74 +133,15 @@ merge['temp_id_visit'] = merge['筛选号'].astype(str) + merge['表单名称'].
 pe_merge = merge.copy().drop(columns = ["temp_id_visit"])
 
 file_name = f"{output_path}/listing/表39-3 体格检查用药后检查异常有临床意义清单.xlsx"
-sheet_name = "表39-3 用药后检查异常有临床意义清单"
-with pd.ExcelWriter(file_name, engine='xlsxwriter') as writer:
-    # 数据从第 4 行开始写 (索引为 3)
-    pe_merge.to_excel(writer, sheet_name=sheet_name, startrow=3, index=False, header=False)
-
-    workbook  = writer.book
-    worksheet = writer.sheets[sheet_name]
-
-    # --- 格式定义 ---
-    header_fmt = workbook.add_format({'bold': True, 'align': 'center', 'valign': 'vcenter', 'border': 1, 'bg_color': '#D3D3D3'})
-    title_fmt = workbook.add_format({'bold': True, 'align': 'center', 'valign': 'vcenter', 'font_size': 14})
-    data_fmt = workbook.add_format({'border': 1, 'valign': 'vcenter'})
-
-    # --- 1. 大标题 ---
-    lc = len(pe_merge)
-    ls = len(pe_merge.drop_duplicates(subset = "筛选号"))
-    worksheet.merge_range(0, 0, 0, 17, f'表 39-3 用药后检查异常有临床意义清单 ({lc}例次{ls}例)', title_fmt)
-
-    # --- 2. 第一层合并表头 (Row 1 & 2) ---
-    # 固定列：跨两行合并 (1, col, 2, col)
-    fixed_cols = ['No.', '筛选号', '随机号', '表单名称', '检查项']
-    for i, col_name in enumerate(fixed_cols):
-        worksheet.merge_range(1, i, 2, i, col_name, header_fmt)
-
-    # 首次用药前
-    worksheet.merge_range(1, 5, 1, 9, '首次用药前', header_fmt)
-    worksheet.write(2, 5,  '访视名称', header_fmt)
-    worksheet.write(2, 6,  '检查日期', header_fmt)
-    worksheet.write(2, 7, '检查结果', header_fmt)
-    worksheet.write(2, 8, '临床意义', header_fmt)
-    worksheet.write(2, 9, '异常描述', header_fmt)
-
-
-    # 首次用药后：
-    worksheet.merge_range(1, 10, 1, 15, '首次用药后', header_fmt)
-    worksheet.write(2, 10,  '访视名称', header_fmt)
-    worksheet.write(2, 11,  '检查日期', header_fmt)
-    worksheet.write(2, 12,  '检查结果', header_fmt)
-    worksheet.write(2, 13,  '临床意义', header_fmt)
-    worksheet.write(2, 14,  '异常描述', header_fmt)
-    worksheet.write(2, 15,  '异常有临床意义，请描述', header_fmt)
-
-    # 是否完成试验 (最后一列)
-    worksheet.merge_range(1, 16, 2, 16, '是否完成试验', header_fmt)
-
-    # --- 3. 设置列宽 (根据需要调整数值) ---
-    worksheet.set_column(0, 0, 5)
-    worksheet.set_column(1, 2, 8)
-    worksheet.set_column(3, 4, 12)
-    worksheet.set_column(5, 6, 16)
-    worksheet.set_column(7, 7, 5)
-    worksheet.set_column(7, 14, 18)
-    worksheet.set_column(15, 15, 30)
-    worksheet.set_column(16, 16, 14)
-
-    # --- 4. 给数据区域补上边框 ---
-    # 从第 4 行到数据末尾，所有列画上边框
-    rows, cols = pe_merge.shape
-    for r in range(rows):
-        for c in range(cols):
-            # 获取当前单元格的值
-            val = pe_merge.iloc[r, c]
-
-            # 处理空值 (NaN) 转换为 Excel 的空字符串
-            if pd.isna(val):
-                val = ""
-
-            # 写入 Excel
-            # r + 3 是因为数据从第 4 行开始写（索引 3）
-            worksheet.write(r + 3, c, val, data_fmt)
-print(f"处理完成，文件：{file_name}")
+export_to_excel_twoheader(
+    pe_merge, file_name, "表39-3 用药后检查异常有临床意义清单",
+    title="表 39-3 用药后检查异常有临床意义清单",
+    fixed_cols=['No.', '筛选号', '随机号', '表单名称', '检查项'],
+    header_groups=[
+        {'label': '首次用药前', 'children': ['访视名称', '检查日期', '检查结果', '临床意义', '异常描述']},
+        {'label': '首次用药后', 'children': ['访视名称', '检查日期', '检查结果', '临床意义', '异常描述', '异常有临床意义，请描述']},
+    ],
+    trailing_cols=['是否完成试验'],
+    col_widths=[(0, 0, 5), (1, 2, 8), (3, 4, 12), (5, 6, 16), (7, 7, 5), (7, 14, 18), (15, 15, 30), (16, 16, 14)],
+    subject_col='筛选号',
+)
