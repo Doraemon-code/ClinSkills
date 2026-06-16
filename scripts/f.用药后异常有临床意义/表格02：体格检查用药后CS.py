@@ -60,7 +60,7 @@ _RENAME_MAP = {
     "检查日期":     VAR_ASSESS_DATE,
     "项目_TXT":     VAR_ITEM,
     "临床评估_TXT": VAR_CS,
-    "异常，请描述": VAR_DESC,
+    "异常，请描述_TXT": VAR_DESC,
     "其他,请说明":  VAR_OTHER,
 }
 
@@ -70,7 +70,7 @@ PREFIX_MAP = {VAR_MH: "MH:", VAR_AE: "AE:", VAR_OTHER: "其他:"}
 # ── 1 读取 ──
 # PE 表头无重复列名，可直接用 load_sheet
 IMPORT_BASE = [VAR_SUBJ, VAR_STATUS, VAR_VISIT, VAR_PAGE]
-IMPORT_COLS = IMPORT_BASE + ["检查日期", "项目_TXT", "临床评估_TXT", "异常，请描述"] + IMPORT_SIG
+IMPORT_COLS = IMPORT_BASE + ["检查日期", "项目_TXT", "临床评估_TXT", "异常，请描述_TXT"] + IMPORT_SIG
 df_pe = load_sheet("PE", cols=IMPORT_COLS)
 
 # ── 2 归一化 ──
