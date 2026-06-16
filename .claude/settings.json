@@ -20,6 +20,7 @@
       "Write(scripts/**)",
       "Write(utils/**)",
       "Bash(python scripts/**)",
+      "Bash(python \"scripts/**\")",
       "Bash(python .claude/skills/**)",
       "Bash(python -c *)",
       "Bash(pip install *)",

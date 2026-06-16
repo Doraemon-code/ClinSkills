@@ -67,11 +67,12 @@ def cmd_forms():
 def cmd_fields(form_name):
     """列出指定表单的所有字段。"""
     ff = _load("FormField")
-    matched = [v for v in ff.get("variables", []) if v.get("formName") == form_name]
+    matched = [v for v in ff.get("variables", [])
+               if v.get("formName") == form_name or v.get("formOID") == form_name]
     if not matched:
         # 模糊匹配
         matched = [v for v in ff.get("variables", [])
-                   if form_name in v.get("formName", "")]
+                   if form_name in v.get("formName", "") or form_name in v.get("formOID", "")]
         if matched:
             print(f"未精确匹配 '{form_name}'，模糊匹配到表单 '{matched[0]['formName']}':")
         else:
@@ -95,7 +96,10 @@ def cmd_search(keyword):
     """在所有表单中搜索含关键字的字段。"""
     ff = _load("FormField")
     matched = [v for v in ff.get("variables", [])
-               if keyword in v.get("itemName", "") or keyword in v.get("sasFieldName", "")]
+               if keyword in v.get("itemName", "")
+               or keyword in v.get("sasFieldName", "")
+               or keyword in v.get("formName", "")
+               or keyword in v.get("formOID", "")]
     if not matched:
         print(f"未找到含 '{keyword}' 的字段。")
         return
