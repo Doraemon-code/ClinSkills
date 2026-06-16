@@ -80,16 +80,18 @@ def cmd_fields(form_name):
             _suggest_forms(form_name)
             return
     print(f"表单: {matched[0].get('formName', '')}  (共 {len(matched)} 字段)\n")
-    print(f"{'SAS字段名':<20} {'字段标签':<30} {'字段格式':<20} {'编码表'}")
-    print("-" * 90)
+    print(f"{'SAS字段名':<20} {'字段标签':<30} {'字段格式':<20} {'编码表':<25} {'脚本列名'}")
+    print("-" * 110)
     for v in matched:
         cl = v.get("codeList")
         cl_str = ""
+        col_name = v.get("itemName", "")
         if cl:
             cl_str = f"{cl['name']} ({cl['count']}项)"
             if cl.get("hasOther"):
                 cl_str += " [含其他]"
-        print(f"{v.get('sasFieldName',''):<20} {v.get('itemName',''):<30} {v.get('fieldFormat',''):<20} {cl_str}")
+            col_name = f"{v.get('itemName', '')}_TXT  ← 用此列"
+        print(f"{v.get('sasFieldName',''):<20} {v.get('itemName',''):<30} {v.get('fieldFormat',''):<20} {cl_str:<25} {col_name}")
 
 
 def cmd_search(keyword):
