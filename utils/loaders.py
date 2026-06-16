@@ -1,8 +1,12 @@
 """
-loaders.py — 薄加载层（写死本试验 schema，不做通用化）
+utils/loaders.py — 薄加载层（re-export）
 
-每个函数对应一个原始 Excel sheet 的标准化读取。
-调用方按需取列、转 dtype、填空值。
+基础 load_sheet 定义在 .claude/skills/write-script/scripts/loaders.py。
+领域专用 loader（load_rand、load_completion、load_first_dose）
+定义在 proj_utils/loaders.py。
+
+本文件 re-export 全部，保持向后兼容：
+    from utils.loaders import load_sheet, load_rand, load_completion
 """
 
 from pathlib import Path
@@ -17,8 +21,8 @@ with open(_CONFIG, "r", encoding="utf-8") as _f:
 raw_path = str(_PROJECT_ROOT / _cfg["path"]["raw_path"])
 
 
-def load_sheet(sheet_name, cols, path=None):
-    """读取原始 Excel 的单个 sheet，统一 header=0 / skiprows=[1] / dtype=str。
+def load_sheet(sheet_name, cols, path=None, header=0, skiprows=None):
+    """读取原始 Excel 的单个 sheet，统一 dtype=str。
 
     Parameters
     ----------
@@ -28,6 +32,10 @@ def load_sheet(sheet_name, cols, path=None):
         需要的列名。
     path : str, optional
         Excel 文件路径，默认使用 raw_path。
+    header : int, optional
+        表头行号（0-indexed），默认 0。
+    skiprows : list[int], optional
+        需要跳过的行号列表。默认跳过第 1 行（即 header=0 时的第二行副标题）。
 
     Returns
     -------
@@ -35,16 +43,18 @@ def load_sheet(sheet_name, cols, path=None):
     """
     if path is None:
         path = raw_path
+    if skiprows is None:
+        skiprows = [header + 1] if header == 0 else []
     return pd.read_excel(
         path, sheet_name=sheet_name,
-        header=0, skiprows=[1],
+        header=header, skiprows=skiprows,
         usecols=cols, dtype=str,
     )
 
 
-def load_rand(cols, path=None):
+def load_rand(cols, path=None, header=0, skiprows=None):
     """读取 DS_RAND（受试者随机化信息）。"""
-    return load_sheet("DS_RAND", cols, path)
+    return load_sheet("DS_RAND", cols, path, header=header, skiprows=skiprows)
 
 
 def load_completion(path=None):

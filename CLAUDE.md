@@ -19,8 +19,7 @@
 │   ├── g.不良事件相关汇总/
 │   ├── h.常规附件清单/
 │   ├── i.方案禁止的合并用药清单/
-│   ├── j.依从性计算/
-│   └── proj_utils/         # 早期工具函数（已被 utils/ 替代）
+│   └── j.依从性计算/
 ├── notebooks/          # Jupyter 原始笔记本（只读参考）
 ├── utils/              # 公共工具函数
 │   ├── loaders.py      # 数据读取层（load_sheet / load_rand 等）

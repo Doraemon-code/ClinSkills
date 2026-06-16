@@ -1,0 +1,895 @@
+{
+  "CL.YN1": [
+    {
+      "codedValue": "1",
+      "displayValue": "是"
+    },
+    {
+      "codedValue": "2",
+      "displayValue": "否"
+    }
+  ],
+  "DS.3": [
+    {
+      "codedValue": "1",
+      "displayValue": "受试者撤回知情同意"
+    },
+    {
+      "codedValue": "2",
+      "displayValue": "试验期间受试者发生不良事件，研究者认为受试者需永久停止服用试验用药品"
+    },
+    {
+      "codedValue": "3",
+      "displayValue": "女性受试者在试验过程中怀孕"
+    },
+    {
+      "codedValue": "4",
+      "displayValue": "试验期间研究者根据受试者的情况综合判断，评估为疗效不佳"
+    },
+    {
+      "codedValue": "99",
+      "displayValue": "其他"
+    }
+  ],
+  "DS.4": [
+    {
+      "codedValue": "1",
+      "displayValue": "受试者因自觉疗效不佳"
+    },
+    {
+      "codedValue": "99",
+      "displayValue": "其他"
+    }
+  ],
+  "CL.YN8": [
+    {
+      "codedValue": "1",
+      "displayValue": "无"
+    },
+    {
+      "codedValue": "2",
+      "displayValue": "有"
+    }
+  ],
+  "EC.DSTXT2": [
+    {
+      "codedValue": "1",
+      "displayValue": "3片"
+    },
+    {
+      "codedValue": "99",
+      "displayValue": "其他"
+    }
+  ],
+  "EC.DOSFRQ2": [
+    {
+      "codedValue": "1",
+      "displayValue": "每日一次"
+    },
+    {
+      "codedValue": "2",
+      "displayValue": "每日二次"
+    },
+    {
+      "codedValue": "3",
+      "displayValue": "每日三次"
+    },
+    {
+      "codedValue": "99",
+      "displayValue": "其他"
+    }
+  ],
+  "CL.INDC1": [
+    {
+      "codedValue": "1",
+      "displayValue": "不良事件"
+    },
+    {
+      "codedValue": "99",
+      "displayValue": "其他"
+    }
+  ],
+  "CL.CLSIG1": [
+    {
+      "codedValue": "1",
+      "displayValue": "正常"
+    },
+    {
+      "codedValue": "2",
+      "displayValue": "异常无临床意义"
+    },
+    {
+      "codedValue": "3",
+      "displayValue": "异常有临床意义"
+    },
+    {
+      "codedValue": "4",
+      "displayValue": "未查"
+    }
+  ],
+  "CL.DESC1": [
+    {
+      "codedValue": "1",
+      "displayValue": "不良事件"
+    },
+    {
+      "codedValue": "2",
+      "displayValue": "病史"
+    },
+    {
+      "codedValue": "99",
+      "displayValue": "其他"
+    }
+  ],
+  "EC.DSTXT": [
+    {
+      "codedValue": "1",
+      "displayValue": "1片"
+    },
+    {
+      "codedValue": "2",
+      "displayValue": "2片"
+    },
+    {
+      "codedValue": "3",
+      "displayValue": "3片"
+    },
+    {
+      "codedValue": "4",
+      "displayValue": "4片"
+    },
+    {
+      "codedValue": "99",
+      "displayValue": "其他"
+    }
+  ],
+  "CL.IECAT": [
+    {
+      "codedValue": "1",
+      "displayValue": ""
+    }
+  ],
+  "PR.CAT": [
+    {
+      "codedValue": "1",
+      "displayValue": "Ⅰ(A)级"
+    },
+    {
+      "codedValue": "2",
+      "displayValue": "Ⅰ(B)级"
+    },
+    {
+      "codedValue": "3",
+      "displayValue": "Ⅱ(A)级"
+    },
+    {
+      "codedValue": "4",
+      "displayValue": "Ⅱ(B)级"
+    },
+    {
+      "codedValue": "5",
+      "displayValue": "Ⅲ(A)级"
+    },
+    {
+      "codedValue": "6",
+      "displayValue": "Ⅲ(B)级"
+    },
+    {
+      "codedValue": "7",
+      "displayValue": "Ⅳ(A)级"
+    },
+    {
+      "codedValue": "8",
+      "displayValue": "Ⅳ(B)级"
+    }
+  ],
+  "DS.UNBLND": [
+    {
+      "codedValue": "1",
+      "displayValue": "破盲"
+    },
+    {
+      "codedValue": "2",
+      "displayValue": "未破盲"
+    }
+  ],
+  "DS.1": [
+    {
+      "codedValue": "1",
+      "displayValue": "受试者退出试验"
+    },
+    {
+      "codedValue": "2",
+      "displayValue": "失访，接受试验用药品后失访，尝试至少3次仍无法取得联系"
+    },
+    {
+      "codedValue": "99",
+      "displayValue": "其他"
+    }
+  ],
+  "DS.2": [
+    {
+      "codedValue": "1",
+      "displayValue": "使用治疗脊柱关节炎的生物制剂"
+    },
+    {
+      "codedValue": "99",
+      "displayValue": "其他"
+    }
+  ],
+  "CL.CTCAE": [
+    {
+      "codedValue": "1",
+      "displayValue": "1级"
+    },
+    {
+      "codedValue": "2",
+      "displayValue": "2级"
+    },
+    {
+      "codedValue": "3",
+      "displayValue": "3级"
+    },
+    {
+      "codedValue": "4",
+      "displayValue": "4级"
+    },
+    {
+      "codedValue": "5",
+      "displayValue": "5级"
+    }
+  ],
+  "AE.ACN": [
+    {
+      "codedValue": "1",
+      "displayValue": "剂量不变"
+    },
+    {
+      "codedValue": "2",
+      "displayValue": "增加剂量"
+    },
+    {
+      "codedValue": "3",
+      "displayValue": "减少剂量"
+    },
+    {
+      "codedValue": "4",
+      "displayValue": "暂停用药"
+    },
+    {
+      "codedValue": "5",
+      "displayValue": "停止用药"
+    },
+    {
+      "codedValue": "6",
+      "displayValue": "已结束用药"
+    },
+    {
+      "codedValue": "7",
+      "displayValue": "不适用"
+    }
+  ],
+  "AE.REL": [
+    {
+      "codedValue": "1",
+      "displayValue": "肯定有关"
+    },
+    {
+      "codedValue": "2",
+      "displayValue": "很可能有关"
+    },
+    {
+      "codedValue": "3",
+      "displayValue": "可能有关"
+    },
+    {
+      "codedValue": "4",
+      "displayValue": "可能无关"
+    },
+    {
+      "codedValue": "5",
+      "displayValue": "无关"
+    }
+  ],
+  "AE.OUT": [
+    {
+      "codedValue": "1",
+      "displayValue": "痊愈"
+    },
+    {
+      "codedValue": "2",
+      "displayValue": "痊愈伴后遗症"
+    },
+    {
+      "codedValue": "3",
+      "displayValue": "好转/缓解"
+    },
+    {
+      "codedValue": "4",
+      "displayValue": "未好转/持续"
+    },
+    {
+      "codedValue": "5",
+      "displayValue": "致死"
+    },
+    {
+      "codedValue": "98",
+      "displayValue": "未知"
+    }
+  ],
+  "PR.YN": [
+    {
+      "codedValue": "1",
+      "displayValue": "无"
+    },
+    {
+      "codedValue": "2",
+      "displayValue": "有"
+    }
+  ],
+  "CL.DECS2": [
+    {
+      "codedValue": "1",
+      "displayValue": "不良事件"
+    },
+    {
+      "codedValue": "2",
+      "displayValue": "病史"
+    },
+    {
+      "codedValue": "3",
+      "displayValue": "脊柱关节炎"
+    },
+    {
+      "codedValue": "99",
+      "displayValue": "其他"
+    }
+  ],
+  "CM.YN": [
+    {
+      "codedValue": "1",
+      "displayValue": "无"
+    },
+    {
+      "codedValue": "2",
+      "displayValue": "有"
+    }
+  ],
+  "CL.INDC2": [
+    {
+      "codedValue": "1",
+      "displayValue": "不良事件"
+    },
+    {
+      "codedValue": "2",
+      "displayValue": "病史"
+    },
+    {
+      "codedValue": "3",
+      "displayValue": "预防性用药"
+    },
+    {
+      "codedValue": "4",
+      "displayValue": "脊柱关节炎"
+    },
+    {
+      "codedValue": "5",
+      "displayValue": "其他"
+    }
+  ],
+  "CL.DOSU1": [
+    {
+      "codedValue": "1",
+      "displayValue": "微克（μg）"
+    },
+    {
+      "codedValue": "2",
+      "displayValue": "毫克（mg）"
+    },
+    {
+      "codedValue": "3",
+      "displayValue": "克（g）"
+    },
+    {
+      "codedValue": "4",
+      "displayValue": "毫升（mL）"
+    },
+    {
+      "codedValue": "5",
+      "displayValue": "片（tab）"
+    },
+    {
+      "codedValue": "6",
+      "displayValue": "胶囊（Cap）"
+    },
+    {
+      "codedValue": "7",
+      "displayValue": "滴（gtt）"
+    },
+    {
+      "codedValue": "8",
+      "displayValue": "国际单位（IU）"
+    },
+    {
+      "codedValue": "9",
+      "displayValue": "单位（U）"
+    },
+    {
+      "codedValue": "10",
+      "displayValue": "其他，请注明"
+    }
+  ],
+  "CL.DOSFRQ1": [
+    {
+      "codedValue": "1",
+      "displayValue": "每日一次（qd）"
+    },
+    {
+      "codedValue": "2",
+      "displayValue": "每日两次（bid）"
+    },
+    {
+      "codedValue": "3",
+      "displayValue": "每日三次（tid）"
+    },
+    {
+      "codedValue": "4",
+      "displayValue": "每日四次（qid）"
+    },
+    {
+      "codedValue": "5",
+      "displayValue": "隔日一次（qod）"
+    },
+    {
+      "codedValue": "6",
+      "displayValue": "每周一次（qw）"
+    },
+    {
+      "codedValue": "7",
+      "displayValue": "睡前（qh）"
+    },
+    {
+      "codedValue": "8",
+      "displayValue": "按需（prn）"
+    },
+    {
+      "codedValue": "9",
+      "displayValue": "其他，请注明"
+    }
+  ],
+  "CL.ROUTE1": [
+    {
+      "codedValue": "1",
+      "displayValue": "口服（PO）"
+    },
+    {
+      "codedValue": "2",
+      "displayValue": "静脉滴注（IVgtt）"
+    },
+    {
+      "codedValue": "3",
+      "displayValue": "静脉注射（IV）"
+    },
+    {
+      "codedValue": "4",
+      "displayValue": "肌内注射（IM）"
+    },
+    {
+      "codedValue": "5",
+      "displayValue": "皮下注射（SQ）"
+    },
+    {
+      "codedValue": "6",
+      "displayValue": "舌下（SL）"
+    },
+    {
+      "codedValue": "7",
+      "displayValue": "局部（皮肤）（TOP）"
+    },
+    {
+      "codedValue": "8",
+      "displayValue": "眼（OPH）"
+    },
+    {
+      "codedValue": "9",
+      "displayValue": "吸入"
+    },
+    {
+      "codedValue": "10",
+      "displayValue": "其他，请注明"
+    }
+  ],
+  "CL.CLSIG2": [
+    {
+      "codedValue": "1",
+      "displayValue": "正常"
+    },
+    {
+      "codedValue": "2",
+      "displayValue": "异常无临床意义"
+    },
+    {
+      "codedValue": "3",
+      "displayValue": "异常有临床意义"
+    }
+  ],
+  "CL.YN2": [
+    {
+      "codedValue": "1",
+      "displayValue": "无"
+    },
+    {
+      "codedValue": "2",
+      "displayValue": "有"
+    }
+  ],
+  "IE.1": [
+    {
+      "codedValue": "1",
+      "displayValue": "入选标准"
+    },
+    {
+      "codedValue": "2",
+      "displayValue": "排除标准"
+    }
+  ],
+  "IE.2": [
+    {
+      "codedValue": "1",
+      "displayValue": "入选标准1"
+    },
+    {
+      "codedValue": "2",
+      "displayValue": "入选标准2"
+    },
+    {
+      "codedValue": "3",
+      "displayValue": "入选标准3"
+    },
+    {
+      "codedValue": "4",
+      "displayValue": "入选标准4"
+    },
+    {
+      "codedValue": "5",
+      "displayValue": "入选标准5"
+    },
+    {
+      "codedValue": "6",
+      "displayValue": "入选标准6"
+    },
+    {
+      "codedValue": "7",
+      "displayValue": "入选标准7"
+    }
+  ],
+  "IE.3": [
+    {
+      "codedValue": "1",
+      "displayValue": "排除标准1"
+    },
+    {
+      "codedValue": "2",
+      "displayValue": "排除标准2"
+    },
+    {
+      "codedValue": "3",
+      "displayValue": "排除标准3"
+    },
+    {
+      "codedValue": "4",
+      "displayValue": "排除标准4"
+    },
+    {
+      "codedValue": "5",
+      "displayValue": "排除标准5"
+    },
+    {
+      "codedValue": "6",
+      "displayValue": "排除标准6"
+    },
+    {
+      "codedValue": "7",
+      "displayValue": "排除标准7"
+    },
+    {
+      "codedValue": "8",
+      "displayValue": "排除标准8"
+    },
+    {
+      "codedValue": "9",
+      "displayValue": "排除标准9"
+    },
+    {
+      "codedValue": "10",
+      "displayValue": "排除标准10"
+    },
+    {
+      "codedValue": "11",
+      "displayValue": "排除标准11"
+    },
+    {
+      "codedValue": "12",
+      "displayValue": "排除标准12"
+    },
+    {
+      "codedValue": "13",
+      "displayValue": "排除标准13"
+    },
+    {
+      "codedValue": "14",
+      "displayValue": "排除标准14"
+    }
+  ],
+  "CL.YN4": [
+    {
+      "codedValue": "1",
+      "displayValue": "是"
+    },
+    {
+      "codedValue": "2",
+      "displayValue": "非育龄期女性"
+    },
+    {
+      "codedValue": "3",
+      "displayValue": "否"
+    }
+  ],
+  "FT.CAT": [
+    {
+      "codedValue": "1",
+      "displayValue": "躯体功能：BASFI"
+    },
+    {
+      "codedValue": "2",
+      "displayValue": "脊柱疼痛"
+    },
+    {
+      "codedValue": "3",
+      "displayValue": "患者对过去一周的病情整体评价（PGA）"
+    },
+    {
+      "codedValue": "4",
+      "displayValue": "炎症活动"
+    }
+  ],
+  "QS.TEST3": [
+    {
+      "codedValue": "1",
+      "displayValue": "①在没有别人帮助或辅助工具之下，穿上袜子或贴身衣物；"
+    },
+    {
+      "codedValue": "2",
+      "displayValue": "②没有辅助工具之下，向前弯腰捡起地上的笔；"
+    },
+    {
+      "codedValue": "3",
+      "displayValue": "③没有辅助工具之下，从高架（如书架或衣橱）上拿东西；"
+    },
+    {
+      "codedValue": "4",
+      "displayValue": "④不用手支撑或其它辅助，从坐着的没有扶手的餐椅上站起来；"
+    },
+    {
+      "codedValue": "5",
+      "displayValue": "⑤在没有别人帮助下，从仰躺着的地板上站立起来；"
+    },
+    {
+      "codedValue": "6",
+      "displayValue": "⑥不扶物站立10分钟，没有不适感；"
+    },
+    {
+      "codedValue": "7",
+      "displayValue": "⑦不扶栏杆而且没有辅助工具之下，一步一台阶地走12~15级台阶；"
+    },
+    {
+      "codedValue": "8",
+      "displayValue": "⑧不用转身就能转头向后看；"
+    },
+    {
+      "codedValue": "9",
+      "displayValue": "⑨从事运动、园艺、物理治疗等活动；"
+    },
+    {
+      "codedValue": "10",
+      "displayValue": "⑩在家或工作场所从事一整天的活动。"
+    }
+  ],
+  "QS.TEST2": [
+    {
+      "codedValue": "1",
+      "displayValue": "①疲劳感：在过去的一个星期，您感觉身体疲劳的总体程度；"
+    },
+    {
+      "codedValue": "2",
+      "displayValue": "②中轴关节受累：在过去的一个星期，您的颈部、背部或髋关节的总体疼痛程度；"
+    },
+    {
+      "codedValue": "3",
+      "displayValue": "③外周关节受累：在过去的一个星期，除颈部、背部或髋关节外，您感觉其它关节疼痛或肿胀的总体程度；"
+    },
+    {
+      "codedValue": "4",
+      "displayValue": "④附着点炎：在过去的一个星期，您感觉有触痛或压痛的所有部位的总体不适程度；"
+    },
+    {
+      "codedValue": "5",
+      "displayValue": "⑤晨僵：您早上起床时腰背部的总体僵硬程度；"
+    },
+    {
+      "codedValue": "6",
+      "displayValue": "⑥晨僵：从早上起床开始计算，您腰背部僵硬持续时间。"
+    }
+  ],
+  "QS.ORRES2": [
+    {
+      "codedValue": "0",
+      "displayValue": "0分"
+    },
+    {
+      "codedValue": "2",
+      "displayValue": "2分"
+    },
+    {
+      "codedValue": "4",
+      "displayValue": "4分"
+    },
+    {
+      "codedValue": "6",
+      "displayValue": "6分"
+    }
+  ],
+  "QS.ORRES3": [
+    {
+      "codedValue": "0",
+      "displayValue": "0分"
+    },
+    {
+      "codedValue": "1",
+      "displayValue": "1分"
+    },
+    {
+      "codedValue": "2",
+      "displayValue": "2分"
+    },
+    {
+      "codedValue": "3",
+      "displayValue": "3分"
+    }
+  ],
+  "CL.YN3": [
+    {
+      "codedValue": "1",
+      "displayValue": "阴性"
+    },
+    {
+      "codedValue": "2",
+      "displayValue": "阳性"
+    }
+  ],
+  "QS.TEST4": [
+    {
+      "codedValue": "1",
+      "displayValue": "夜间背痛：在过去的一周中，您在晚上经历的后背痛有多严重？"
+    },
+    {
+      "codedValue": "2",
+      "displayValue": "总体背痛：在过去的一周中，您所经历的背部疼痛总体严重程度如何？"
+    }
+  ],
+  "CL.YN5": [
+    {
+      "codedValue": "1",
+      "displayValue": "无"
+    },
+    {
+      "codedValue": "2",
+      "displayValue": "有"
+    }
+  ],
+  "SU.NCF": [
+    {
+      "codedValue": "1",
+      "displayValue": "不吸烟"
+    },
+    {
+      "codedValue": "2",
+      "displayValue": "曾经吸烟"
+    },
+    {
+      "codedValue": "3",
+      "displayValue": "偶尔吸烟"
+    },
+    {
+      "codedValue": "4",
+      "displayValue": "经常吸烟"
+    }
+  ],
+  "SU.NCF2": [
+    {
+      "codedValue": "1",
+      "displayValue": "不吸毒"
+    },
+    {
+      "codedValue": "2",
+      "displayValue": "已戒毒"
+    },
+    {
+      "codedValue": "3",
+      "displayValue": "吸毒"
+    }
+  ],
+  "PE.PETEST": [
+    {
+      "codedValue": "SKIN",
+      "displayValue": "皮肤"
+    },
+    {
+      "codedValue": "HEAD AND NECK",
+      "displayValue": "头颈部"
+    },
+    {
+      "codedValue": "CHEST",
+      "displayValue": "胸部"
+    },
+    {
+      "codedValue": "ABDOMEN",
+      "displayValue": "腹部"
+    },
+    {
+      "codedValue": "LIMBS",
+      "displayValue": "四肢"
+    },
+    {
+      "codedValue": "NS",
+      "displayValue": "神经系统"
+    }
+  ],
+  "DM.SEX": [
+    {
+      "codedValue": "1",
+      "displayValue": "男"
+    },
+    {
+      "codedValue": "2",
+      "displayValue": "女"
+    }
+  ],
+  "DM.ETHNIC": [
+    {
+      "codedValue": "1",
+      "displayValue": "汉"
+    },
+    {
+      "codedValue": "2",
+      "displayValue": "其他"
+    }
+  ],
+  "DM.SCORRES": [
+    {
+      "codedValue": "1",
+      "displayValue": "未婚未育"
+    },
+    {
+      "codedValue": "2",
+      "displayValue": "未婚已育"
+    },
+    {
+      "codedValue": "3",
+      "displayValue": "已婚未育"
+    },
+    {
+      "codedValue": "4",
+      "displayValue": "已婚已育"
+    },
+    {
+      "codedValue": "5",
+      "displayValue": "其他"
+    }
+  ],
+  "_meta": {
+    "edcType": "taimei5",
+    "generatedAt": "2026-06-16T02:28:00.074633+00:00",
+    "sourceFile": "F:\\Git\\DMR-scripts\\metadata\\TSL-TCM-JTNP-Ⅲ-脊痛宁片III期-项目配置信息-V1.1.xlsx"
+  }
+}
