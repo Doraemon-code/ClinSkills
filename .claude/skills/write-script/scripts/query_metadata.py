@@ -107,6 +107,9 @@ def cmd_fields(form_name):
             if cl.get("hasOther"):
                 cl_str += " [含其他]"
             col_name = f"{v.get('itemName', '')}{suffix}  ← 用此列"
+        elif v.get("checkedValue"):
+            cl_str = f"勾选={v['checkedValue']}"
+            col_name = f"{v.get('itemName', '')}  ← 用此列(码值列,无解码)"
         print(f"{v.get('sasFieldName',''):<20} {v.get('itemName',''):<30} {v.get('fieldFormat',''):<20} {cl_str:<25} {col_name}")
 
 
@@ -129,6 +132,8 @@ def cmd_search(keyword):
             cl_str = f"  编码表:{cl['name']}({cl['count']}项)"
             if cl.get("hasOther"):
                 cl_str += "[含其他]"
+        elif v.get("checkedValue"):
+            cl_str = f"  勾选码值={v['checkedValue']}(码值列,无解码)"
         print(f"  [{v.get('formName','')}] {v.get('sasFieldName','')} = {v.get('itemName','')}  ({v.get('fieldFormat','')}){cl_str}")
 
 

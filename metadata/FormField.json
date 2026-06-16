@@ -321,175 +321,200 @@
       "formName": "计划外访视问询页",
       "sasFieldName": "UPTEST25",
       "itemName": "身高体重",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "UP",
       "formName": "计划外访视问询页",
       "sasFieldName": "UPTEST1",
       "itemName": "生命体征",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "UP",
       "formName": "计划外访视问询页",
       "sasFieldName": "UPTEST2",
       "itemName": "体格检查",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "UP",
       "formName": "计划外访视问询页",
       "sasFieldName": "UPTEST3",
       "itemName": "骶髂CT检查",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "UP",
       "formName": "计划外访视问询页",
       "sasFieldName": "UPTEST4",
       "itemName": "人体白细胞抗原B27",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "UP",
       "formName": "计划外访视问询页",
       "sasFieldName": "UPTEST5",
       "itemName": "西医诊断",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "UP",
       "formName": "计划外访视问询页",
       "sasFieldName": "UPTEST6",
       "itemName": "中医证候积分量表",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "UP",
       "formName": "计划外访视问询页",
       "sasFieldName": "UPTEST7",
       "itemName": "脊柱疼痛量表",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "UP",
       "formName": "计划外访视问询页",
       "sasFieldName": "UPTEST8",
       "itemName": "巴斯脊柱关节炎疾病活动度指数（BASDAI）",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "UP",
       "formName": "计划外访视问询页",
       "sasFieldName": "UPTEST9",
       "itemName": "巴斯强直性脊柱炎躯体功能指数（BASFI）",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "UP",
       "formName": "计划外访视问询页",
       "sasFieldName": "UPTEST10",
       "itemName": "患者总体评价（PGA）",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "UP",
       "formName": "计划外访视问询页",
       "sasFieldName": "UPTEST11",
       "itemName": "血妊娠",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "UP",
       "formName": "计划外访视问询页",
       "sasFieldName": "UPTEST12",
       "itemName": "尿妊娠",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "UP",
       "formName": "计划外访视问询页",
       "sasFieldName": "UPTEST13",
       "itemName": "C反应蛋白/超敏C反应蛋白",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "UP",
       "formName": "计划外访视问询页",
       "sasFieldName": "UPTEST14",
       "itemName": "红细胞沉降率",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "UP",
       "formName": "计划外访视问询页",
       "sasFieldName": "UPTEST15",
       "itemName": "血常规",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "UP",
       "formName": "计划外访视问询页",
       "sasFieldName": "UPTEST16",
       "itemName": "尿常规",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "UP",
       "formName": "计划外访视问询页",
       "sasFieldName": "UPTEST17",
       "itemName": "尿沉渣镜检",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "UP",
       "formName": "计划外访视问询页",
       "sasFieldName": "UPTEST18",
       "itemName": "随机尿微量白蛋白",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "UP",
       "formName": "计划外访视问询页",
       "sasFieldName": "UPTEST20",
       "itemName": "血生化",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "UP",
       "formName": "计划外访视问询页",
       "sasFieldName": "UPTEST21",
       "itemName": "12导联心电图",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "UP",
       "formName": "计划外访视问询页",
       "sasFieldName": "UPTEST22",
       "itemName": "试验药物回收记录",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "UP",
       "formName": "计划外访视问询页",
       "sasFieldName": "UPTEST23",
       "itemName": "试验药物发放记录",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "UP",
       "formName": "计划外访视问询页",
       "sasFieldName": "UPTEST24",
       "itemName": "其他检查",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "UP",
       "formName": "计划外访视问询页",
       "sasFieldName": "UPTEST26",
       "itemName": "试验药物使用记录",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "MK",
@@ -1031,28 +1056,32 @@
       "formName": "不良事件（AE）记录表",
       "sasFieldName": "AECONNO",
       "itemName": "无",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "AE",
       "formName": "不良事件（AE）记录表",
       "sasFieldName": "AECONCM",
       "itemName": "药物治疗",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "AE",
       "formName": "不良事件（AE）记录表",
       "sasFieldName": "AECONPR",
       "itemName": "非药物治疗",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "AE",
       "formName": "不良事件（AE）记录表",
       "sasFieldName": "AECONTRTO",
       "itemName": "其他",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "AE",
@@ -1127,42 +1156,48 @@
       "formName": "不良事件（AE）记录表",
       "sasFieldName": "AESDTH",
       "itemName": "死亡",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "AE",
       "formName": "不良事件（AE）记录表",
       "sasFieldName": "AESLIFE",
       "itemName": "危及生命",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "AE",
       "formName": "不良事件（AE）记录表",
       "sasFieldName": "AESHOSP",
       "itemName": "需住院治疗或延长住院时间",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "AE",
       "formName": "不良事件（AE）记录表",
       "sasFieldName": "AESDISAB",
       "itemName": "导致永久的或严重的残疾/能力丧失",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "AE",
       "formName": "不良事件（AE）记录表",
       "sasFieldName": "AESCONG",
       "itemName": "先天性异常或出生缺陷",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "AE",
       "formName": "不良事件（AE）记录表",
       "sasFieldName": "AESMIE",
       "itemName": "其他重要的医学事件",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "AE",
@@ -1822,77 +1857,88 @@
       "formName": "西医诊断",
       "sasFieldName": "MHCAT1",
       "itemName": "炎性背痛",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "MH_WMD",
       "formName": "西医诊断",
       "sasFieldName": "MHCAT2",
       "itemName": "关节炎",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "MH_WMD",
       "formName": "西医诊断",
       "sasFieldName": "MHCAT3",
       "itemName": "附着点炎（足跟）",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "MH_WMD",
       "formName": "西医诊断",
       "sasFieldName": "MHCAT4",
       "itemName": "眼葡萄膜炎",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "MH_WMD",
       "formName": "西医诊断",
       "sasFieldName": "MHCAT5",
       "itemName": "指（趾）炎",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "MH_WMD",
       "formName": "西医诊断",
       "sasFieldName": "MHCAT6",
       "itemName": "银屑病",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "MH_WMD",
       "formName": "西医诊断",
       "sasFieldName": "MHCAT7",
       "itemName": "炎症性肠炎（克罗恩病/溃疡性结肠炎）",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "MH_WMD",
       "formName": "西医诊断",
       "sasFieldName": "MHCAT8",
       "itemName": "对非甾体抗炎药（NSAIDs）反应良好",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "MH_WMD",
       "formName": "西医诊断",
       "sasFieldName": "MHCAT9",
       "itemName": "SpA家族史",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "MH_WMD",
       "formName": "西医诊断",
       "sasFieldName": "MHCAT10",
       "itemName": "（HLA-B27）阳性",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "MH_WMD",
       "formName": "西医诊断",
       "sasFieldName": "MHCAT11",
       "itemName": "C反应蛋白/超敏C反应蛋白（CRP/hsCRP）升高",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "MH_WMD",
@@ -2022,35 +2068,40 @@
       "formName": "随机入组",
       "sasFieldName": "DSREA1",
       "itemName": "不符合入选标准",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "DS_RAND",
       "formName": "随机入组",
       "sasFieldName": "DSREA2",
       "itemName": "符合排除标准",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "DS_RAND",
       "formName": "随机入组",
       "sasFieldName": "DSREA3",
       "itemName": "撤回知情同意",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "DS_RAND",
       "formName": "随机入组",
       "sasFieldName": "DSREA4",
       "itemName": "失访，尝试联系≥3次均未成功",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "DS_RAND",
       "formName": "随机入组",
       "sasFieldName": "DSREA5",
       "itemName": "其他",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "DS_RAND",
@@ -3012,35 +3063,40 @@
       "formName": "中医证候积分量表",
       "sasFieldName": "QSORRES3",
       "itemName": "舌紫暗",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "QS_TCM",
       "formName": "中医证候积分量表",
       "sasFieldName": "QSORRES4",
       "itemName": "舌淡",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "QS_TCM",
       "formName": "中医证候积分量表",
       "sasFieldName": "QSORRES5",
       "itemName": "有瘀斑",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "QS_TCM",
       "formName": "中医证候积分量表",
       "sasFieldName": "QSORRES6",
       "itemName": "苔白",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "QS_TCM",
       "formName": "中医证候积分量表",
       "sasFieldName": "QSORRES7",
       "itemName": "其他",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "QS_TCM",
@@ -3065,21 +3121,24 @@
       "formName": "中医证候积分量表",
       "sasFieldName": "QSORRES8",
       "itemName": "沉细",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "QS_TCM",
       "formName": "中医证候积分量表",
       "sasFieldName": "QSORRES9",
       "itemName": "涩",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "QS_TCM",
       "formName": "中医证候积分量表",
       "sasFieldName": "QSORRES10",
       "itemName": "其他",
-      "fieldFormat": "CheckBox"
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
     },
     {
       "formOID": "QS_TCM",
@@ -3895,7 +3954,7 @@
   ],
   "_meta": {
     "edcType": "taimei5",
-    "generatedAt": "2026-06-16T02:28:00.070430+00:00",
+    "generatedAt": "2026-06-16T15:07:31.762917+00:00",
     "sourceFile": "F:\\Git\\DMR-scripts\\metadata\\TSL-TCM-JTNP-Ⅲ-脊痛宁片III期-项目配置信息-V1.1.xlsx"
   }
 }

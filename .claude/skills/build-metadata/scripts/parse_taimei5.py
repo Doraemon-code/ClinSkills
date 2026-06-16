@@ -108,6 +108,10 @@ def parse(wb, output_dir):
             "fieldFormat": field_format,
         }
 
+        # CheckBox 无解码列：码值列直接存勾选值（DataFormat，通常 "1"），记录之供查询
+        if field_format == "CheckBox" and df:
+            rec["checkedValue"] = df
+
         # CodeListOID → name + count（空值省略字段）
         parsed = _parse_code_list_oid(row.get("CodeListOID"))
         if parsed is not None:
