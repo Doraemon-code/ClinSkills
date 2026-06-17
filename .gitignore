@@ -3,4 +3,6 @@
 !.claude/**/*
 !.gitignore
 !.gitattributes
+!utils/
+!utils/**/*
 **/__pycache__/
