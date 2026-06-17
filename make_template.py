@@ -33,17 +33,17 @@ COPY_PATHS = [
 ]
 
 # 留 .gitkeep 占位的空目录（项目数据，不拷内容）
-EMPTY_DIRS = ["scripts", "metadata", "raw", "output"]
+EMPTY_DIRS = ["04 scripts", "02 metadata", "01 rawdata", "03 output"]
 
 SKELETON_CONFIG_YAML = """\
 path:
   # 各原始数据 Excel 路径（相对项目根），按新项目实际填写
-  raw_path: "raw/<日期>/<受试者数据导出>.xlsx"
-  pd_path: "raw/<日期>/<方案偏离>.xlsx"
-  code_path: "raw/<日期>/<医学编码报告>.xlsx"
-  remark_path: "raw/<日期>/<备注明细>.xlsx"
-  timewin_path: "raw/time window.xlsx"
-  output_path: "output/<日期>"
+  raw_path: "01 rawdata/<日期>/<受试者数据导出>.xlsx"
+  pd_path: "01 rawdata/<日期>/<方案偏离>.xlsx"
+  code_path: "01 rawdata/<日期>/<医学编码报告>.xlsx"
+  remark_path: "01 rawdata/<日期>/<备注明细>.xlsx"
+  timewin_path: "01 rawdata/time window.xlsx"
+  output_path: "03 output/<日期>"
 """
 
 SKELETON_CLAUDE_MD = """\
@@ -55,16 +55,16 @@ SKELETON_CLAUDE_MD = """\
 ## Directory Structure
 ```
 ├── config.py / config.yaml   # 路径配置
-├── scripts/                   # 分析代码（按章节拆分）
+├── 04 scripts/                   # 分析代码（按章节拆分）
 ├── utils/                     # 公共工具（loaders / output_format 等）
-├── metadata/                  # EDC 元数据 Excel + build-metadata 生成的 JSON
-├── raw/                       # 原始数据（不入 Git）
-└── output/                    # 生成的报表（不入 Git）
+├── 02 metadata/                  # EDC 元数据 Excel + build-metadata 生成的 JSON
+├── 01 rawdata/                       # 原始数据（不入 Git）
+└── 03 output/                    # 生成的报表（不入 Git）
 ```
 
 ## Permissions
-- `scripts/`、`utils/`、`config.py`、`config.yaml`：Claude Code 可编辑
-- `raw/`、`output/`：不在 Git 中
+- `04 scripts/`、`utils/`、`config.py`、`config.yaml`：Claude Code 可编辑
+- `01 rawdata/`、`03 output/`：不在 Git 中
 
 ## Conventions
 
@@ -78,7 +78,7 @@ SKELETON_CLAUDE_MD = """\
 
 ## 新项目初始化
 1. `pip install -r requirements.txt`
-2. 元数据 Excel 放进 `metadata/`，运行 `/build-metadata` 解析为 JSON
+2. 元数据 Excel 放进 `02 metadata/`，运行 `/build-metadata` 解析为 JSON
 3. 填写 `config.yaml` 的数据路径
 4. 用 `/write-script` 写第一个核查脚本（Step 0 会问表头结构并写回本文件）
 """

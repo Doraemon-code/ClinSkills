@@ -3,10 +3,10 @@ __pycache__/
 *.pyc
 
 # Generated output
-output/
+03 output/
 
 # Raw data (large / sensitive)
-raw/
+01 rawdata/
 
 # OS
 .DS_Store

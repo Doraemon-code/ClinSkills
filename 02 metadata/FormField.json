@@ -1,0 +1,3960 @@
+{
+  "variables": [
+    {
+      "formOID": "DS_INTED",
+      "formName": "永久终止试验干预",
+      "sasFieldName": "DSYN5",
+      "itemName": "受试者是否永久终止试验干预",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "DS_INTED",
+      "formName": "永久终止试验干预",
+      "sasFieldName": "DSCAT",
+      "itemName": "永久终止试验干预原因",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "DS.3",
+        "count": 5,
+        "hasOther": true
+      }
+    },
+    {
+      "formOID": "DS_INTED",
+      "formName": "永久终止试验干预",
+      "sasFieldName": "DSCATOTH",
+      "itemName": "其他永久终止试验干预的原因",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "DS_INTED",
+      "formName": "永久终止试验干预",
+      "sasFieldName": "DSSCAT",
+      "itemName": "受试者撤回知情同意原因",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "DS.4",
+        "count": 2,
+        "hasOther": true
+      }
+    },
+    {
+      "formOID": "DS_INTED",
+      "formName": "永久终止试验干预",
+      "sasFieldName": "DSSCATOTH",
+      "itemName": "其他受试者撤回知情同意的原因",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "EC_ED",
+      "formName": "试验药物使用记录",
+      "sasFieldName": "ECYN3",
+      "itemName": "有无试验药物使用记录",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN8",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "EC_ED",
+      "formName": "试验药物使用记录",
+      "sasFieldName": "ECSTDAT3",
+      "itemName": "开始日期",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "EC_ED",
+      "formName": "试验药物使用记录",
+      "sasFieldName": "ECENDAT2",
+      "itemName": "结束日期",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "EC_ED",
+      "formName": "试验药物使用记录",
+      "sasFieldName": "ECDSTXT6",
+      "itemName": "单次剂量",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "EC.DSTXT2",
+        "count": 2,
+        "hasOther": true
+      }
+    },
+    {
+      "formOID": "EC_ED",
+      "formName": "试验药物使用记录",
+      "sasFieldName": "ECDSTXTO2",
+      "itemName": "其他用药剂量",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "EC_ED",
+      "formName": "试验药物使用记录",
+      "sasFieldName": "ECDOSFRQ2",
+      "itemName": "用药频率",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "EC.DOSFRQ2",
+        "count": 4,
+        "hasOther": true
+      }
+    },
+    {
+      "formOID": "EC_ED",
+      "formName": "试验药物使用记录",
+      "sasFieldName": "ECDOSFRO2",
+      "itemName": "其他用药频率",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "EC_ED",
+      "formName": "试验药物使用记录",
+      "sasFieldName": "ECDOSADJ",
+      "itemName": "是否调整剂量",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "EC_ED",
+      "formName": "试验药物使用记录",
+      "sasFieldName": "ECADJ",
+      "itemName": "剂量调整原因",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.INDC1",
+        "count": 2,
+        "hasOther": true
+      }
+    },
+    {
+      "formOID": "EC_ED",
+      "formName": "试验药物使用记录",
+      "sasFieldName": "ECADJAENO",
+      "itemName": "不良事件名称",
+      "fieldFormat": "DynamicOptions"
+    },
+    {
+      "formOID": "EC_ED",
+      "formName": "试验药物使用记录",
+      "sasFieldName": "ECADJOTH",
+      "itemName": "其他剂量调整原因",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "LB_CHEM",
+      "formName": "血生化",
+      "sasFieldName": "LBPERF3",
+      "itemName": "是否检查",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "LB_CHEM",
+      "formName": "血生化",
+      "sasFieldName": "LBREASND2",
+      "itemName": "如为否，请说明原因",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "LB_CHEM",
+      "formName": "血生化",
+      "sasFieldName": "LBDAT2",
+      "itemName": "采样日期",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "LB_CHEM",
+      "formName": "血生化",
+      "sasFieldName": "AGE1",
+      "itemName": "年龄（关联实验室范围）",
+      "fieldFormat": "Hidden"
+    },
+    {
+      "formOID": "LB_CHEM",
+      "formName": "血生化",
+      "sasFieldName": "GFRORRES",
+      "itemName": "肾小球滤过率（自动计算用）",
+      "fieldFormat": "Hidden"
+    },
+    {
+      "formOID": "LB_CHEM",
+      "formName": "血生化",
+      "sasFieldName": "LBTEST",
+      "itemName": "项目",
+      "fieldFormat": "AnalytesOption"
+    },
+    {
+      "formOID": "LB_CHEM",
+      "formName": "血生化",
+      "sasFieldName": "LBORRES",
+      "itemName": "测定值",
+      "fieldFormat": "AnalytesResult"
+    },
+    {
+      "formOID": "LB_CHEM",
+      "formName": "血生化",
+      "sasFieldName": "LBCLSIG2",
+      "itemName": "临床评估",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "CL.CLSIG1",
+        "count": 4
+      }
+    },
+    {
+      "formOID": "LB_CHEM",
+      "formName": "血生化",
+      "sasFieldName": "LBDESC",
+      "itemName": "异常，请描述",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "CL.DESC1",
+        "count": 3,
+        "hasOther": true
+      }
+    },
+    {
+      "formOID": "LB_CHEM",
+      "formName": "血生化",
+      "sasFieldName": "LBAENO",
+      "itemName": "不良事件名称",
+      "fieldFormat": "DynamicOptions"
+    },
+    {
+      "formOID": "LB_CHEM",
+      "formName": "血生化",
+      "sasFieldName": "LBMHNO",
+      "itemName": "病史名称",
+      "fieldFormat": "DynamicOptions"
+    },
+    {
+      "formOID": "LB_CHEM",
+      "formName": "血生化",
+      "sasFieldName": "LBDESCO",
+      "itemName": "其他,请说明",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "EC_EM",
+      "formName": "应急药物使用记录",
+      "sasFieldName": "ECYN",
+      "itemName": "有无应急药物使用记录",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN8",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "EC_EM",
+      "formName": "应急药物使用记录",
+      "sasFieldName": "ECSTDAT2",
+      "itemName": "用药日期",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "EC_EM",
+      "formName": "应急药物使用记录",
+      "sasFieldName": "ECYN2",
+      "itemName": "应急药物是否在量表评分前24小时内使用",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "EC_EM",
+      "formName": "应急药物使用记录",
+      "sasFieldName": "ECDSTXT5",
+      "itemName": "用药剂量（按天记录）",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "EC.DSTXT",
+        "count": 5,
+        "hasOther": true
+      }
+    },
+    {
+      "formOID": "EC_EM",
+      "formName": "应急药物使用记录",
+      "sasFieldName": "ECDSTXTO",
+      "itemName": "其他用药剂量",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "UP",
+      "formName": "计划外访视问询页",
+      "sasFieldName": "UPPERF",
+      "itemName": "受试者是否有计划外访视",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "UP",
+      "formName": "计划外访视问询页",
+      "sasFieldName": "UPTEST",
+      "itemName": "检查项目（可多选）",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "CL.IECAT",
+        "count": 1
+      }
+    },
+    {
+      "formOID": "UP",
+      "formName": "计划外访视问询页",
+      "sasFieldName": "UPTEST25",
+      "itemName": "身高体重",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "UP",
+      "formName": "计划外访视问询页",
+      "sasFieldName": "UPTEST1",
+      "itemName": "生命体征",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "UP",
+      "formName": "计划外访视问询页",
+      "sasFieldName": "UPTEST2",
+      "itemName": "体格检查",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "UP",
+      "formName": "计划外访视问询页",
+      "sasFieldName": "UPTEST3",
+      "itemName": "骶髂CT检查",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "UP",
+      "formName": "计划外访视问询页",
+      "sasFieldName": "UPTEST4",
+      "itemName": "人体白细胞抗原B27",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "UP",
+      "formName": "计划外访视问询页",
+      "sasFieldName": "UPTEST5",
+      "itemName": "西医诊断",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "UP",
+      "formName": "计划外访视问询页",
+      "sasFieldName": "UPTEST6",
+      "itemName": "中医证候积分量表",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "UP",
+      "formName": "计划外访视问询页",
+      "sasFieldName": "UPTEST7",
+      "itemName": "脊柱疼痛量表",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "UP",
+      "formName": "计划外访视问询页",
+      "sasFieldName": "UPTEST8",
+      "itemName": "巴斯脊柱关节炎疾病活动度指数（BASDAI）",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "UP",
+      "formName": "计划外访视问询页",
+      "sasFieldName": "UPTEST9",
+      "itemName": "巴斯强直性脊柱炎躯体功能指数（BASFI）",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "UP",
+      "formName": "计划外访视问询页",
+      "sasFieldName": "UPTEST10",
+      "itemName": "患者总体评价（PGA）",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "UP",
+      "formName": "计划外访视问询页",
+      "sasFieldName": "UPTEST11",
+      "itemName": "血妊娠",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "UP",
+      "formName": "计划外访视问询页",
+      "sasFieldName": "UPTEST12",
+      "itemName": "尿妊娠",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "UP",
+      "formName": "计划外访视问询页",
+      "sasFieldName": "UPTEST13",
+      "itemName": "C反应蛋白/超敏C反应蛋白",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "UP",
+      "formName": "计划外访视问询页",
+      "sasFieldName": "UPTEST14",
+      "itemName": "红细胞沉降率",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "UP",
+      "formName": "计划外访视问询页",
+      "sasFieldName": "UPTEST15",
+      "itemName": "血常规",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "UP",
+      "formName": "计划外访视问询页",
+      "sasFieldName": "UPTEST16",
+      "itemName": "尿常规",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "UP",
+      "formName": "计划外访视问询页",
+      "sasFieldName": "UPTEST17",
+      "itemName": "尿沉渣镜检",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "UP",
+      "formName": "计划外访视问询页",
+      "sasFieldName": "UPTEST18",
+      "itemName": "随机尿微量白蛋白",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "UP",
+      "formName": "计划外访视问询页",
+      "sasFieldName": "UPTEST20",
+      "itemName": "血生化",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "UP",
+      "formName": "计划外访视问询页",
+      "sasFieldName": "UPTEST21",
+      "itemName": "12导联心电图",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "UP",
+      "formName": "计划外访视问询页",
+      "sasFieldName": "UPTEST22",
+      "itemName": "试验药物回收记录",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "UP",
+      "formName": "计划外访视问询页",
+      "sasFieldName": "UPTEST23",
+      "itemName": "试验药物发放记录",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "UP",
+      "formName": "计划外访视问询页",
+      "sasFieldName": "UPTEST24",
+      "itemName": "其他检查",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "UP",
+      "formName": "计划外访视问询页",
+      "sasFieldName": "UPTEST26",
+      "itemName": "试验药物使用记录",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "MK",
+      "formName": "骶髂CT检查",
+      "sasFieldName": "MKPERF",
+      "itemName": "是否检查",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "MK",
+      "formName": "骶髂CT检查",
+      "sasFieldName": "MKREASND",
+      "itemName": "如为否，请说明原因",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "MK",
+      "formName": "骶髂CT检查",
+      "sasFieldName": "MKDAT",
+      "itemName": "报告日期",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "MK",
+      "formName": "骶髂CT检查",
+      "sasFieldName": "MKPRESP",
+      "itemName": "是否诊断骶髂关节炎",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "MK",
+      "formName": "骶髂CT检查",
+      "sasFieldName": "MKORRESO",
+      "itemName": "其他诊断",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "MK",
+      "formName": "骶髂CT检查",
+      "sasFieldName": "MKORRES",
+      "itemName": "CT分级",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "PR.CAT",
+        "count": 8
+      }
+    },
+    {
+      "formOID": "MK",
+      "formName": "骶髂CT检查",
+      "sasFieldName": "MKORRES2",
+      "itemName": "CT分级描述",
+      "fieldFormat": "TextField"
+    },
+    {
+      "formOID": "LB_MIC",
+      "formName": "尿沉渣镜检",
+      "sasFieldName": "LBPERF3",
+      "itemName": "是否检查",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "LB_MIC",
+      "formName": "尿沉渣镜检",
+      "sasFieldName": "LBREASND2",
+      "itemName": "如为否，请说明原因",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "LB_MIC",
+      "formName": "尿沉渣镜检",
+      "sasFieldName": "LBDAT2",
+      "itemName": "采样日期",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "LB_MIC",
+      "formName": "尿沉渣镜检",
+      "sasFieldName": "AGE1",
+      "itemName": "年龄（关联实验室范围）",
+      "fieldFormat": "Hidden"
+    },
+    {
+      "formOID": "LB_MIC",
+      "formName": "尿沉渣镜检",
+      "sasFieldName": "LBTEST",
+      "itemName": "项目",
+      "fieldFormat": "AnalytesOption"
+    },
+    {
+      "formOID": "LB_MIC",
+      "formName": "尿沉渣镜检",
+      "sasFieldName": "LBORRES",
+      "itemName": "测定值",
+      "fieldFormat": "AnalytesResult"
+    },
+    {
+      "formOID": "LB_MIC",
+      "formName": "尿沉渣镜检",
+      "sasFieldName": "LBCLSIG2",
+      "itemName": "临床评估",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "CL.CLSIG1",
+        "count": 4
+      }
+    },
+    {
+      "formOID": "LB_MIC",
+      "formName": "尿沉渣镜检",
+      "sasFieldName": "LBDESC",
+      "itemName": "异常，请描述",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "CL.DESC1",
+        "count": 3,
+        "hasOther": true
+      }
+    },
+    {
+      "formOID": "LB_MIC",
+      "formName": "尿沉渣镜检",
+      "sasFieldName": "LBAENO",
+      "itemName": "不良事件名称",
+      "fieldFormat": "DynamicOptions"
+    },
+    {
+      "formOID": "LB_MIC",
+      "formName": "尿沉渣镜检",
+      "sasFieldName": "LBMHNO",
+      "itemName": "病史名称",
+      "fieldFormat": "DynamicOptions"
+    },
+    {
+      "formOID": "LB_MIC",
+      "formName": "尿沉渣镜检",
+      "sasFieldName": "LBDESCO",
+      "itemName": "其他,请说明",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "DS_END",
+      "formName": "试验总结表",
+      "sasFieldName": "DSYN3",
+      "itemName": "受试者是否完成试验",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "DS_END",
+      "formName": "试验总结表",
+      "sasFieldName": "DSSTDAT2",
+      "itemName": "试验完成日期",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "DS_END",
+      "formName": "试验总结表",
+      "sasFieldName": "DSSTDAT3",
+      "itemName": "提前退出日期",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "DS_END",
+      "formName": "试验总结表",
+      "sasFieldName": "DSUNBLND",
+      "itemName": "受试者在研究期间是否破盲",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "DS.UNBLND",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "DS_END",
+      "formName": "试验总结表",
+      "sasFieldName": "DSUNDAT",
+      "itemName": "破盲日期",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "DS_END",
+      "formName": "试验总结表",
+      "sasFieldName": "ECENDAT",
+      "itemName": "受试者末次用药时间",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "DS_END",
+      "formName": "试验总结表",
+      "sasFieldName": "ECDSTXT",
+      "itemName": "总体发药量",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "DS_END",
+      "formName": "试验总结表",
+      "sasFieldName": "ECDSTXT2",
+      "itemName": "实际服药量",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "DS_END",
+      "formName": "试验总结表",
+      "sasFieldName": "ECDSTXT3",
+      "itemName": "实际回收药量",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "DS_END",
+      "formName": "试验总结表",
+      "sasFieldName": "ECDSTXT4",
+      "itemName": "损坏或遗失药量",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "DS_END",
+      "formName": "试验总结表",
+      "sasFieldName": "ECORRES",
+      "itemName": "总体依从性",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "DS_END",
+      "formName": "试验总结表",
+      "sasFieldName": "DSDECOD",
+      "itemName": "未完成试验原因",
+      "fieldFormat": "RadioButton(Vertical)",
+      "codeList": {
+        "name": "DS.1",
+        "count": 3,
+        "hasOther": true
+      }
+    },
+    {
+      "formOID": "DS_END",
+      "formName": "试验总结表",
+      "sasFieldName": "DSDECODO",
+      "itemName": "其他未完成试验的原因",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "DS_END",
+      "formName": "试验总结表",
+      "sasFieldName": "DSDECCAT2",
+      "itemName": "受试者退出试验原因",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "DS.2",
+        "count": 2,
+        "hasOther": true
+      }
+    },
+    {
+      "formOID": "DS_END",
+      "formName": "试验总结表",
+      "sasFieldName": "DSDECCAT20",
+      "itemName": "其他受试者退出试验的原因",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AEYN",
+      "itemName": "是否发生不良事件",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AETERM",
+      "itemName": "不良事件名称",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AESTDAT",
+      "itemName": "开始日期",
+      "fieldFormat": "{yyyyu}-{MMu}-{ddu}"
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AESTTIM",
+      "itemName": "开始时间",
+      "fieldFormat": "{HHu}:{mmu}"
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AETOXGR",
+      "itemName": "初始严重程度（CTCAE 5.0）",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.CTCAE",
+        "count": 5
+      }
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AEACN",
+      "itemName": "对试验药物采取的初始措施",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "AE.ACN",
+        "count": 7
+      }
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AETOXYN",
+      "itemName": "CTCAE分级是否有变化",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AETODAT1",
+      "itemName": "CTCAE分级变化日期-1",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AETOXGR2",
+      "itemName": "CTCAE分级-1",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "CL.CTCAE",
+        "count": 5
+      }
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AEACN3",
+      "itemName": "对试验药物采取的措施-1",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "AE.ACN",
+        "count": 7
+      }
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AETODAT2",
+      "itemName": "CTCAE分级变化日期-2",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AETOXGR3",
+      "itemName": "CTCAE分级-2",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "CL.CTCAE",
+        "count": 5
+      }
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AEACN4",
+      "itemName": "对试验药物采取的措施-2",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "AE.ACN",
+        "count": 7
+      }
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AETODAT3",
+      "itemName": "CTCAE分级变化日期-3",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AETOXGR4",
+      "itemName": "CTCAE分级-3",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "CL.CTCAE",
+        "count": 5
+      }
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AEACN5",
+      "itemName": "对试验药物采取的措施-3",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "AE.ACN",
+        "count": 7
+      }
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AETODAT4",
+      "itemName": "CTCAE分级变化日期-4",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AETOXGR5",
+      "itemName": "CTCAE分级-4",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "CL.CTCAE",
+        "count": 5
+      }
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AEACN6",
+      "itemName": "对试验药物采取的措施-4",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "AE.ACN",
+        "count": 7
+      }
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AETODAT5",
+      "itemName": "CTCAE分级变化日期-5",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AETOXGR6",
+      "itemName": "CTCAE分级-5",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "CL.CTCAE",
+        "count": 5
+      }
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AEACN7",
+      "itemName": "对试验药物采取的措施-5",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "AE.ACN",
+        "count": 7
+      }
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AETODAT6",
+      "itemName": "CTCAE分级变化日期-6",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AETOXGR7",
+      "itemName": "CTCAE分级-6",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "CL.CTCAE",
+        "count": 5
+      }
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AEACN8",
+      "itemName": "对试验药物采取的措施-6",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "AE.ACN",
+        "count": 7
+      }
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AEREL",
+      "itemName": "与试验药物的关系",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "AE.REL",
+        "count": 5
+      }
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AECONTRT",
+      "itemName": "对不良事件采取的措施",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "CL.IECAT",
+        "count": 1
+      }
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AECONNO",
+      "itemName": "无",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AECONCM",
+      "itemName": "药物治疗",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AECONPR",
+      "itemName": "非药物治疗",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AECONTRTO",
+      "itemName": "其他",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AECONOTH",
+      "itemName": "其他措施",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AEOUT",
+      "itemName": "转归",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "AE.OUT",
+        "count": 6
+      }
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AEOUTCO",
+      "itemName": "痊愈伴后遗症，请说明",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AEENDAT",
+      "itemName": "转归日期",
+      "fieldFormat": "{yyyyu}-{MMu}-{ddu}"
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AEENTIM",
+      "itemName": "转归时间",
+      "fieldFormat": "{HHu}:{mmu}"
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AESER",
+      "itemName": "是否为严重不良事件",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AESSTDAT",
+      "itemName": "SAE发生日期",
+      "fieldFormat": "{yyyyu}-{MMu}-{ddu}"
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AESERCAT",
+      "itemName": "SAE判断依据（可多选）",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "CL.IECAT",
+        "count": 1
+      }
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AESDTH",
+      "itemName": "死亡",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AESLIFE",
+      "itemName": "危及生命",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AESHOSP",
+      "itemName": "需住院治疗或延长住院时间",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AESDISAB",
+      "itemName": "导致永久的或严重的残疾/能力丧失",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AESCONG",
+      "itemName": "先天性异常或出生缺陷",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AESMIE",
+      "itemName": "其他重要的医学事件",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "AE",
+      "formName": "不良事件（AE）记录表",
+      "sasFieldName": "AESOSP",
+      "itemName": "其他重要的医学事件，请说明",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "PR",
+      "formName": "既往/合并非药物治疗",
+      "sasFieldName": "PRYN2",
+      "itemName": "有无既往/合并非药物治疗记录",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "PR.YN",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "PR",
+      "formName": "既往/合并非药物治疗",
+      "sasFieldName": "PRTRT2",
+      "itemName": "治疗名称",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "PR",
+      "formName": "既往/合并非药物治疗",
+      "sasFieldName": "PRINDC",
+      "itemName": "使用原因",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "CL.DECS2",
+        "count": 4,
+        "hasOther": true
+      }
+    },
+    {
+      "formOID": "PR",
+      "formName": "既往/合并非药物治疗",
+      "sasFieldName": "PRAENO",
+      "itemName": "不良事件名称",
+      "fieldFormat": "DynamicOptions"
+    },
+    {
+      "formOID": "PR",
+      "formName": "既往/合并非药物治疗",
+      "sasFieldName": "PRMHNO",
+      "itemName": "病史名称",
+      "fieldFormat": "DynamicOptions"
+    },
+    {
+      "formOID": "PR",
+      "formName": "既往/合并非药物治疗",
+      "sasFieldName": "PRINDCO",
+      "itemName": "其他,请说明",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "PR",
+      "formName": "既往/合并非药物治疗",
+      "sasFieldName": "PRSTDAT2",
+      "itemName": "开始日期",
+      "fieldFormat": "{yyyyu}-{MMu}-{ddu}"
+    },
+    {
+      "formOID": "PR",
+      "formName": "既往/合并非药物治疗",
+      "sasFieldName": "PRONGO",
+      "itemName": "最晚一次访视问询时是否持续",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "PR",
+      "formName": "既往/合并非药物治疗",
+      "sasFieldName": "PRENDAT",
+      "itemName": "结束日期",
+      "fieldFormat": "{yyyyu}-{MMu}-{ddu}"
+    },
+    {
+      "formOID": "CM",
+      "formName": "既往/合并用药",
+      "sasFieldName": "CMYN",
+      "itemName": "有无既往/合并用药",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CM.YN",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "CM",
+      "formName": "既往/合并用药",
+      "sasFieldName": "CMTRT",
+      "itemName": "药品通用名",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "CM",
+      "formName": "既往/合并用药",
+      "sasFieldName": "CMINDC",
+      "itemName": "用药原因",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "CL.INDC2",
+        "count": 5,
+        "hasOther": true
+      }
+    },
+    {
+      "formOID": "CM",
+      "formName": "既往/合并用药",
+      "sasFieldName": "CMAENO",
+      "itemName": "不良事件名称",
+      "fieldFormat": "DynamicOptions"
+    },
+    {
+      "formOID": "CM",
+      "formName": "既往/合并用药",
+      "sasFieldName": "CMMHNO",
+      "itemName": "病史名称",
+      "fieldFormat": "DynamicOptions"
+    },
+    {
+      "formOID": "CM",
+      "formName": "既往/合并用药",
+      "sasFieldName": "CMINDCO",
+      "itemName": "其他,请说明",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "CM",
+      "formName": "既往/合并用药",
+      "sasFieldName": "CMDOSE",
+      "itemName": "单次给药剂量",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "CM",
+      "formName": "既往/合并用药",
+      "sasFieldName": "CMDOSU",
+      "itemName": "单位",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "CL.DOSU1",
+        "count": 10,
+        "hasOther": true
+      }
+    },
+    {
+      "formOID": "CM",
+      "formName": "既往/合并用药",
+      "sasFieldName": "CMDOSUO",
+      "itemName": "其他单位",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "CM",
+      "formName": "既往/合并用药",
+      "sasFieldName": "CMDOSFRQ",
+      "itemName": "给药频率",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "CL.DOSFRQ1",
+        "count": 9,
+        "hasOther": true
+      }
+    },
+    {
+      "formOID": "CM",
+      "formName": "既往/合并用药",
+      "sasFieldName": "CMDOSFRO",
+      "itemName": "其他给药频率",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "CM",
+      "formName": "既往/合并用药",
+      "sasFieldName": "CMROUTE",
+      "itemName": "给药途径",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "CL.ROUTE1",
+        "count": 10,
+        "hasOther": true
+      }
+    },
+    {
+      "formOID": "CM",
+      "formName": "既往/合并用药",
+      "sasFieldName": "CMROUTEO",
+      "itemName": "其他给药途径",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "CM",
+      "formName": "既往/合并用药",
+      "sasFieldName": "CMSTDAT",
+      "itemName": "开始日期",
+      "fieldFormat": "{yyyyu}-{MMu}-{ddu}"
+    },
+    {
+      "formOID": "CM",
+      "formName": "既往/合并用药",
+      "sasFieldName": "CMONGO",
+      "itemName": "最晚一次访视问询时是否持续",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "CM",
+      "formName": "既往/合并用药",
+      "sasFieldName": "CMENDAT",
+      "itemName": "结束日期",
+      "fieldFormat": "{yyyyu}-{MMu}-{ddu}"
+    },
+    {
+      "formOID": "EG",
+      "formName": "12导联心电图",
+      "sasFieldName": "EGPERF",
+      "itemName": "是否检查",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "EG",
+      "formName": "12导联心电图",
+      "sasFieldName": "EGREASND",
+      "itemName": "如为否，请说明原因",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "EG",
+      "formName": "12导联心电图",
+      "sasFieldName": "EGDAT",
+      "itemName": "检查日期",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "EG",
+      "formName": "12导联心电图",
+      "sasFieldName": "EGORRES1",
+      "itemName": "心率",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "EG",
+      "formName": "12导联心电图",
+      "sasFieldName": "EGORRES2",
+      "itemName": "QT",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "EG",
+      "formName": "12导联心电图",
+      "sasFieldName": "EGORRES3",
+      "itemName": "QTC",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "EG",
+      "formName": "12导联心电图",
+      "sasFieldName": "EGCLSIG",
+      "itemName": "临床评估",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.CLSIG2",
+        "count": 3
+      }
+    },
+    {
+      "formOID": "EG",
+      "formName": "12导联心电图",
+      "sasFieldName": "EGDESC",
+      "itemName": "如异常请详述",
+      "fieldFormat": "TextField"
+    },
+    {
+      "formOID": "EG",
+      "formName": "12导联心电图",
+      "sasFieldName": "EGDESC2",
+      "itemName": "异常，请描述",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.DESC1",
+        "count": 3,
+        "hasOther": true
+      }
+    },
+    {
+      "formOID": "EG",
+      "formName": "12导联心电图",
+      "sasFieldName": "EGAENO",
+      "itemName": "不良事件名称",
+      "fieldFormat": "DynamicOptions"
+    },
+    {
+      "formOID": "EG",
+      "formName": "12导联心电图",
+      "sasFieldName": "EGMHNO",
+      "itemName": "病史名称",
+      "fieldFormat": "DynamicOptions"
+    },
+    {
+      "formOID": "EG",
+      "formName": "12导联心电图",
+      "sasFieldName": "EGDESCOT",
+      "itemName": "其他,请说明",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "OTH",
+      "formName": "其他检查",
+      "sasFieldName": "FAPERF",
+      "itemName": "有无进行其他计划外检查",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN2",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "OTH",
+      "formName": "其他检查",
+      "sasFieldName": "FATEST",
+      "itemName": "检查项目",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "OTH",
+      "formName": "其他检查",
+      "sasFieldName": "FAINDC",
+      "itemName": "检查原因",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.INDC1",
+        "count": 2,
+        "hasOther": true
+      }
+    },
+    {
+      "formOID": "OTH",
+      "formName": "其他检查",
+      "sasFieldName": "FAAENO2",
+      "itemName": "不良事件信息",
+      "fieldFormat": "DynamicOptions"
+    },
+    {
+      "formOID": "OTH",
+      "formName": "其他检查",
+      "sasFieldName": "FAINDCO",
+      "itemName": "其他检查原因",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "OTH",
+      "formName": "其他检查",
+      "sasFieldName": "FADAT",
+      "itemName": "检查日期",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "OTH",
+      "formName": "其他检查",
+      "sasFieldName": "FAORRES",
+      "itemName": "检查结果",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "OTH",
+      "formName": "其他检查",
+      "sasFieldName": "FAORRESU",
+      "itemName": "单位",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "OTH",
+      "formName": "其他检查",
+      "sasFieldName": "FAORNRLO",
+      "itemName": "正常值范围下限",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "OTH",
+      "formName": "其他检查",
+      "sasFieldName": "FAORNRHI",
+      "itemName": "正常值范围上限",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "OTH",
+      "formName": "其他检查",
+      "sasFieldName": "FACLSIG",
+      "itemName": "临床评估",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "CL.CLSIG2",
+        "count": 3
+      }
+    },
+    {
+      "formOID": "OTH",
+      "formName": "其他检查",
+      "sasFieldName": "FADESC",
+      "itemName": "异常，请描述",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "CL.DESC1",
+        "count": 3,
+        "hasOther": true
+      }
+    },
+    {
+      "formOID": "OTH",
+      "formName": "其他检查",
+      "sasFieldName": "FAAENO",
+      "itemName": "不良事件名称",
+      "fieldFormat": "DynamicOptions"
+    },
+    {
+      "formOID": "OTH",
+      "formName": "其他检查",
+      "sasFieldName": "FAMHNO",
+      "itemName": "病史名称",
+      "fieldFormat": "DynamicOptions"
+    },
+    {
+      "formOID": "OTH",
+      "formName": "其他检查",
+      "sasFieldName": "FADESCOT",
+      "itemName": "其他,请说明",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "DA_DR2",
+      "formName": "应急药物回收记录",
+      "sasFieldName": "DAPERF2",
+      "itemName": "是否回收",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "DA_DR2",
+      "formName": "应急药物回收记录",
+      "sasFieldName": "DAREASN1",
+      "itemName": "如否，请注明未回收原因",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "DA_DR2",
+      "formName": "应急药物回收记录",
+      "sasFieldName": "DADAT2",
+      "itemName": "回收日期",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "DA_DR2",
+      "formName": "应急药物回收记录",
+      "sasFieldName": "DAORRES2",
+      "itemName": "回收药量",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "DA_DR2",
+      "formName": "应急药物回收记录",
+      "sasFieldName": "DAORRES3",
+      "itemName": "损坏或遗失药量",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "DA_DR2",
+      "formName": "应急药物回收记录",
+      "sasFieldName": "DAORRES4",
+      "itemName": "实际服用药量（暴露量）",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "DA_DD2",
+      "formName": "应急药物发放记录",
+      "sasFieldName": "DAPERF1",
+      "itemName": "是否发放",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "DA_DD2",
+      "formName": "应急药物发放记录",
+      "sasFieldName": "DADAT1",
+      "itemName": "发药日期",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "DA_DD2",
+      "formName": "应急药物发放记录",
+      "sasFieldName": "DAORRES1",
+      "itemName": "发药量",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "DA_DR1",
+      "formName": "试验药物回收记录",
+      "sasFieldName": "DAPERF2",
+      "itemName": "是否回收",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "DA_DR1",
+      "formName": "试验药物回收记录",
+      "sasFieldName": "DAREASN1",
+      "itemName": "如否，请注明未回收原因",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "DA_DR1",
+      "formName": "试验药物回收记录",
+      "sasFieldName": "DADAT2",
+      "itemName": "回收日期",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "DA_DR1",
+      "formName": "试验药物回收记录",
+      "sasFieldName": "DAORRES2",
+      "itemName": "回收药量",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "DA_DR1",
+      "formName": "试验药物回收记录",
+      "sasFieldName": "DAORRES3",
+      "itemName": "损坏或遗失药量",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "DA_DR1",
+      "formName": "试验药物回收记录",
+      "sasFieldName": "DAORRES4",
+      "itemName": "实际服用药量（暴露量）",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "DA_DR1",
+      "formName": "试验药物回收记录",
+      "sasFieldName": "DAORRES5",
+      "itemName": "依从性",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "DA_DD1",
+      "formName": "试验药物发放记录",
+      "sasFieldName": "DAPERF1",
+      "itemName": "是否发放",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "DA_DD1",
+      "formName": "试验药物发放记录",
+      "sasFieldName": "DADAT1",
+      "itemName": "发药日期",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "DA_DD1",
+      "formName": "试验药物发放记录",
+      "sasFieldName": "ECSTDAT",
+      "itemName": "受试者首次用药时间",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "DA_DD1",
+      "formName": "试验药物发放记录",
+      "sasFieldName": "DAORRES1",
+      "itemName": "发药量",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "MH_WMD",
+      "formName": "西医诊断",
+      "sasFieldName": "MHYN3",
+      "itemName": "是否进行西医诊断",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "MH_WMD",
+      "formName": "西医诊断",
+      "sasFieldName": "MHREASND3",
+      "itemName": "如为否，请说明原因",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "MH_WMD",
+      "formName": "西医诊断",
+      "sasFieldName": "MHSTDAT3",
+      "itemName": "起病日期",
+      "fieldFormat": "{yyyyu}-{MMu}-{ddu}"
+    },
+    {
+      "formOID": "MH_WMD",
+      "formName": "西医诊断",
+      "sasFieldName": "MHSTDAT4",
+      "itemName": "最近一次诊断日期",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "MH_WMD",
+      "formName": "西医诊断",
+      "sasFieldName": "MHOCCUR1",
+      "itemName": "腰背痛持续时间是否超过3个月",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "MH_WMD",
+      "formName": "西医诊断",
+      "sasFieldName": "MHOCCUR2",
+      "itemName": "是否具备SpA特征（可多选）",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "CL.IECAT",
+        "count": 1
+      }
+    },
+    {
+      "formOID": "MH_WMD",
+      "formName": "西医诊断",
+      "sasFieldName": "MHCAT1",
+      "itemName": "炎性背痛",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "MH_WMD",
+      "formName": "西医诊断",
+      "sasFieldName": "MHCAT2",
+      "itemName": "关节炎",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "MH_WMD",
+      "formName": "西医诊断",
+      "sasFieldName": "MHCAT3",
+      "itemName": "附着点炎（足跟）",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "MH_WMD",
+      "formName": "西医诊断",
+      "sasFieldName": "MHCAT4",
+      "itemName": "眼葡萄膜炎",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "MH_WMD",
+      "formName": "西医诊断",
+      "sasFieldName": "MHCAT5",
+      "itemName": "指（趾）炎",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "MH_WMD",
+      "formName": "西医诊断",
+      "sasFieldName": "MHCAT6",
+      "itemName": "银屑病",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "MH_WMD",
+      "formName": "西医诊断",
+      "sasFieldName": "MHCAT7",
+      "itemName": "炎症性肠炎（克罗恩病/溃疡性结肠炎）",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "MH_WMD",
+      "formName": "西医诊断",
+      "sasFieldName": "MHCAT8",
+      "itemName": "对非甾体抗炎药（NSAIDs）反应良好",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "MH_WMD",
+      "formName": "西医诊断",
+      "sasFieldName": "MHCAT9",
+      "itemName": "SpA家族史",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "MH_WMD",
+      "formName": "西医诊断",
+      "sasFieldName": "MHCAT10",
+      "itemName": "（HLA-B27）阳性",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "MH_WMD",
+      "formName": "西医诊断",
+      "sasFieldName": "MHCAT11",
+      "itemName": "C反应蛋白/超敏C反应蛋白（CRP/hsCRP）升高",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "MH_WMD",
+      "formName": "西医诊断",
+      "sasFieldName": "MHOCCUR3",
+      "itemName": "是否诊断为脊柱关节炎",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "MH_WMD",
+      "formName": "西医诊断",
+      "sasFieldName": "MHTERM3",
+      "itemName": "请说明",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "DS_RAND",
+      "formName": "随机入组",
+      "sasFieldName": "DSYN2",
+      "itemName": "是否为再次筛选的受试者",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "DS_RAND",
+      "formName": "随机入组",
+      "sasFieldName": "SUBJID2",
+      "itemName": "请提供上次筛选号",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "DS_RAND",
+      "formName": "随机入组",
+      "sasFieldName": "DSYN4",
+      "itemName": "受试者是否满足入排审核",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "DS_RAND",
+      "formName": "随机入组",
+      "sasFieldName": "IECAT",
+      "itemName": "不符合入选标准/符合排除标准类型",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "IE.1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "DS_RAND",
+      "formName": "随机入组",
+      "sasFieldName": "IEORREI",
+      "itemName": "入选标准编号",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "IE.2",
+        "count": 7
+      }
+    },
+    {
+      "formOID": "DS_RAND",
+      "formName": "随机入组",
+      "sasFieldName": "IEORREE",
+      "itemName": "排除标准编号",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "IE.3",
+        "count": 14
+      }
+    },
+    {
+      "formOID": "DS_RAND",
+      "formName": "随机入组",
+      "sasFieldName": "DSYN",
+      "itemName": "受试者是否随机入组",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "DS_RAND",
+      "formName": "随机入组",
+      "sasFieldName": "DSSTTIM2",
+      "itemName": "随机时间",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "DS_RAND",
+      "formName": "随机入组",
+      "sasFieldName": "DSSTDAT",
+      "itemName": "筛选失败日期",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "DS_RAND",
+      "formName": "随机入组",
+      "sasFieldName": "RANDID",
+      "itemName": "随机号",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "DS_RAND",
+      "formName": "随机入组",
+      "sasFieldName": "DSREACAT",
+      "itemName": "筛选失败原因（可多选）",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "CL.IECAT",
+        "count": 1
+      }
+    },
+    {
+      "formOID": "DS_RAND",
+      "formName": "随机入组",
+      "sasFieldName": "DSREA1",
+      "itemName": "不符合入选标准",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "DS_RAND",
+      "formName": "随机入组",
+      "sasFieldName": "DSREA2",
+      "itemName": "符合排除标准",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "DS_RAND",
+      "formName": "随机入组",
+      "sasFieldName": "DSREA3",
+      "itemName": "撤回知情同意",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "DS_RAND",
+      "formName": "随机入组",
+      "sasFieldName": "DSREA4",
+      "itemName": "失访，尝试联系≥3次均未成功",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "DS_RAND",
+      "formName": "随机入组",
+      "sasFieldName": "DSREA5",
+      "itemName": "其他",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "DS_RAND",
+      "formName": "随机入组",
+      "sasFieldName": "DSREAOT",
+      "itemName": "其他筛选失败原因",
+      "fieldFormat": "TextField"
+    },
+    {
+      "formOID": "DS_RAND",
+      "formName": "随机入组",
+      "sasFieldName": "DSCOM",
+      "itemName": "备注",
+      "fieldFormat": "TextField"
+    },
+    {
+      "formOID": "LB_UACR",
+      "formName": "随机尿微量白蛋白",
+      "sasFieldName": "LBPERF3",
+      "itemName": "是否检查",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "LB_UACR",
+      "formName": "随机尿微量白蛋白",
+      "sasFieldName": "LBREASND2",
+      "itemName": "如为否，请说明原因",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "LB_UACR",
+      "formName": "随机尿微量白蛋白",
+      "sasFieldName": "LBDAT2",
+      "itemName": "采样日期",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "LB_UACR",
+      "formName": "随机尿微量白蛋白",
+      "sasFieldName": "AGE1",
+      "itemName": "年龄（关联实验室范围）",
+      "fieldFormat": "Hidden"
+    },
+    {
+      "formOID": "LB_UACR",
+      "formName": "随机尿微量白蛋白",
+      "sasFieldName": "LBTEST",
+      "itemName": "项目",
+      "fieldFormat": "AnalytesOption"
+    },
+    {
+      "formOID": "LB_UACR",
+      "formName": "随机尿微量白蛋白",
+      "sasFieldName": "LBORRES",
+      "itemName": "测定值",
+      "fieldFormat": "AnalytesResult"
+    },
+    {
+      "formOID": "LB_UACR",
+      "formName": "随机尿微量白蛋白",
+      "sasFieldName": "LBCLSIG1",
+      "itemName": "临床评估",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "CL.CLSIG2",
+        "count": 3
+      }
+    },
+    {
+      "formOID": "LB_UACR",
+      "formName": "随机尿微量白蛋白",
+      "sasFieldName": "LBDESC",
+      "itemName": "异常，请描述",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "CL.DESC1",
+        "count": 3,
+        "hasOther": true
+      }
+    },
+    {
+      "formOID": "LB_UACR",
+      "formName": "随机尿微量白蛋白",
+      "sasFieldName": "LBAENO",
+      "itemName": "不良事件名称",
+      "fieldFormat": "DynamicOptions"
+    },
+    {
+      "formOID": "LB_UACR",
+      "formName": "随机尿微量白蛋白",
+      "sasFieldName": "LBMHNO",
+      "itemName": "病史名称",
+      "fieldFormat": "DynamicOptions"
+    },
+    {
+      "formOID": "LB_UACR",
+      "formName": "随机尿微量白蛋白",
+      "sasFieldName": "LBDESCO",
+      "itemName": "其他,请说明",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "LB_URI",
+      "formName": "尿常规",
+      "sasFieldName": "LBPERF3",
+      "itemName": "是否检查",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "LB_URI",
+      "formName": "尿常规",
+      "sasFieldName": "LBREASND2",
+      "itemName": "如为否，请说明原因",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "LB_URI",
+      "formName": "尿常规",
+      "sasFieldName": "LBDAT2",
+      "itemName": "采样日期",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "LB_URI",
+      "formName": "尿常规",
+      "sasFieldName": "AGE1",
+      "itemName": "年龄（关联实验室范围）",
+      "fieldFormat": "Hidden"
+    },
+    {
+      "formOID": "LB_URI",
+      "formName": "尿常规",
+      "sasFieldName": "LBTEST",
+      "itemName": "项目",
+      "fieldFormat": "AnalytesOption"
+    },
+    {
+      "formOID": "LB_URI",
+      "formName": "尿常规",
+      "sasFieldName": "LBORRES",
+      "itemName": "测定值",
+      "fieldFormat": "AnalytesResult"
+    },
+    {
+      "formOID": "LB_URI",
+      "formName": "尿常规",
+      "sasFieldName": "LBCLSIG2",
+      "itemName": "临床评估",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "CL.CLSIG1",
+        "count": 4
+      }
+    },
+    {
+      "formOID": "LB_URI",
+      "formName": "尿常规",
+      "sasFieldName": "LBDESC",
+      "itemName": "异常，请描述",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "CL.DESC1",
+        "count": 3,
+        "hasOther": true
+      }
+    },
+    {
+      "formOID": "LB_URI",
+      "formName": "尿常规",
+      "sasFieldName": "LBAENO",
+      "itemName": "不良事件名称",
+      "fieldFormat": "DynamicOptions"
+    },
+    {
+      "formOID": "LB_URI",
+      "formName": "尿常规",
+      "sasFieldName": "LBMHNO",
+      "itemName": "病史名称",
+      "fieldFormat": "DynamicOptions"
+    },
+    {
+      "formOID": "LB_URI",
+      "formName": "尿常规",
+      "sasFieldName": "LBDESCO",
+      "itemName": "其他,请说明",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "LB_HEM",
+      "formName": "血常规",
+      "sasFieldName": "LBPERF3",
+      "itemName": "是否检查",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "LB_HEM",
+      "formName": "血常规",
+      "sasFieldName": "LBREASND2",
+      "itemName": "如为否，请说明原因",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "LB_HEM",
+      "formName": "血常规",
+      "sasFieldName": "LBDAT2",
+      "itemName": "采样日期",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "LB_HEM",
+      "formName": "血常规",
+      "sasFieldName": "AGE1",
+      "itemName": "年龄（关联实验室范围）",
+      "fieldFormat": "Hidden"
+    },
+    {
+      "formOID": "LB_HEM",
+      "formName": "血常规",
+      "sasFieldName": "LBTEST",
+      "itemName": "项目",
+      "fieldFormat": "AnalytesOption"
+    },
+    {
+      "formOID": "LB_HEM",
+      "formName": "血常规",
+      "sasFieldName": "LBORRES",
+      "itemName": "测定值",
+      "fieldFormat": "AnalytesResult"
+    },
+    {
+      "formOID": "LB_HEM",
+      "formName": "血常规",
+      "sasFieldName": "LBCLSIG2",
+      "itemName": "临床评估",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "CL.CLSIG1",
+        "count": 4
+      }
+    },
+    {
+      "formOID": "LB_HEM",
+      "formName": "血常规",
+      "sasFieldName": "LBDESC",
+      "itemName": "异常，请描述",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "CL.DESC1",
+        "count": 3,
+        "hasOther": true
+      }
+    },
+    {
+      "formOID": "LB_HEM",
+      "formName": "血常规",
+      "sasFieldName": "LBAENO",
+      "itemName": "不良事件名称",
+      "fieldFormat": "DynamicOptions"
+    },
+    {
+      "formOID": "LB_HEM",
+      "formName": "血常规",
+      "sasFieldName": "LBMHNO",
+      "itemName": "病史名称",
+      "fieldFormat": "DynamicOptions"
+    },
+    {
+      "formOID": "LB_HEM",
+      "formName": "血常规",
+      "sasFieldName": "LBDESCO",
+      "itemName": "其他,请说明",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "LB_ESR",
+      "formName": "红细胞沉降率",
+      "sasFieldName": "LBPERF3",
+      "itemName": "是否检查",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "LB_ESR",
+      "formName": "红细胞沉降率",
+      "sasFieldName": "LBREASND2",
+      "itemName": "如为否，请说明原因",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "LB_ESR",
+      "formName": "红细胞沉降率",
+      "sasFieldName": "LBDAT2",
+      "itemName": "采样日期",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "LB_ESR",
+      "formName": "红细胞沉降率",
+      "sasFieldName": "AGE1",
+      "itemName": "年龄（关联实验室范围）",
+      "fieldFormat": "Hidden"
+    },
+    {
+      "formOID": "LB_ESR",
+      "formName": "红细胞沉降率",
+      "sasFieldName": "LBTEST",
+      "itemName": "项目",
+      "fieldFormat": "AnalytesOption"
+    },
+    {
+      "formOID": "LB_ESR",
+      "formName": "红细胞沉降率",
+      "sasFieldName": "LBORRES",
+      "itemName": "测定值",
+      "fieldFormat": "AnalytesResult"
+    },
+    {
+      "formOID": "LB_ESR",
+      "formName": "红细胞沉降率",
+      "sasFieldName": "LBCLSIG1",
+      "itemName": "临床评估",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "CL.CLSIG2",
+        "count": 3
+      }
+    },
+    {
+      "formOID": "LB_ESR",
+      "formName": "红细胞沉降率",
+      "sasFieldName": "LBDESC",
+      "itemName": "异常，请描述",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "CL.DESC1",
+        "count": 3,
+        "hasOther": true
+      }
+    },
+    {
+      "formOID": "LB_ESR",
+      "formName": "红细胞沉降率",
+      "sasFieldName": "LBAENO",
+      "itemName": "不良事件名称",
+      "fieldFormat": "DynamicOptions"
+    },
+    {
+      "formOID": "LB_ESR",
+      "formName": "红细胞沉降率",
+      "sasFieldName": "LBMHNO",
+      "itemName": "病史名称",
+      "fieldFormat": "DynamicOptions"
+    },
+    {
+      "formOID": "LB_ESR",
+      "formName": "红细胞沉降率",
+      "sasFieldName": "LBDESCO",
+      "itemName": "其他,请说明",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "LB_CRP",
+      "formName": "C反应蛋白/超敏C反应蛋白",
+      "sasFieldName": "LBPERF3",
+      "itemName": "是否检查",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "LB_CRP",
+      "formName": "C反应蛋白/超敏C反应蛋白",
+      "sasFieldName": "LBREASND2",
+      "itemName": "如为否，请说明原因",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "LB_CRP",
+      "formName": "C反应蛋白/超敏C反应蛋白",
+      "sasFieldName": "LBDAT2",
+      "itemName": "采样日期",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "LB_CRP",
+      "formName": "C反应蛋白/超敏C反应蛋白",
+      "sasFieldName": "AGE1",
+      "itemName": "年龄（关联实验室范围）",
+      "fieldFormat": "Hidden"
+    },
+    {
+      "formOID": "LB_CRP",
+      "formName": "C反应蛋白/超敏C反应蛋白",
+      "sasFieldName": "LBTEST",
+      "itemName": "项目",
+      "fieldFormat": "AnalytesOption"
+    },
+    {
+      "formOID": "LB_CRP",
+      "formName": "C反应蛋白/超敏C反应蛋白",
+      "sasFieldName": "LBORRES",
+      "itemName": "测定值",
+      "fieldFormat": "AnalytesResult"
+    },
+    {
+      "formOID": "LB_CRP",
+      "formName": "C反应蛋白/超敏C反应蛋白",
+      "sasFieldName": "LBCLSIG2",
+      "itemName": "临床评估",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "CL.CLSIG1",
+        "count": 4
+      }
+    },
+    {
+      "formOID": "LB_CRP",
+      "formName": "C反应蛋白/超敏C反应蛋白",
+      "sasFieldName": "LBDESC",
+      "itemName": "异常，请描述",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "CL.DESC1",
+        "count": 3,
+        "hasOther": true
+      }
+    },
+    {
+      "formOID": "LB_CRP",
+      "formName": "C反应蛋白/超敏C反应蛋白",
+      "sasFieldName": "LBAENO",
+      "itemName": "不良事件名称",
+      "fieldFormat": "DynamicOptions"
+    },
+    {
+      "formOID": "LB_CRP",
+      "formName": "C反应蛋白/超敏C反应蛋白",
+      "sasFieldName": "LBMHNO",
+      "itemName": "病史名称",
+      "fieldFormat": "DynamicOptions"
+    },
+    {
+      "formOID": "LB_CRP",
+      "formName": "C反应蛋白/超敏C反应蛋白",
+      "sasFieldName": "LBDESCO",
+      "itemName": "其他,请说明",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "LB_HCG2",
+      "formName": "尿妊娠",
+      "sasFieldName": "LBPERF2",
+      "itemName": "是否检查",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN4",
+        "count": 3
+      }
+    },
+    {
+      "formOID": "LB_HCG2",
+      "formName": "尿妊娠",
+      "sasFieldName": "LBREASND2",
+      "itemName": "如为否，请说明原因",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "LB_HCG2",
+      "formName": "尿妊娠",
+      "sasFieldName": "LBDAT2",
+      "itemName": "采样日期",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "LB_HCG2",
+      "formName": "尿妊娠",
+      "sasFieldName": "AGE1",
+      "itemName": "年龄（关联实验室范围）",
+      "fieldFormat": "Hidden"
+    },
+    {
+      "formOID": "LB_HCG2",
+      "formName": "尿妊娠",
+      "sasFieldName": "LBTEST",
+      "itemName": "项目",
+      "fieldFormat": "AnalytesOption"
+    },
+    {
+      "formOID": "LB_HCG2",
+      "formName": "尿妊娠",
+      "sasFieldName": "LBORRES",
+      "itemName": "测定值",
+      "fieldFormat": "AnalytesResult"
+    },
+    {
+      "formOID": "LB_HCG2",
+      "formName": "尿妊娠",
+      "sasFieldName": "LBCLSIG1",
+      "itemName": "临床评估",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "CL.CLSIG2",
+        "count": 3
+      }
+    },
+    {
+      "formOID": "LB_HCG2",
+      "formName": "尿妊娠",
+      "sasFieldName": "LBDESC",
+      "itemName": "异常，请描述",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "CL.DESC1",
+        "count": 3,
+        "hasOther": true
+      }
+    },
+    {
+      "formOID": "LB_HCG2",
+      "formName": "尿妊娠",
+      "sasFieldName": "LBAENO",
+      "itemName": "不良事件名称",
+      "fieldFormat": "DynamicOptions"
+    },
+    {
+      "formOID": "LB_HCG2",
+      "formName": "尿妊娠",
+      "sasFieldName": "LBMHNO",
+      "itemName": "病史名称",
+      "fieldFormat": "DynamicOptions"
+    },
+    {
+      "formOID": "LB_HCG2",
+      "formName": "尿妊娠",
+      "sasFieldName": "LBDESCO",
+      "itemName": "其他,请说明",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "LB_HCG1",
+      "formName": "血妊娠",
+      "sasFieldName": "LBPERF2",
+      "itemName": "是否检查",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN4",
+        "count": 3
+      }
+    },
+    {
+      "formOID": "LB_HCG1",
+      "formName": "血妊娠",
+      "sasFieldName": "LBREASND2",
+      "itemName": "如为否，请说明原因",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "LB_HCG1",
+      "formName": "血妊娠",
+      "sasFieldName": "LBDAT2",
+      "itemName": "采样日期",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "LB_HCG1",
+      "formName": "血妊娠",
+      "sasFieldName": "AGE1",
+      "itemName": "年龄（关联实验室范围）",
+      "fieldFormat": "Hidden"
+    },
+    {
+      "formOID": "LB_HCG1",
+      "formName": "血妊娠",
+      "sasFieldName": "LBTEST",
+      "itemName": "项目",
+      "fieldFormat": "AnalytesOption"
+    },
+    {
+      "formOID": "LB_HCG1",
+      "formName": "血妊娠",
+      "sasFieldName": "LBORRES",
+      "itemName": "测定值",
+      "fieldFormat": "AnalytesResult"
+    },
+    {
+      "formOID": "LB_HCG1",
+      "formName": "血妊娠",
+      "sasFieldName": "LBCLSIG1",
+      "itemName": "临床评估",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "CL.CLSIG2",
+        "count": 3
+      }
+    },
+    {
+      "formOID": "LB_HCG1",
+      "formName": "血妊娠",
+      "sasFieldName": "LBDESC",
+      "itemName": "异常，请描述",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "CL.DESC1",
+        "count": 3,
+        "hasOther": true
+      }
+    },
+    {
+      "formOID": "LB_HCG1",
+      "formName": "血妊娠",
+      "sasFieldName": "LBAENO",
+      "itemName": "不良事件名称",
+      "fieldFormat": "DynamicOptions"
+    },
+    {
+      "formOID": "LB_HCG1",
+      "formName": "血妊娠",
+      "sasFieldName": "LBMHNO",
+      "itemName": "病史名称",
+      "fieldFormat": "DynamicOptions"
+    },
+    {
+      "formOID": "LB_HCG1",
+      "formName": "血妊娠",
+      "sasFieldName": "LBDESCO",
+      "itemName": "其他,请说明",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "FT",
+      "formName": "ASAS改善标准",
+      "sasFieldName": "FTCAT",
+      "itemName": "项目",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "FT.CAT",
+        "count": 4
+      }
+    },
+    {
+      "formOID": "FT",
+      "formName": "ASAS改善标准",
+      "sasFieldName": "FTORRES1",
+      "itemName": "较基线改善百分比",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "FT",
+      "formName": "ASAS改善标准",
+      "sasFieldName": "FTORRES2",
+      "itemName": "较基线改善评分",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "FT",
+      "formName": "ASAS改善标准",
+      "sasFieldName": "FTORRES3",
+      "itemName": "是否达到ASAS 20%反应标准（ASAS 20）",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "FT",
+      "formName": "ASAS改善标准",
+      "sasFieldName": "FTORRES4",
+      "itemName": "是否达到ASAS 40%反应标准（ASAS 40）",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "QS_SFI",
+      "formName": "巴斯强直性脊柱炎躯体功能性指数（BASFI）",
+      "sasFieldName": "QSPERF3",
+      "itemName": "受试者是否对过去一周症状进行BASFI评估",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "QS_SFI",
+      "formName": "巴斯强直性脊柱炎躯体功能性指数（BASFI）",
+      "sasFieldName": "QSREASND3",
+      "itemName": "如为否，请说明原因",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "QS_SFI",
+      "formName": "巴斯强直性脊柱炎躯体功能性指数（BASFI）",
+      "sasFieldName": "QSDAT3",
+      "itemName": "评估日期",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "QS_SFI",
+      "formName": "巴斯强直性脊柱炎躯体功能性指数（BASFI）",
+      "sasFieldName": "QSTEST3",
+      "itemName": "巴斯强直性脊柱炎躯体功能性指数（BASFI）",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "QS.TEST3",
+        "count": 10
+      }
+    },
+    {
+      "formOID": "QS_SFI",
+      "formName": "巴斯强直性脊柱炎躯体功能性指数（BASFI）",
+      "sasFieldName": "QSORRES13",
+      "itemName": "评分",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "QS_SFI",
+      "formName": "巴斯强直性脊柱炎躯体功能性指数（BASFI）",
+      "sasFieldName": "QSORRES14",
+      "itemName": "巴斯强直性脊柱炎躯体功能性指数（BASFI）",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "QS_DAI",
+      "formName": "巴斯强直性脊柱炎疾病活动性指数（BASDAI）",
+      "sasFieldName": "QSPERF2",
+      "itemName": "受试者是否对过去一周症状进行BASDAI评估",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "QS_DAI",
+      "formName": "巴斯强直性脊柱炎疾病活动性指数（BASDAI）",
+      "sasFieldName": "QSREASND2",
+      "itemName": "如为否，请说明原因",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "QS_DAI",
+      "formName": "巴斯强直性脊柱炎疾病活动性指数（BASDAI）",
+      "sasFieldName": "QSDAT2",
+      "itemName": "评估日期",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "QS_DAI",
+      "formName": "巴斯强直性脊柱炎疾病活动性指数（BASDAI）",
+      "sasFieldName": "QSTEST2",
+      "itemName": "在过去的一星期，巴斯强直性脊柱炎疾病活动性指数（BASDAI）",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "QS.TEST2",
+        "count": 6
+      }
+    },
+    {
+      "formOID": "QS_DAI",
+      "formName": "巴斯强直性脊柱炎疾病活动性指数（BASDAI）",
+      "sasFieldName": "QSORRES11",
+      "itemName": "评分",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "QS_DAI",
+      "formName": "巴斯强直性脊柱炎疾病活动性指数（BASDAI）",
+      "sasFieldName": "QSORRES12",
+      "itemName": "巴斯强直性脊柱炎疾病活动性指数(BASDAI)",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "QS_TCM",
+      "formName": "中医证候积分量表",
+      "sasFieldName": "QSPERF1",
+      "itemName": "是否进行中医证候评估",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "QS_TCM",
+      "formName": "中医证候积分量表",
+      "sasFieldName": "QSREASN1",
+      "itemName": "如为否，请说明原因",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "QS_TCM",
+      "formName": "中医证候积分量表",
+      "sasFieldName": "QSDAT1",
+      "itemName": "评估日期",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "QS_TCM",
+      "formName": "中医证候积分量表",
+      "sasFieldName": "QSCAT3",
+      "itemName": "主症",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "CL.IECAT",
+        "count": 1
+      }
+    },
+    {
+      "formOID": "QS_TCM",
+      "formName": "中医证候积分量表",
+      "sasFieldName": "QSORRES17",
+      "itemName": "腰背疼痛",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "QS.ORRES2",
+        "count": 4
+      }
+    },
+    {
+      "formOID": "QS_TCM",
+      "formName": "中医证候积分量表",
+      "sasFieldName": "QSORRES18",
+      "itemName": "腰背活动受限",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "QS.ORRES2",
+        "count": 4
+      }
+    },
+    {
+      "formOID": "QS_TCM",
+      "formName": "中医证候积分量表",
+      "sasFieldName": "QSORRES19",
+      "itemName": "晨僵",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "QS.ORRES2",
+        "count": 4
+      }
+    },
+    {
+      "formOID": "QS_TCM",
+      "formName": "中医证候积分量表",
+      "sasFieldName": "QSCAT4",
+      "itemName": "次症",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "CL.IECAT",
+        "count": 1
+      }
+    },
+    {
+      "formOID": "QS_TCM",
+      "formName": "中医证候积分量表",
+      "sasFieldName": "QSORRES20",
+      "itemName": "疼痛夜重",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "QS.ORRES3",
+        "count": 4
+      }
+    },
+    {
+      "formOID": "QS_TCM",
+      "formName": "中医证候积分量表",
+      "sasFieldName": "QSORRES21",
+      "itemName": "刺痛",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "QS.ORRES3",
+        "count": 4
+      }
+    },
+    {
+      "formOID": "QS_TCM",
+      "formName": "中医证候积分量表",
+      "sasFieldName": "QSORRES22",
+      "itemName": "局部冷痛",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "QS.ORRES3",
+        "count": 4
+      }
+    },
+    {
+      "formOID": "QS_TCM",
+      "formName": "中医证候积分量表",
+      "sasFieldName": "QSORRES23",
+      "itemName": "畏寒喜暖",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "QS.ORRES3",
+        "count": 4
+      }
+    },
+    {
+      "formOID": "QS_TCM",
+      "formName": "中医证候积分量表",
+      "sasFieldName": "QSORRES24",
+      "itemName": "足跟痛",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "QS.ORRES3",
+        "count": 4
+      }
+    },
+    {
+      "formOID": "QS_TCM",
+      "formName": "中医证候积分量表",
+      "sasFieldName": "QSORRES25",
+      "itemName": "腰膝酸软",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "QS.ORRES3",
+        "count": 4
+      }
+    },
+    {
+      "formOID": "QS_TCM",
+      "formName": "中医证候积分量表",
+      "sasFieldName": "QSORRES2",
+      "itemName": "症状积分",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "QS_TCM",
+      "formName": "中医证候积分量表",
+      "sasFieldName": "QSCAT1",
+      "itemName": "舌象（可多选）",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "CL.IECAT",
+        "count": 1
+      }
+    },
+    {
+      "formOID": "QS_TCM",
+      "formName": "中医证候积分量表",
+      "sasFieldName": "QSORRES3",
+      "itemName": "舌紫暗",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "QS_TCM",
+      "formName": "中医证候积分量表",
+      "sasFieldName": "QSORRES4",
+      "itemName": "舌淡",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "QS_TCM",
+      "formName": "中医证候积分量表",
+      "sasFieldName": "QSORRES5",
+      "itemName": "有瘀斑",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "QS_TCM",
+      "formName": "中医证候积分量表",
+      "sasFieldName": "QSORRES6",
+      "itemName": "苔白",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "QS_TCM",
+      "formName": "中医证候积分量表",
+      "sasFieldName": "QSORRES7",
+      "itemName": "其他",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "QS_TCM",
+      "formName": "中医证候积分量表",
+      "sasFieldName": "QSORRESO1",
+      "itemName": "其他舌象",
+      "fieldFormat": "TextField"
+    },
+    {
+      "formOID": "QS_TCM",
+      "formName": "中医证候积分量表",
+      "sasFieldName": "QSCAT2",
+      "itemName": "脉象（可多选）",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "CL.IECAT",
+        "count": 1
+      }
+    },
+    {
+      "formOID": "QS_TCM",
+      "formName": "中医证候积分量表",
+      "sasFieldName": "QSORRES8",
+      "itemName": "沉细",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "QS_TCM",
+      "formName": "中医证候积分量表",
+      "sasFieldName": "QSORRES9",
+      "itemName": "涩",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "QS_TCM",
+      "formName": "中医证候积分量表",
+      "sasFieldName": "QSORRES10",
+      "itemName": "其他",
+      "fieldFormat": "CheckBox",
+      "checkedValue": "1"
+    },
+    {
+      "formOID": "QS_TCM",
+      "formName": "中医证候积分量表",
+      "sasFieldName": "QSORRESO2",
+      "itemName": "其他脉象",
+      "fieldFormat": "TextField"
+    },
+    {
+      "formOID": "QS_TCM",
+      "formName": "中医证候积分量表",
+      "sasFieldName": "QSOCCUR",
+      "itemName": "是否诊断为肾阳亏虚、瘀血痹阻证",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "QS_TCM",
+      "formName": "中医证候积分量表",
+      "sasFieldName": "QSOCCUDE",
+      "itemName": "请说明",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "LB_B27",
+      "formName": "人体白细胞抗原B27",
+      "sasFieldName": "LBPERF1",
+      "itemName": "是否检查",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "LB_B27",
+      "formName": "人体白细胞抗原B27",
+      "sasFieldName": "LBREASN1",
+      "itemName": "如为否，请说明原因",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "LB_B27",
+      "formName": "人体白细胞抗原B27",
+      "sasFieldName": "LBDAT1",
+      "itemName": "报告日期",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "LB_B27",
+      "formName": "人体白细胞抗原B27",
+      "sasFieldName": "LBORRES1",
+      "itemName": "检查结果",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN3",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "QS_SPI",
+      "formName": "脊柱疼痛量表",
+      "sasFieldName": "QSPERF4",
+      "itemName": "受试者是否对过去一周的脊柱疼痛情况进行评估",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "QS_SPI",
+      "formName": "脊柱疼痛量表",
+      "sasFieldName": "QSREASND4",
+      "itemName": "如为否，请说明原因",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "QS_SPI",
+      "formName": "脊柱疼痛量表",
+      "sasFieldName": "QSDAT4",
+      "itemName": "评估日期",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "QS_SPI",
+      "formName": "脊柱疼痛量表",
+      "sasFieldName": "QSTEST4",
+      "itemName": "过去一周的夜间背痛与过去一周的总体背痛情况",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "QS.TEST4",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "QS_SPI",
+      "formName": "脊柱疼痛量表",
+      "sasFieldName": "QSORRES15",
+      "itemName": "评分",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "QS_SPI",
+      "formName": "脊柱疼痛量表",
+      "sasFieldName": "QSORRES16",
+      "itemName": "脊柱疼痛",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "MH",
+      "formName": "既往病史及现病史",
+      "sasFieldName": "MHYN",
+      "itemName": "是否有既往病史/现病史",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN5",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "MH",
+      "formName": "既往病史及现病史",
+      "sasFieldName": "MHTERM",
+      "itemName": "疾病名称",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "MH",
+      "formName": "既往病史及现病史",
+      "sasFieldName": "MHSTDAT",
+      "itemName": "开始日期",
+      "fieldFormat": "{yyyyu}-{MMu}-{ddu}"
+    },
+    {
+      "formOID": "MH",
+      "formName": "既往病史及现病史",
+      "sasFieldName": "MHONGO",
+      "itemName": "首次用药前，是否持续",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "MH",
+      "formName": "既往病史及现病史",
+      "sasFieldName": "MHENDAT",
+      "itemName": "结束日期",
+      "fieldFormat": "{yyyyu}-{MMu}-{ddu}"
+    },
+    {
+      "formOID": "SU",
+      "formName": "吸烟、吸毒及饮酒状况",
+      "sasFieldName": "SUNCF1",
+      "itemName": "吸烟状况",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "SU.NCF",
+        "count": 4
+      }
+    },
+    {
+      "formOID": "SU",
+      "formName": "吸烟、吸毒及饮酒状况",
+      "sasFieldName": "SUCDUR1",
+      "itemName": "戒烟时长",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "SU",
+      "formName": "吸烟、吸毒及饮酒状况",
+      "sasFieldName": "SUNCF2",
+      "itemName": "吸毒状况",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "SU.NCF2",
+        "count": 3
+      }
+    },
+    {
+      "formOID": "SU",
+      "formName": "吸烟、吸毒及饮酒状况",
+      "sasFieldName": "SUNCF3",
+      "itemName": "是否有饮酒史",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "SU",
+      "formName": "吸烟、吸毒及饮酒状况",
+      "sasFieldName": "SUCDUR",
+      "itemName": "饮酒时长",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "SU",
+      "formName": "吸烟、吸毒及饮酒状况",
+      "sasFieldName": "SUDSTXT",
+      "itemName": "平均每日饮酒量",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "SU",
+      "formName": "吸烟、吸毒及饮酒状况",
+      "sasFieldName": "SUDOSFRQ",
+      "itemName": "2周内乙醇量>80g/d",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "VS",
+      "formName": "生命体征",
+      "sasFieldName": "VSPERF",
+      "itemName": "是否检查",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "VS",
+      "formName": "生命体征",
+      "sasFieldName": "VSREASND",
+      "itemName": "如为否，请说明原因",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "VS",
+      "formName": "生命体征",
+      "sasFieldName": "VSDAT",
+      "itemName": "检查日期",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "VS",
+      "formName": "生命体征",
+      "sasFieldName": "TEMP",
+      "itemName": "体温",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "VS",
+      "formName": "生命体征",
+      "sasFieldName": "VSCLSIG1",
+      "itemName": "体温-临床评估",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.CLSIG1",
+        "count": 4
+      }
+    },
+    {
+      "formOID": "VS",
+      "formName": "生命体征",
+      "sasFieldName": "VSDESC1",
+      "itemName": "异常，请描述",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.DESC1",
+        "count": 3,
+        "hasOther": true
+      }
+    },
+    {
+      "formOID": "VS",
+      "formName": "生命体征",
+      "sasFieldName": "VSAENO1",
+      "itemName": "不良事件名称",
+      "fieldFormat": "DynamicOptions"
+    },
+    {
+      "formOID": "VS",
+      "formName": "生命体征",
+      "sasFieldName": "VSMHNO1",
+      "itemName": "病史名称",
+      "fieldFormat": "DynamicOptions"
+    },
+    {
+      "formOID": "VS",
+      "formName": "生命体征",
+      "sasFieldName": "VSDESCO1",
+      "itemName": "其他,请说明",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "VS",
+      "formName": "生命体征",
+      "sasFieldName": "HR",
+      "itemName": "心率",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "VS",
+      "formName": "生命体征",
+      "sasFieldName": "VSCLSIG2",
+      "itemName": "心率-临床评估",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.CLSIG1",
+        "count": 4
+      }
+    },
+    {
+      "formOID": "VS",
+      "formName": "生命体征",
+      "sasFieldName": "VSDESC2",
+      "itemName": "异常，请描述",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.DESC1",
+        "count": 3,
+        "hasOther": true
+      }
+    },
+    {
+      "formOID": "VS",
+      "formName": "生命体征",
+      "sasFieldName": "VSAENO2",
+      "itemName": "不良事件名称",
+      "fieldFormat": "DynamicOptions"
+    },
+    {
+      "formOID": "VS",
+      "formName": "生命体征",
+      "sasFieldName": "VSMHNO2",
+      "itemName": "病史名称",
+      "fieldFormat": "DynamicOptions"
+    },
+    {
+      "formOID": "VS",
+      "formName": "生命体征",
+      "sasFieldName": "VSDESCO2",
+      "itemName": "其他,请说明",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "VS",
+      "formName": "生命体征",
+      "sasFieldName": "RESP",
+      "itemName": "呼吸",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "VS",
+      "formName": "生命体征",
+      "sasFieldName": "VSCLSIG3",
+      "itemName": "呼吸-临床评估",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.CLSIG1",
+        "count": 4
+      }
+    },
+    {
+      "formOID": "VS",
+      "formName": "生命体征",
+      "sasFieldName": "VSDESC3",
+      "itemName": "异常，请描述",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.DESC1",
+        "count": 3,
+        "hasOther": true
+      }
+    },
+    {
+      "formOID": "VS",
+      "formName": "生命体征",
+      "sasFieldName": "VSAENO3",
+      "itemName": "不良事件名称",
+      "fieldFormat": "DynamicOptions"
+    },
+    {
+      "formOID": "VS",
+      "formName": "生命体征",
+      "sasFieldName": "VSMHNO3",
+      "itemName": "病史名称",
+      "fieldFormat": "DynamicOptions"
+    },
+    {
+      "formOID": "VS",
+      "formName": "生命体征",
+      "sasFieldName": "VSDESCO3",
+      "itemName": "其他,请说明",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "VS",
+      "formName": "生命体征",
+      "sasFieldName": "SYSBP",
+      "itemName": "收缩压",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "VS",
+      "formName": "生命体征",
+      "sasFieldName": "DIABP",
+      "itemName": "舒张压",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "VS",
+      "formName": "生命体征",
+      "sasFieldName": "VSCLSIG4",
+      "itemName": "收缩压/舒张压-临床评估",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.CLSIG1",
+        "count": 4
+      }
+    },
+    {
+      "formOID": "VS",
+      "formName": "生命体征",
+      "sasFieldName": "VSDESC4",
+      "itemName": "异常，请描述",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.DESC1",
+        "count": 3,
+        "hasOther": true
+      }
+    },
+    {
+      "formOID": "VS",
+      "formName": "生命体征",
+      "sasFieldName": "VSAENO4",
+      "itemName": "不良事件名称",
+      "fieldFormat": "DynamicOptions"
+    },
+    {
+      "formOID": "VS",
+      "formName": "生命体征",
+      "sasFieldName": "VSMHNO4",
+      "itemName": "病史名称",
+      "fieldFormat": "DynamicOptions"
+    },
+    {
+      "formOID": "VS",
+      "formName": "生命体征",
+      "sasFieldName": "VSDESCO4",
+      "itemName": "其他,请说明",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "RS",
+      "formName": "患者总体评价（PGA）",
+      "sasFieldName": "RSPERF",
+      "itemName": "受试者是否对过去一周整体的疾病活动进行评估",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "RS",
+      "formName": "患者总体评价（PGA）",
+      "sasFieldName": "RSREASND",
+      "itemName": "如为否，请说明原因",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "RS",
+      "formName": "患者总体评价（PGA）",
+      "sasFieldName": "RSDAT",
+      "itemName": "评估日期",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "RS",
+      "formName": "患者总体评价（PGA）",
+      "sasFieldName": "RSORRES",
+      "itemName": "上一周当中您对您的疾病的总体评价",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "SE",
+      "formName": "个人史",
+      "sasFieldName": "PRYN",
+      "itemName": "入组前8周内是否接受过脊柱或关节手术治疗",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN5",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "SE",
+      "formName": "个人史",
+      "sasFieldName": "MHYN1",
+      "itemName": "（食物、药物）过敏史",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN5",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "SE",
+      "formName": "个人史",
+      "sasFieldName": "MHDESC1",
+      "itemName": "过敏原",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "SE",
+      "formName": "个人史",
+      "sasFieldName": "SUYN",
+      "itemName": "药物滥用史",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN5",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "SE",
+      "formName": "个人史",
+      "sasFieldName": "MHYN2",
+      "itemName": "家族史",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN5",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "SE",
+      "formName": "个人史",
+      "sasFieldName": "MHDESC2",
+      "itemName": "家族史名称",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "PE",
+      "formName": "体格检查",
+      "sasFieldName": "PEPERF",
+      "itemName": "是否检查",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "PE",
+      "formName": "体格检查",
+      "sasFieldName": "PEREASND",
+      "itemName": "如为否，请说明原因",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "PE",
+      "formName": "体格检查",
+      "sasFieldName": "PEDAT",
+      "itemName": "检查日期",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "PE",
+      "formName": "体格检查",
+      "sasFieldName": "PETEST",
+      "itemName": "项目",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "PE.PETEST",
+        "count": 6
+      }
+    },
+    {
+      "formOID": "PE",
+      "formName": "体格检查",
+      "sasFieldName": "PECLSIG",
+      "itemName": "临床评估",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "CL.CLSIG1",
+        "count": 4
+      }
+    },
+    {
+      "formOID": "PE",
+      "formName": "体格检查",
+      "sasFieldName": "PEDESC1",
+      "itemName": "如异常请详述",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "PE",
+      "formName": "体格检查",
+      "sasFieldName": "PEDESC2",
+      "itemName": "异常，请描述",
+      "fieldFormat": "DropDownList",
+      "codeList": {
+        "name": "CL.DESC1",
+        "count": 3,
+        "hasOther": true
+      }
+    },
+    {
+      "formOID": "PE",
+      "formName": "体格检查",
+      "sasFieldName": "PEAENO",
+      "itemName": "不良事件名称",
+      "fieldFormat": "DynamicOptions"
+    },
+    {
+      "formOID": "PE",
+      "formName": "体格检查",
+      "sasFieldName": "PEMHNO",
+      "itemName": "病史名称",
+      "fieldFormat": "DynamicOptions"
+    },
+    {
+      "formOID": "PE",
+      "formName": "体格检查",
+      "sasFieldName": "PEDESC2O",
+      "itemName": "其他,请说明",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "VS_HW",
+      "formName": "身高体重",
+      "sasFieldName": "VSPERF2",
+      "itemName": "是否进行身高体重检查",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "CL.YN1",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "VS_HW",
+      "formName": "身高体重",
+      "sasFieldName": "VSDAT2",
+      "itemName": "检查日期",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "VS_HW",
+      "formName": "身高体重",
+      "sasFieldName": "VSREASND2",
+      "itemName": "如为否，请说明原因",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "VS_HW",
+      "formName": "身高体重",
+      "sasFieldName": "HEIGHT",
+      "itemName": "身高",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "VS_HW",
+      "formName": "身高体重",
+      "sasFieldName": "WEIGHT",
+      "itemName": "体重",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "VS_HW",
+      "formName": "身高体重",
+      "sasFieldName": "BMI",
+      "itemName": "BMI",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "DM",
+      "formName": "人口学资料",
+      "sasFieldName": "BRTHDAT",
+      "itemName": "出生日期",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "DM",
+      "formName": "人口学资料",
+      "sasFieldName": "AGE",
+      "itemName": "年龄",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "DM",
+      "formName": "人口学资料",
+      "sasFieldName": "SEX",
+      "itemName": "性别",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "DM.SEX",
+        "count": 2
+      }
+    },
+    {
+      "formOID": "DM",
+      "formName": "人口学资料",
+      "sasFieldName": "ETHNIC",
+      "itemName": "民族",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "DM.ETHNIC",
+        "count": 2,
+        "hasOther": true
+      }
+    },
+    {
+      "formOID": "DM",
+      "formName": "人口学资料",
+      "sasFieldName": "ETHNICO",
+      "itemName": "其他民族",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "DM",
+      "formName": "人口学资料",
+      "sasFieldName": "SCORRES",
+      "itemName": "婚育情况",
+      "fieldFormat": "RadioButton",
+      "codeList": {
+        "name": "DM.SCORRES",
+        "count": 5,
+        "hasOther": true
+      }
+    },
+    {
+      "formOID": "DM",
+      "formName": "人口学资料",
+      "sasFieldName": "SCORRESO",
+      "itemName": "其他婚育情况",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "DS_ICF",
+      "formName": "知情同意",
+      "sasFieldName": "DSSTDAT4",
+      "itemName": "知情同意书签署日期",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "DS_ICF",
+      "formName": "知情同意",
+      "sasFieldName": "DSSTTIM",
+      "itemName": "知情同意书签署时间",
+      "fieldFormat": "{HH}:{mm}"
+    },
+    {
+      "formOID": "DS_ICF",
+      "formName": "知情同意",
+      "sasFieldName": "DSVER",
+      "itemName": "知情同意书版本号",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "DS_ICF",
+      "formName": "知情同意",
+      "sasFieldName": "DSVER1",
+      "itemName": "方案版本号",
+      "fieldFormat": "Number"
+    },
+    {
+      "formOID": "SV",
+      "formName": "访视日期",
+      "sasFieldName": "VISDAT",
+      "itemName": "访视日期",
+      "fieldFormat": "{yyyy}-{MM}-{dd}"
+    },
+    {
+      "formOID": "SC",
+      "formName": "受试者信息",
+      "sasFieldName": "SITEID1",
+      "itemName": "中心编号",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "SC",
+      "formName": "受试者信息",
+      "sasFieldName": "SUBJID",
+      "itemName": "筛选号",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "SC",
+      "formName": "受试者信息",
+      "sasFieldName": "SUBJINIT",
+      "itemName": "姓名拼音缩写",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "SC",
+      "formName": "受试者信息",
+      "sasFieldName": "RANDID",
+      "itemName": "随机号",
+      "fieldFormat": "LongText"
+    },
+    {
+      "formOID": "SC",
+      "formName": "受试者信息",
+      "sasFieldName": "SUBJINIT1",
+      "itemName": "姓名缩写（自动计算用）",
+      "fieldFormat": "Hidden"
+    }
+  ],
+  "_meta": {
+    "edcType": "taimei5",
+    "generatedAt": "2026-06-16T15:07:31.762917+00:00",
+    "sourceFile": "F:\\Git\\DMR-scripts\\metadata\\TSL-TCM-JTNP-Ⅲ-脊痛宁片III期-项目配置信息-V1.1.xlsx"
+  }
+}

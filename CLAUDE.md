@@ -9,7 +9,7 @@
 ├── config.yaml         # 数据路径配置
 ├── requirements.txt    # Python 依赖
 ├── 注意事项.md          # 业务规则说明
-├── scripts/            # 分析代码（按章节拆分）
+├── 04 scripts/            # 分析代码（按章节拆分）
 │   ├── a.试验整体情况小结/
 │   ├── b.入排标准/
 │   ├── c.方案偏离/
@@ -23,13 +23,13 @@
 ├── utils/              # 公共工具函数
 │   ├── loaders.py      # 数据读取层（load_sheet / load_rand 等）
 │   └── output_format.py # 报表输出函数（三线表、xlsx 等）
-├── raw/                # 原始数据（不入 Git）
-└── output/             # 生成的报表（不入 Git）
+├── 01 rawdata/                # 原始数据（不入 Git）
+└── 03 output/             # 生成的报表（不入 Git）
 ```
 
 ## Permissions
-- `scripts/`、`utils/`、`config.py`、`config.yaml`：Claude Code 可编辑
-- `raw/`、`output/`：不在 Git 中
+- `04 scripts/`、`utils/`、`config.py`、`config.yaml`：Claude Code 可编辑
+- `01 rawdata/`、`03 output/`：不在 Git 中
 
 ## Conventions
 
