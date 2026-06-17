@@ -48,7 +48,7 @@ pip install --quiet openpyxl
 ### Step 3: 运行解析脚本
 
 ```bash
-cd .claude/skills/build-metadata/scripts && python build-metadata.py <edcType> <excelPath>
+python ${CLAUDE_PROJECT_DIR}/.claude/skills/build-metadata/scripts/build-metadata.py <edcType> <excelPath>
 ```
 
 | 参数 | 值 |

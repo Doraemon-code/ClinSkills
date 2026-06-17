@@ -22,7 +22,6 @@
       "Bash(python scripts/**)",
       "Bash(python \"scripts/**\")",
       "Bash(python .claude/skills/**)",
-      "Bash(python -c *)",
       "Bash(pip install *)",
       "Bash(git *)"
     ]
@@ -30,11 +29,11 @@
   "hooks": {
     "PreToolUse": [
       {
-        "matcher": "Bash|Read",
+        "matcher": "Bash|Read|PowerShell",
         "hooks": [
           {
             "type": "command",
-            "command": "python .claude/hooks/raw_read_guard.py"
+            "command": "python ${CLAUDE_PROJECT_DIR}/.claude/hooks/raw_read_guard.py"
           }
         ]
       }
@@ -45,7 +44,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python .claude/hooks/syntax_check.py"
+            "command": "python ${CLAUDE_PROJECT_DIR}/.claude/hooks/syntax_check.py"
           }
         ]
       }
