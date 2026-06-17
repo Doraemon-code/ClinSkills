@@ -1,96 +1,57 @@
 """
-utils/loaders.py — 数据加载层
+utils/loaders.py — 数据读取层
 
-自包含定义所有数据读取函数：
-  - load_sheet      ：底层单 sheet 读取（统一 dtype=str）
-  - load_rand       ：DS_RAND 随机化信息
-  - load_completion ：DS_END 试验完成情况
-  - load_first_dose ：EC 首次服药日期
-
-用法：
-    from utils.loaders import load_sheet, load_rand, load_completion
+统一使用 load_sheet / load_rand 读取 EDC 导出的 Excel 数据。
 """
 
-from pathlib import Path
-import yaml
+import json
 import pandas as pd
+from config import raw_path
+from pathlib import Path
 
-# 从 config.yaml 加载 raw_path（相对于 utils/ 所在目录的上一级）
 _PROJECT_ROOT = Path(__file__).resolve().parent.parent
-_CONFIG = _PROJECT_ROOT / "config.yaml"
-with open(_CONFIG, "r", encoding="utf-8") as _f:
-    _cfg = yaml.safe_load(_f)
-raw_path = str(_PROJECT_ROOT / _cfg["path"]["raw_path"])
+
+# 读取 EDC 类型
+_meta_path = _PROJECT_ROOT / "02 metadata" / "FormField.json"
+with open(_meta_path, encoding="utf-8") as _f:
+    _meta = json.load(_f)
+EDC_TYPE = _meta.get("_meta", {}).get("edcType", "")
 
 
-def load_sheet(sheet_name, cols, path=None, header=0, skiprows=None):
-    """读取原始 Excel 的单个 sheet，统一 dtype=str。
+def _resolve_sheet_name(form_oid: str, form_name: str | None = None) -> str:
+    """根据 EDC 类型构造实际 sheet 名称。
 
-    Parameters
-    ----------
-    sheet_name : str
-        Sheet 名称。
-    cols : list[str]
-        需要的列名。
-    path : str, optional
-        Excel 文件路径，默认使用 raw_path。
-    header : int, optional
-        表头行号（0-indexed），默认 0。
-    skiprows : list[int], optional
-        需要跳过的行号列表。默认跳过第 1 行（即 header=0 时的第二行副标题）。
-
-    Returns
-    -------
-    pd.DataFrame
+    cmis 的 sheet 名为 '{formOID}--{formName}'，
+    taimei5/taimei6 的 sheet 名直接是 formOID。
     """
-    if path is None:
-        path = raw_path
-    if skiprows is None:
-        skiprows = [header + 1] if header == 0 else []
-    return pd.read_excel(
-        path, sheet_name=sheet_name,
-        header=header, skiprows=skiprows,
-        usecols=cols, dtype=str,
-    )
+    if EDC_TYPE == "cmis":
+        if form_name is None:
+            # 从元数据自动查找 formName
+            for rec in _meta["variables"]:
+                if rec["formOID"] == form_oid:
+                    form_name = rec["formName"]
+                    break
+        if form_name:
+            return f"{form_oid}--{form_name}"
+    return form_oid
 
 
-def load_rand(cols, path=None, header=0, skiprows=None):
-    """读取 DS_RAND（受试者随机化信息）。"""
-    return load_sheet("DS_RAND", cols, path, header=header, skiprows=skiprows)
+def load_sheet(
+    form_oid: str,
+    usecols: list[str] | None = None,
+    form_name: str | None = None,
+    dtype: dict | type | None = None,
+) -> pd.DataFrame:
+    """读取 EDC 导出 Excel 的指定 sheet。
 
+    Args:
+        form_oid: 表单 OID（即 sheet 名的核心部分）
+        usecols: 只读取指定列（中文列名列表）
+        form_name: 表单中文名（cmis 用于拼接 sheet 名；省略则自动从元数据查找）
+        dtype: 列类型覆盖（传给 pd.read_excel 的 dtype 参数，用于保留前导零等）
 
-def load_completion(path=None):
-    """读取 DS_END 并过滤为"试验完成情况总结"行。
-
-    返回 DataFrame，含 ["受试者", "是否完成试验"] 两列。
+    Returns:
+        DataFrame
     """
-    df = load_sheet("DS_END", ["受试者", "页面名称", "受试者是否完成试验_TXT"], path).fillna("")
-    df = df[df["页面名称"] == "试验总结表"].drop(columns="页面名称")
-    df = df.rename(columns={"受试者是否完成试验_TXT": "是否完成试验"})
-    return df
-
-
-def load_sc_demographics(cols, path=None):
-    """读取 SC sheet 中"人口学资料"页面的记录。
-
-    SC sheet 含"受试者信息"和"人口学资料"两个页面，
-    本函数自动过滤为"人口学资料"并去掉页面名称列。
-    """
-    page_col = "页面名称"
-    load_cols = list(dict.fromkeys(cols + [page_col]))  # 去重保序
-    df = load_sheet("SC", load_cols, path)
-    df = df[df[page_col] == "人口学资料"].drop(columns=page_col)
-    return df
-
-
-def load_first_dose(path=None):
-    """读取 EC_ED，返回每受试者最早用药开始日期。"""
-    ec = load_sheet("EC_ED", ["受试者", "开始日期"], path).fillna("")
-    ec["开始日期"] = pd.to_datetime(ec["开始日期"], errors="coerce")
-    ec = ec[ec["开始日期"].notna()]
-    return (
-        ec.groupby("受试者", dropna=False)["开始日期"]
-        .min()
-        .reset_index()
-        .rename(columns={"开始日期": "首次用药日期"})
-    )
+    sheet = _resolve_sheet_name(form_oid, form_name)
+    return pd.read_excel(raw_path, sheet_name=sheet, header=0, skiprows=[1], usecols=usecols, dtype=dtype)

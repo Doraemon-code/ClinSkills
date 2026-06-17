@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p \"F:/Git/DMR-scripts/.claude/skills/write-script/reference\")",
+      "Bash(mv \"F:/Git/DMR-scripts/.claude/skills/write-script/coding-guide.md\" \"F:/Git/DMR-scripts/.claude/skills/write-script/reference/coding-guide.md\")",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git config *)",
+      "Skill(update-config)",
+      "Bash(echo '{\"tool_name\":\"Bash\",\"tool_input\":{\"command\":\"python -c \\\\\"import pandas as pd; pd.read_excel\\(raw_path, sheet_name=\\\\\\\\\\\\\"AE\\\\\\\\\\\\\"\\)\\\\\"\"}}')",
+      "Bash(python .claude/hooks/raw_read_guard.py)",
+      "Bash(echo \"exit=$?\")",
+      "Read(//f/Git/MetadataSkill/**)",
+      "Bash(find . -iname \"codelist*.json\")",
+      "Bash(find /f/Git/MetadataSkill -type d -iname \"metadata\")",
+      "Read(//f/Git/DMR-template/**)",
+      "PowerShell(python \"04 scripts/h.常规附件清单/清单07：既往病史清单.py\"; \"EXIT=$LASTEXITCODE\")",
+      "Bash(echo \"EXIT=$?\")",
+      "Bash(python -c ' *)",
+      "Bash(echo \"EXIT:$?\")",
+      "Bash(python -u \"04 scripts/01/清单01：不完整日期时间核查.py\")",
+      "Bash(python -m venv .venv)",
+      "Bash(.venv/Scripts/pip install *)",
+      "Bash(echo \"exit: $?\")",
+      "Bash(python -c \"import ast; ast.parse\\(open\\(r'04 scripts/01/清单01：不完整日期时间核查.py', encoding='utf-8'\\).read\\(\\)\\); print\\('语法检查通过'\\)\")",
+      "Bash(python -c \"import ast; ast.parse\\(open\\(r'04 scripts/01/清单02：自由文本核查.py', encoding='utf-8'\\).read\\(\\)\\); print\\('语法检查通过'\\)\")"
+    ]
+  }
+}

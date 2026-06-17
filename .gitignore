@@ -1,7 +1,8 @@
-# Whitelist mode: ignore everything, then un-ignore .claude/ and utils/
 *
-!.gitignore
 !.claude/
-!.claude/**
+!.claude/**/*
+!.gitignore
+!.gitattributes
 !utils/
-!utils/**
+!utils/**/*
+**/__pycache__/
