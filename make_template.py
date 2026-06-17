@@ -33,7 +33,7 @@ COPY_PATHS = [
 ]
 
 # 留 .gitkeep 占位的空目录（项目数据，不拷内容）
-EMPTY_DIRS = ["scripts", "notebooks", "metadata", "raw", "output"]
+EMPTY_DIRS = ["scripts", "metadata", "raw", "output"]
 
 SKELETON_CONFIG_YAML = """\
 path:
@@ -56,7 +56,6 @@ SKELETON_CLAUDE_MD = """\
 ```
 ├── config.py / config.yaml   # 路径配置
 ├── scripts/                   # 分析代码（按章节拆分）
-├── notebooks/                 # Jupyter 原始笔记本（只读参考）
 ├── utils/                     # 公共工具（loaders / output_format 等）
 ├── metadata/                  # EDC 元数据 Excel + build-metadata 生成的 JSON
 ├── raw/                       # 原始数据（不入 Git）
@@ -64,7 +63,6 @@ SKELETON_CLAUDE_MD = """\
 ```
 
 ## Permissions
-- `.ipynb` 文件：Claude Code 禁止编辑（只读，仅作参考）
 - `scripts/`、`utils/`、`config.py`、`config.yaml`：Claude Code 可编辑
 - `raw/`、`output/`：不在 Git 中
 

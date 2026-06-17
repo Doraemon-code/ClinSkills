@@ -9,7 +9,7 @@
 ├── config.yaml         # 数据路径配置
 ├── requirements.txt    # Python 依赖
 ├── 注意事项.md          # 业务规则说明
-├── scripts/            # 分析代码（按章节拆分，与 notebooks/ 一一对应）
+├── scripts/            # 分析代码（按章节拆分）
 │   ├── a.试验整体情况小结/
 │   ├── b.入排标准/
 │   ├── c.方案偏离/
@@ -20,7 +20,6 @@
 │   ├── h.常规附件清单/
 │   ├── i.方案禁止的合并用药清单/
 │   └── j.依从性计算/
-├── notebooks/          # Jupyter 原始笔记本（只读参考）
 ├── utils/              # 公共工具函数
 │   ├── loaders.py      # 数据读取层（load_sheet / load_rand 等）
 │   └── output_format.py # 报表输出函数（三线表、xlsx 等）
@@ -29,7 +28,6 @@
 ```
 
 ## Permissions
-- `.ipynb` 文件：Claude Code 禁止编辑（只读，仅作参考）
 - `scripts/`、`utils/`、`config.py`、`config.yaml`：Claude Code 可编辑
 - `raw/`、`output/`：不在 Git 中
 
