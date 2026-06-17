@@ -145,7 +145,7 @@ Read .claude/skills/write-script/reference/coding-guide.md
 **正常路径（原始数据可用）：**
 
 ```bash
-python scripts/<章节>/<脚本名>.py
+python 04 scripts/<章节>/<脚本名>.py
 ```
 
 从项目根目录执行。检查：
@@ -157,7 +157,7 @@ python scripts/<章节>/<脚本名>.py
 **降级路径（原始数据不可用）：**
 
 ```bash
-python -c "import ast; ast.parse(open(r'scripts/<章节>/<脚本名>.py', encoding='utf-8').read()); print('语法检查通过')"
+python -c "import ast; ast.parse(open(r'04 scripts/<章节>/<脚本名>.py', encoding='utf-8').read()); print('语法检查通过')"
 ```
 
 仅验证语法正确性，提醒用户数据层未验证。

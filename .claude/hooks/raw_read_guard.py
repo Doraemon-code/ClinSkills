@@ -5,9 +5,9 @@
 的工具事件 JSON。落地 constraints.md #2"查数据形状先用 query_metadata.py"的机制下限。
 
 判定：
-- metadata/ 下的表格文件 → 显式放行（无需弹窗）
-- raw/ 下的表格文件 → 硬拒绝（禁止直接读取，引导使用 query_metadata.py）
-- Bash 命令中出现 raw 读取特征 → 硬拒绝（排除 scripts/ 脚本和 query_metadata.py）
+- 02 metadata/ 下的表格文件 → 显式放行（无需弹窗）
+- 01 rawdata/ 下的表格文件 → 硬拒绝（禁止直接读取，引导使用 query_metadata.py）
+- Bash 命令中出现 raw 读取特征 → 硬拒绝（排除 04 scripts/ 脚本和 query_metadata.py）
 """
 
 import json
@@ -83,9 +83,9 @@ def main():
         if not _is_table_file(file_path):
             return 0  # 非表格文件，不干预
 
-        if _under_dir(file_path, "metadata"):
+        if _under_dir(file_path, "02 metadata"):
             return _decide("allow")  # metadata → 显式放行
-        if _under_dir(file_path, "raw"):
+        if _under_dir(file_path, "01 rawdata"):
             return _decide("deny", _DENY_RAW_REASON)  # raw → 硬拒绝
 
         return 0
