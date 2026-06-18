@@ -124,9 +124,9 @@ python .claude/skills/write-script/scripts/query_metadata.py <command> [args]
 
 **确认循环：**
 
-- 用户确认无误 → 进入 Step 4 编写脚本
-- 用户提出修改 → 按修改更新上述表格，**重新呈现修改后的确认信息**，再次等待确认
-- 循环直到用户明确同意，才开始写代码
+- 用户回复含肯定词（"好""可以""确认""没问题""行"等）或直接要求开始写 → 视为同意，进入 Step 4
+- 用户回复含"不""修改""改一下""错了"等修改信号 → 更新表格，重新呈现，再次等待
+- 同一方案修改超过 3 次仍未收到明确确认 → 按最新表格版本执行，并告知用户
 
 ### 4. 编写脚本
 
@@ -136,7 +136,7 @@ python .claude/skills/write-script/scripts/query_metadata.py <command> [args]
 
 **检查是否应封装为通用工具：** 如果当前逻辑（如日期解析、特定域的筛选合并、格式转换）很可能在后续脚本中重复出现，先将其封装到 `utils/` 中再调用，而不是在脚本内写死。
 
-完成上述检查后，按编码规范编写。**首次编写脚本前**读取 `coding-guide.md`（同会话已读可跳过）：
+完成上述检查后，按编码规范编写。每次编写脚本前读取 `coding-guide.md`：
 
 ```bash
 Read .claude/skills/write-script/reference/coding-guide.md
@@ -175,4 +175,4 @@ python -c "import ast; ast.parse(open(r'04 scripts/<章节>/<脚本名>.py', enc
 
 ---
 
-文件命名：`清单NN：标题.py` 或 `表格NN：标题.py`（NN 为两位数字序号）。
+文件命名：`清单NN：标题.py` 或 `表格NN：标题.py`（NN 为两位数字序号；`：` 为全角冒号，适用于 Windows NTFS，跨平台部署时需注意）。
