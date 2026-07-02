@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "plugins": [
+    {
+      "name": "raw_read_guard",
+      "description": "拦截直接读取 01 rawdata/ 下的表格文件",
+      "path": "./plugins/raw_read_guard.js",
+      "hooks": ["tool.execute.before"]
+    },
+    {
+      "name": "syntax_check",
+      "description": "04 scripts/ 下 .py 写入后自动语法检查",
+      "path": "./plugins/syntax_check.js",
+      "hooks": ["tool.execute.after"]
+    }
+  ]
+}
