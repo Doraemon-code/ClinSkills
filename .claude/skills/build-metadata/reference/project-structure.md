@@ -42,7 +42,7 @@
 | 01 | rawdata | EDC 导出的原始 Excel 数据 | 否 |
 | 02 | metadata | 元数据 Excel + 解析后的 JSON | 是 |
 | 03 | output | 生成的报表文件 | 否 |
-| 04 | scripts | 数据核查 Python 脚本 | 是 |
+| 04 | scripts | 数据核查 Python 脚本 | 否 |
 
 ## 骨架文件
 
@@ -109,15 +109,20 @@ Thumbs.db
 \```
 
 ## Permissions
-- 可编辑：`04 scripts/`、`utils/`、`config.py`、`config.yaml`
-- 只读（Claude Code 可读不可写）：`01 rawdata/`
-- 由脚本写入（Claude Code 不直接操作）：`03 output/`（不入 Git）
+- 可编辑：`04 scripts/`、`utils/`、`config.py`、`config.yaml`、`.gitignore`、`CLAUDE.md`、`.claude/**`
+- 不在 Git 中：`01 rawdata/`、`02 metadata/`、`03 output/`、`04 scripts/`
 
 ## Conventions
 
 编码规范（变量前缀、列名集中管理、八步操作模型、脚本模板等）详见 `/write-script` skill 的 `SKILL.md`。以下为跨 skill 的通用约定：
 
-- 表头结构：`header=0, skiprows=[1]`（第 1 行英文 SAS 列名，第 2 行中文列名被跳过）
+<!-- EDC_TYPE_HEADER_START -->
+<!-- 根据 Step 1 选择的 EDC 类型，替换下方约定行： -->
+<!-- clinflash: - 表头结构：`header=0`（单行中文列名，无 skiprows） -->
+<!-- taimei5/taimei6/cmis: - 表头结构：`header=0, skiprows=[1]`（第 1 行英文 SAS 列名，第 2 行中文列名被跳过） -->
+- 表头结构：`header=0`（单行中文列名，无 skiprows）
+<!-- EDC_TYPE_HEADER_END -->
+- 列名语言：按 `CLAUDE.md` 表头约定执行（clinflash 用中文列名，taimei/cmis 用英文 SAS 列名）
 - 报表函数来自 `utils/output_format.py`
 - 数据读取函数来自 `utils/loaders.py`（`load_sheet` / `load_rand` 等）
 - 生成文件路径由 `config.yaml` 的 `output_path` 控制（`config.py` 自动解析为绝对路径）

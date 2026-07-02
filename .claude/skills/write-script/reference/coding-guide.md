@@ -15,32 +15,37 @@ if _project_root not in sys.path:
 import pandas as pd
 import numpy as np
 from config import output_path
-from utils.output_format import save_table_to_docx_threeline
-from utils.loaders import load_rand, load_sheet
+from utils.output_format import save_table_to_docx_threeline, export_to_one_excel_with_format
+from utils.loaders import load_sheet
 ```
 
 - `pd`、`np` 直接 import，不经过任何中间模块
 - `output_path` 等路径变量从 `config.py` 导入
-- 报表函数从 `utils.output_format` 按需导入（`save_table_to_docx_threeline`、`export_to_excel_with_format`）
-- 数据读取统一走 `utils/loaders.py` 的 `load_sheet` / `load_rand`，不直接调用 `pd.read_excel`
+- 报表函数从 `utils.output_format` 按需导入（`save_table_to_docx_threeline`、`export_to_one_excel_with_format`）
+- 数据读取统一走 `utils/loaders.py` 的 `load_sheet`，不直接调用 `pd.read_excel`
 - 禁止使用 `# %%` Jupyter cell 标记
 
 ## 列名集中管理
 
 导入之后、逻辑之前，用 `# ── 列名集中管理 ──` 引出声明区：
 
-**列名语言规则（强制）：写程序时一律用英文列名——`IMPORT_*`（即 EDC 导出的实际列名，本项目为 SAS 英文名）与中间 `VAR_*` 全程用英文；只有最终输出结果表的列名（输出 `VAR_*` + `OUTPUT_COLS`）必须 rename 还原为中文。即「内部英文、输出中文」。**
+**列名语言规则：列名语言由 `CLAUDE.md` 的表头约定决定（clinflash 用中文列名，taimei/cmis 用英文 SAS 列名）。`IMPORT_*`（EDC 导出的实际列名）与中间 `VAR_*` 全程与 CLAUDE.md 约定一致；只有最终输出结果表的列名（输出 `VAR_*` + `OUTPUT_COLS`）必须 rename 还原为中文。即「内部按约定、输出中文」。**
+
+> **clinflash 示例**（中文列名）：`IMPORT_SV = ["受试者编号", "访视日期(VISDAT)"]`，`VAR_SUBJ = "受试者编号"`
+> **taimei/cmis 示例**（英文列名）：`IMPORT_SV = ["SUBJID", "VISDAT"]`，`VAR_SUBJ = "SUBJID"`
 
 ```python
 # ── 列名集中管理 ──
 
-# 导入列名（load_sheet / load_rand 的 usecols）—— 英文：EDC 实际列名（本项目为 SAS 英文名）
-IMPORT_SV  = ["SUBJID", "VISIT", "VISDAT"]
-IMPORT_ICF = ["SUBJID", "DSSTDAT"]
+# 导入列名（load_sheet 的 usecols）—— 按 CLAUDE.md 约定（clinflash 中文 / taimei英文）
+# clinflash: IMPORT_SV  = ["受试者编号", "访视日期(VISDAT)"]
+# taimei:    IMPORT_SV  = ["SUBJID", "VISDAT"]
+IMPORT_SV  = ["受试者编号", "访视日期(VISDAT)"]
+IMPORT_ICF = ["受试者编号", "知情同意书签署日期(DSSTDAT)"]
 
-# 中间列名（归一化 / 筛选 / 派生阶段产生或引用）—— 英文：沿用 EDC 列名
-VAR_SUBJ          = "SUBJID"
-VAR_ICF_SIGN_DATE = "DSSTDAT"
+# 中间列名（归一化 / 筛选 / 派生阶段产生或引用）—— 与 IMPORT 同语言
+VAR_SUBJ          = "受试者编号"
+VAR_ICF_SIGN_DATE = "知情同意书签署日期(DSSTDAT)"
 
 # 输出列名（rename 映射目标 + 最终列序）—— 中文：还原为中文表头
 VAR_SCREEN_NO     = "筛选号"
@@ -59,20 +64,20 @@ EDC 导出的 Excel 中，带编码表的字段有两列：
 - **码值列**（如 `临床评估`）：存储编码值（如 1=正常, 2=异常无临床意义, 99=其他）
 - **解码列**（加后缀，如 `临床评估_TXT`）：存储显示文本
 
-**规则：脚本中必须使用解码列，不使用码值列。** 后缀因 EDC 系统而异，由 `query_metadata.py fields` 的输出自动给出（系统感知，如太美5/太美6 → `_TXT`，赛美斯 → `_DEC`）。
+**规则：脚本中必须使用解码列，不使用码值列。** 后缀/列名格式因 EDC 系统而异，由 `query_metadata.py fields` 的输出自动给出（系统感知：clinflash 用 `{itemName}({fieldOID})` 列名含解码值、taimei5/6 → `_TXT`、cmis → `_DEC`）。
 
-判断依据——`query_metadata.py` 的 `fields` 输出中，带编码表的字段（格式为 `DropDownList`、`RadioButton`、`CheckBox` 等）都需要读解码列。`hasOther` 标记的字段尤其重要：用户选"其他"时码值列为编码（如 99），实际文本只在解码列中。
+判断依据——`query_metadata.py` 的 `fields` 输出中，带编码表的字段（格式为 `下拉框`、`水平单选框`、`垂直单选框`、`多选框`、`动态多选搜索框` 等）都需要读解码列。`hasOther` 标记的字段尤其重要：用户选"其他"时码值列为编码（如 99），实际文本只在解码列中。
 
-`IMPORT_*` 中写原始列名（含后缀），`_RENAME_MAP` 中去掉后缀映射为语义名：
+`IMPORT_*` 中写 `query_metadata.py fields` 标注的脚本列名，`_RENAME_MAP` 中映射为语义名：
 
 ```python
-# IMPORT_* 写解码列名（含后缀）
-IMPORT_PE = ["临床评估_TXT", "异常，请描述_TXT"]
+# clinflash: IMPORT_* 写 {itemName}({fieldOID}) 列名（含解码值）
+IMPORT_PE = ["临床评估(MIPERF)", "异常，请描述(MIDESC)"]
 
-# _RENAME_MAP 去掉后缀
+# _RENAME_MAP 去掉括号后缀
 _RENAME_MAP = {
-    "临床评估_TXT":    VAR_CS,     # "临床意义"
-    "异常，请描述_TXT": VAR_DESC,   # "异常描述"
+    "临床评估(MIPERF)":    VAR_CS,     # "临床意义"
+    "异常，请描述(MIDESC)": VAR_DESC,   # "异常描述"
 }
 ```
 
@@ -81,6 +86,7 @@ _RENAME_MAP = {
 - **taimei5**：复选框只有**码值列、无解码列**，码值列直接存勾选值（通常 `"1"`=勾选，`"0"`/空=未选）。`fields` 标作 `勾选=1 … ← 用此列(码值列,无解码)`，脚本直接判 `df[col] == "1"`，**不要加 `_TXT` 后缀**（解码列不存在，会 KeyError）。
 - **taimei6**：已移除 CheckBox 控件，单选项字段是 `count==1` 的 codelist（码值 `"Y"`、解码 `"√"`），按普通编码字段走解码列。
 - **cmis**：复选框自带 codelist，按普通编码字段走解码列。
+- **clinflash**：`多选框` / `动态多选搜索框` 的解码值直接在 `{itemName}({fieldOID})` 列中，`fields` 标作 `← 用此列(含解码值)`，按普通编码字段处理即可。
 
 ## 变量命名前缀
 
@@ -157,11 +163,12 @@ save_table_to_docx_threeline(
 
 **Excel 清单：**
 ```python
-export_to_excel_with_format(
+export_to_one_excel_with_format(
     df_out,
     f"{output_path}/listing/表X 标题.xlsx",
     "表X 标题",
     f"表X 标题（{n}例）",
+    add_title=True,
 )
 ```
 

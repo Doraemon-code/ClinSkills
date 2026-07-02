@@ -50,6 +50,7 @@ def _load(name):
 
 
 # EDC 系统 → 解码列后缀（对应 build-metadata 写入的 _meta.edcType）
+# clinflash 无独立解码列，解码值直接存在主列 {itemName}({fieldOID}) 中
 _DECODE_SUFFIX = {
     "taimei5": "_TXT",
     "taimei6": "_TXT",
@@ -62,6 +63,20 @@ def _decode_suffix(ff):
     """从 FormField.json 的 _meta.edcType 推断解码列后缀。"""
     edc = ff.get("_meta", {}).get("edcType", "")
     return _DECODE_SUFFIX.get(edc, _DEFAULT_DECODE_SUFFIX)
+
+
+def _is_clinflash(ff):
+    """判断是否为 clinflash EDC 系统。"""
+    return ff.get("_meta", {}).get("edcType", "") == "clinflash"
+
+
+def _clinflash_col_name(v):
+    """构造 clinflash 的 Excel 列名：{itemName}({fieldOID})。"""
+    item = v.get("itemName", "")
+    oid = v.get("fieldOID", "")
+    if item and oid:
+        return f"{item}({oid})"
+    return item
 
 
 def cmd_forms():
@@ -83,6 +98,7 @@ def cmd_fields(form_name):
     """列出指定表单的所有字段。"""
     ff = _load("FormField")
     suffix = _decode_suffix(ff)
+    clinflash = _is_clinflash(ff)
     matched = [v for v in ff.get("variables", [])
                if v.get("formName") == form_name or v.get("formOID") == form_name]
     if not matched:
@@ -102,11 +118,16 @@ def cmd_fields(form_name):
         cl = v.get("codeList")
         cl_str = ""
         col_name = v.get("itemName", "")
+        if clinflash:
+            col_name = _clinflash_col_name(v)
         if cl:
             cl_str = f"{cl['name']} ({cl['count']}项)"
             if cl.get("hasOther"):
                 cl_str += " [含其他]"
-            col_name = f"{v.get('itemName', '')}{suffix}  ← 用此列"
+            if not clinflash:
+                col_name = f"{v.get('itemName', '')}{suffix}  ← 用此列"
+            else:
+                col_name = f"{_clinflash_col_name(v)}  ← 用此列(含解码值)"
         elif v.get("checkedValue"):
             cl_str = f"勾选={v['checkedValue']}"
             col_name = f"{v.get('itemName', '')}  ← 用此列(码值列,无解码)"

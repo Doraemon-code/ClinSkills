@@ -86,6 +86,7 @@ def _build_form_fields(wb, codelist):
         rec = {
             "formOID": form_oid,
             "formName": form_names.get(form_oid, form_oid),
+            "fieldOID": row.get("fieldOID"),
             "sasFieldName": row.get("SASText"),
             "itemName": row.get("fieldName"),
             "fieldFormat": field_format,

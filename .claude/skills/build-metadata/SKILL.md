@@ -36,7 +36,7 @@ python -m venv .venv && .venv\Scripts\python -m pip install --quiet openpyxl
 
 > 直接调用 `.venv\Scripts\python` 而非先激活，避免 shell 隔离导致激活失效。
 
-**0d. 确定项目根路径**：
+**0c. 确定项目根路径**：
 
 后续步骤中 `${CLAUDE_PROJECT_DIR}` 若未设置，改用以下命令获取项目根目录，并将结果作为 `PROJECT_ROOT` 使用：
 
@@ -44,7 +44,20 @@ python -m venv .venv && .venv\Scripts\python -m pip install --quiet openpyxl
 git rev-parse --show-toplevel
 ```
 
-### Step 1: 校验项目目录结构
+### Step 1: 询问 EDC 类型
+
+使用 AskUserQuestion 询问：
+
+**问题**: 请选择 EDC 系统类型
+**选项**:
+- 太美5（taimei5）
+- 太美6（taimei6）
+- cmis / 赛美斯（cmis）
+- clinflash / 易迪希（clinflash）
+
+> EDC 类型决定表头结构约定（写入 CLAUDE.md）和解码列后缀（写入 query_metadata.py 逻辑），必须在初始化骨架文件之前确定。
+
+### Step 2: 校验项目目录结构
 
 读取标准结构参考文件：
 
@@ -54,7 +67,7 @@ Read ${CLAUDE_PROJECT_DIR}/.claude/skills/build-metadata/reference/project-struc
 
 按以下顺序校验并修正：
 
-**1a. 检测并修正目录命名**
+**2a. 检测并修正目录命名**
 
 扫描项目根目录，仅对下表中**精确列出**的旧名称执行重命名，不在表中的目录名一律跳过，不做猜测：
 
@@ -71,39 +84,28 @@ Read ${CLAUDE_PROJECT_DIR}/.claude/skills/build-metadata/reference/project-struc
 
 > **重命名后必须同步路径引用**。按参考文件的「目录重命名时的路径同步清单」逐项更新所有受影响文件。
 
-**1b. 初始化骨架文件**
+**2b. 初始化骨架文件**
 
-检查以下文件是否已存在，不存在则从参考文件中的模板生成：
+检查以下文件是否已存在，不存在则从参考文件中的模板生成。**CLAUDE.md 的表头约定行根据 Step 1 确定的 EDC 类型选择对应内容**：
 
 | 文件 | 说明 |
 |------|------|
 | `.gitattributes` | Git 行尾与二进制规则 |
 | `.gitignore` | Git 忽略规则 |
-| `CLAUDE.md` | 项目说明（提示用户填写 `<项目名>`） |
+| `CLAUDE.md` | 项目说明（含 EDC 类型对应的表头约定，提示用户填写 `<项目名>`） |
 | `config.py` | 路径配置加载器 |
 | `config.yaml` | 数据路径模板（提示用户后续填写具体路径） |
 | `requirements.txt` | Python 依赖 |
 
 已存在的文件**不覆盖**，仅补充缺失项。
 
-**1c. 报告校验结果**
+**2c. 报告校验结果**
 
 向用户报告：
 - 哪些目录被创建或重命名
 - 哪些骨架文件被初始化
 - 哪些路径引用已同步更新
 - 无变更则报告「目录结构已符合标准」
-
-### Step 2: 询问 EDC 类型
-
-使用 AskUserQuestion 询问：
-
-**问题**: 请选择 EDC 系统类型
-**选项**:
-- 太美5（taimei5）
-- 太美6（taimei6）
-- cmis / 赛美斯（cmis）
-- clinflash / 易迪希（clinflash）
 
 ### Step 3: 定位元数据 Excel
 
@@ -125,7 +127,7 @@ python ${CLAUDE_PROJECT_DIR}/.claude/skills/build-metadata/scripts/build-metadat
 | edcType | `taimei5`、`taimei6`、`cmis` 或 `clinflash` |
 | excelPath | 上一步定位到的 Excel 文件绝对路径 |
 
-脚本会自动调用对应的解析模块（`parse_taimei5.py` / `parse_taimei6.py` / `parse_cmis.py`），JSON 文件输出在 Excel 同目录下。
+脚本会自动调用对应的解析模块（`parse_taimei5.py` / `parse_taimei6.py` / `parse_cmis.py` / `parse_clinflash.py`），JSON 文件输出在 Excel 同目录下。
 
 > **注意**: 所有 EDC 类型的 Excel 加载均内置 openpyxl `MatchPattern` 兼容 patch（见 `_compat.py`），调用方无需额外处理。
 

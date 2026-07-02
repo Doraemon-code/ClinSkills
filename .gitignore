@@ -11,7 +11,7 @@ __pycache__/
 # Metadata
 02 metadata/
 
-# Scripts
+# Scripts (local only, not tracked)
 04 scripts/
 
 # OS
