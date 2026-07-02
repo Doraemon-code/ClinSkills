@@ -103,6 +103,7 @@ Read ${CLAUDE_PROJECT_DIR}/.claude/skills/build-metadata/reference/project-struc
 - 太美5（taimei5）
 - 太美6（taimei6）
 - cmis / 赛美斯（cmis）
+- clinflash / 易迪希（clinflash）
 
 ### Step 3: 定位元数据 Excel
 
@@ -121,7 +122,7 @@ python ${CLAUDE_PROJECT_DIR}/.claude/skills/build-metadata/scripts/build-metadat
 
 | 参数 | 值 |
 |------|-----|
-| edcType | `taimei5`、`taimei6` 或 `cmis` |
+| edcType | `taimei5`、`taimei6`、`cmis` 或 `clinflash` |
 | excelPath | 上一步定位到的 Excel 文件绝对路径 |
 
 脚本会自动调用对应的解析模块（`parse_taimei5.py` / `parse_taimei6.py` / `parse_cmis.py`），JSON 文件输出在 Excel 同目录下。
@@ -160,6 +161,14 @@ python ${CLAUDE_PROJECT_DIR}/.claude/skills/build-metadata/scripts/build-metadat
 | VisitForm | 访视流程 |
 | FormField | 变量列表 |
 | CodeList | 受控术语 |
+
+### clinflash
+
+| 输出文件 | 来源 sheet | 字段处理 |
+|---------|-----------|---------|
+| VisitForm | Folder, FolderModule | Folder 定义访视期，FolderModule 定义访视-模块包含关系，模块 OID 与表单 OID 一一对应 |
+| FormField | Field, Form | 取 Form 的 formName；Field 取 formOID/fieldName/SASText/controlType/dataFormat/dataDictionaryOID；controlType+dataFormat 合并为 FieldFormat（日期框用 dataFormat 覆盖） |
+| CodeList | DataDictionary, DataDictionaryEntry | DataDictionary 提供 OID→Name 映射，DataDictionaryEntry 按 OID 分组取 entryOID/itemDataString |
 
 ## 输出
 

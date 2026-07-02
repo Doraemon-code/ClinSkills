@@ -1,10 +1,27 @@
-*
-!.claude/
-!.claude/**/*
-!.gitignore
-!.gitattributes
-!utils/
-!utils/**/*
-**/__pycache__/
+# Python cache
+__pycache__/
+*.pyc
+
+# Generated output
+03 output/
+
+# Raw data (large / sensitive)
+01 rawdata/
+
+# Metadata
+02 metadata/
+
+# Scripts
+04 scripts/
+
+# OS
+.DS_Store
+Thumbs.db
+
 .venv/
-.claude/settings.local.json
+
+# Project config
+config.yaml
+config.py
+CLAUDE.md
+requirements.txt

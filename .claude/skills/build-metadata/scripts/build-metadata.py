@@ -3,7 +3,7 @@ build-metadata.py
 EDC 元数据 Excel 解析入口。根据 edcType 调用对应的解析模块，生成 JSON 文件。
 
 Usage: python build-metadata.py <edcType> <excelPath>
-  edcType:  taimei5 | cmis | taimei6
+  edcType:  taimei5 | cmis | taimei6 | clinflash
   excelPath: 元数据 Excel 文件路径
 
 JSON 输出在 Excel 同目录下，文件名由各解析模块决定。
@@ -21,12 +21,14 @@ except ImportError:
 from parse_taimei5 import parse as parse_taimei5
 from parse_cmis import parse as parse_cmis
 from parse_taimei6 import parse as parse_taimei6
+from parse_clinflash import parse as parse_clinflash
 from _compat import load_workbook_patched
 
 PARSERS = {
     "taimei5": parse_taimei5,
     "cmis": parse_cmis,
     "taimei6": parse_taimei6,
+    "clinflash": parse_clinflash,
 }
 
 

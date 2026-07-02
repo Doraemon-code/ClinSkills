@@ -54,4 +54,7 @@ def load_sheet(
         DataFrame
     """
     sheet = _resolve_sheet_name(form_oid, form_name)
-    return pd.read_excel(raw_path, sheet_name=sheet, header=0, skiprows=[1], usecols=usecols, dtype=dtype)
+    kwargs = {"header": 0, "usecols": usecols, "dtype": dtype}
+    if EDC_TYPE != "clinflash":
+        kwargs["skiprows"] = [1]
+    return pd.read_excel(raw_path, sheet_name=sheet, **kwargs)
