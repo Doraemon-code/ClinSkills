@@ -12,12 +12,12 @@
 ├── 03 output/                   # 生成的报表（不入 Git）
 ├── 04 scripts/                  # 分析代码（按章节拆分，子目录由报告章节决定）
 ├── .claude/                     # Claude Code 配置（不随项目变动）
-│   ├── hooks/
-│   │   ├── raw_read_guard.py    # PreToolUse: 禁止直接读 rawdata
-│   │   └── syntax_check.py      # PostToolUse: 脚本语法检查
+│   ├── hooks/                     # Claude Code 兼容钩子（opencode 不生效，保留兼容）
+│   │   ├── raw_read_guard.py    # PreToolUse: 禁止直接读 rawdata（Claude Code only）
+│   │   └── syntax_check.py      # PostToolUse: 脚本语法检查（Claude Code only）
 │   ├── rules/
-│   │   └── constraints.md       # 强制约束
-│   ├── settings.json            # 权限与钩子配置
+│   │   └── constraints.md       # 强制约束（含 opencode 环境说明）
+│   ├── settings.json            # 权限配置（permission deny 保护 rawdata；无 hooks）
 │   └── skills/
 │       ├── build-metadata/      # 元数据解析技能
 │       └── write-script/        # 脚本编写技能
@@ -188,11 +188,10 @@ XlsxWriter>=3.1
 |------|---------|
 | `config.yaml` | `raw_path` / `pd_path` / `code_path` / `remark_path` / `timewin_path` / `output_path` |
 | `CLAUDE.md` | 目录树、Permissions 节 |
-| `.claude/settings.json` | Edit / Write / Bash 权限模式 |
-| `.claude/settings.local.json` | PowerShell 权限模式（如有） |
-| `.claude/rules/constraints.md` | `scripts/` 引用 |
-| `.claude/hooks/syntax_check.py` | `parts[0]` 检查 + docstring |
-| `.claude/hooks/raw_read_guard.py` | `_under_dir()` 参数 + docstring |
+| `.claude/settings.json` | permission deny / allow 规则 |
+| `.claude/rules/constraints.md` | `scripts/` 引用 + opencode 环境说明 |
+| `.claude/hooks/syntax_check.py` | `parts[0]` 检查 + docstring（Claude Code 兼容） |
+| `.claude/hooks/raw_read_guard.py` | `_under_dir()` 参数 + docstring（Claude Code 兼容） |
 | `.claude/skills/write-script/SKILL.md` | 验证命令路径 |
 | `.claude/skills/build-metadata/SKILL.md` | `metadata/` 路径描述 |
 | `.claude/skills/write-script/scripts/query_metadata.py` | `_resolve_metadata_dir()` 默认路径 |

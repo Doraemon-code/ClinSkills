@@ -1,6 +1,7 @@
 {
   "permissions": {
     "deny": [
+      "Read(01 rawdata/**)",
       "Edit(**/*.ipynb)",
       "Write(**/*.ipynb)",
       "NotebookEdit(**/*.ipynb)"
@@ -23,30 +24,6 @@
       "Bash(python .claude/skills/**)",
       "Bash(pip install *)",
       "Bash(git *)"
-    ]
-  },
-  "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "(?i)Bash|Read|PowerShell",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "${CLAUDE_PROJECT_DIR}/.venv/Scripts/python.exe ${CLAUDE_PROJECT_DIR}/.claude/hooks/raw_read_guard.py"
-          }
-        ]
-      }
-    ],
-    "PostToolUse": [
-      {
-        "matcher": "Edit|Write|MultiEdit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "${CLAUDE_PROJECT_DIR}/.venv/Scripts/python.exe ${CLAUDE_PROJECT_DIR}/.claude/hooks/syntax_check.py"
-          }
-        ]
-      }
     ]
   }
 }
