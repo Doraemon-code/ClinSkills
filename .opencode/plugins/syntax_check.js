@@ -2,8 +2,6 @@
 // 对应 .claude/hooks/syntax_check.py 的 opencode 插件版
 // 通过 tool.execute.after 在文件写入完成后触发
 
-import { $ } from "bun";
-
 const SCRIPTS_DIR = "04 scripts";
 
 function relPath(filePath, projectRoot) {
