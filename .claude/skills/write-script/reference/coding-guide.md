@@ -29,26 +29,29 @@ from utils.loaders import load_rand, load_sheet
 
 导入之后、逻辑之前，用 `# ── 列名集中管理 ──` 引出声明区：
 
+**列名语言规则（强制）：写程序时一律用英文列名——`IMPORT_*`（即 EDC 导出的实际列名，本项目为 SAS 英文名）与中间 `VAR_*` 全程用英文；只有最终输出结果表的列名（输出 `VAR_*` + `OUTPUT_COLS`）必须 rename 还原为中文。即「内部英文、输出中文」。**
+
 ```python
 # ── 列名集中管理 ──
 
-# 导入列名（load_sheet / load_rand 的 usecols）
-IMPORT_RAND  = ['受试者', '受试者状态', '随机时间', '随机号']
-IMPORT_ICF   = ['受试者', '知情同意书签署日期']
+# 导入列名（load_sheet / load_rand 的 usecols）—— 英文：EDC 实际列名（本项目为 SAS 英文名）
+IMPORT_SV  = ["SUBJID", "VISIT", "VISDAT"]
+IMPORT_ICF = ["SUBJID", "DSSTDAT"]
 
-# 中间列名（归一化 / 筛选 / 派生阶段产生或引用）
-VAR_SUBJ          = "受试者"
-VAR_ICF_SIGN_DATE = "知情同意书签署日期"
+# 中间列名（归一化 / 筛选 / 派生阶段产生或引用）—— 英文：沿用 EDC 列名
+VAR_SUBJ          = "SUBJID"
+VAR_ICF_SIGN_DATE = "DSSTDAT"
 
-# 输出列名（rename 映射目标 + 最终列序）
+# 输出列名（rename 映射目标 + 最终列序）—— 中文：还原为中文表头
 VAR_SCREEN_NO     = "筛选号"
-OUTPUT_COLS = [VAR_SUBJ, VAR_SCREEN_NO, ...]
+VAR_STUDY_START   = "知情同意书签署日期"
+OUTPUT_COLS = [VAR_SCREEN_NO, VAR_STUDY_START]
 ```
 
 **三区职责边界：**
-- `IMPORT_*`：只出现在 `load_sheet` / `load_rand` 的 `cols` 参数中
-- `VAR_*`（中间）：出现在归一化、筛选、派生、连接步骤的逻辑中
-- `VAR_*`（输出）+ `OUTPUT_COLS`：只出现在 rename 映射和最终选列中
+- `IMPORT_*`（英文）：只出现在 `load_sheet` / `load_rand` 的 `cols` 参数中
+- `VAR_*`（中间，英文）：出现在归一化、筛选、派生、连接步骤的逻辑中
+- `VAR_*`（输出，中文）+ `OUTPUT_COLS`：只出现在 rename 映射和最终选列中；输出表禁止保留英文列名
 
 ## 编码字段与解码后缀
 
