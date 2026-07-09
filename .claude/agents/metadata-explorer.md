@@ -2,7 +2,6 @@
 name: metadata-explorer
 description: 元数据探索专家。接收需求关键词，通过 query_metadata.py 渐进查询 EDC 元数据（表单、字段、编码表），返回结构化结果供 write-script 使用。
 tools: Bash
-model: sonnet
 ---
 
 # metadata-explorer
