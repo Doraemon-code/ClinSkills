@@ -114,6 +114,7 @@ def _resolve_sheet_name(form_oid: str, form_name: str | None = None) -> str:
 def load_sheet(
     form_oid: str,
     usecols: list[str] | None = None,
+    cols: list[str] | None = None,
     form_name: str | None = None,
     dtype: dict | type | None = None,
 ) -> pd.DataFrame:
@@ -121,7 +122,7 @@ def load_sheet(
 
     Args:
         form_oid: 表单 OID（即 sheet 名的核心部分）
-        usecols: 只读取指定列（中文列名列表）
+        usecols / cols: 只读取指定列（中文列名列表），cols 为 usecols 的别名
         form_name: 表单中文名（cmis 用于拼接 sheet 名；省略则自动从元数据查找）
         dtype: 列类型覆盖（传给 pd.read_excel 的 dtype 参数，用于保留前导零等）
 
@@ -129,7 +130,48 @@ def load_sheet(
         DataFrame
     """
     sheet = _resolve_sheet_name(form_oid, form_name)
-    kwargs = {"header": 0, "usecols": usecols, "dtype": dtype}
+    kwargs = {"header": 0, "usecols": usecols or cols, "dtype": dtype}
     if EDC_TYPE != "clinflash":
         kwargs["skiprows"] = [1]
     return pd.read_excel(raw_path, sheet_name=sheet, **kwargs)
+
+
+def load_rand(cols: list[str] | None = None) -> pd.DataFrame:
+    """读取随机入组表（DS_RAND），返回受试者+随机号等。
+
+    Args:
+        cols: 指定读取的列名列表，默认 ["受试者", "随机号"]
+
+    Returns:
+        DataFrame
+    """
+    default_cols = ["受试者", "随机号"]
+    usecols = cols or default_cols
+    return load_sheet("DS_RAND", usecols=usecols)
+
+
+def load_completion(cols: list[str] | None = None) -> pd.DataFrame:
+    """读取试验总结表（DS_END），返回受试者+完成状态等。
+
+    Args:
+        cols: 指定读取的列名列表，默认 ["受试者", "受试者是否完成试验_TXT"]
+
+    Returns:
+        DataFrame
+    """
+    default_cols = ["受试者", "受试者是否完成试验_TXT"]
+    usecols = cols or default_cols
+    return load_sheet("DS_END", usecols=usecols)
+
+
+def load_first_dose(cols: list[str] | None = None) -> pd.DataFrame:
+    """读取试验药物首次用药日期（EC_ED 最早开始日期）。
+
+    Returns:
+        DataFrame with columns [受试者, 首次用药日期]
+    """
+    df = load_sheet("EC_ED", usecols=["受试者", "开始日期"])
+    df["开始日期"] = pd.to_datetime(df["开始日期"], errors="coerce")
+    df = df.groupby("受试者", dropna=False)["开始日期"].min().reset_index()
+    df = df.rename(columns={"开始日期": "首次用药日期"})
+    return df
