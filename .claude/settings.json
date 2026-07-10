@@ -22,6 +22,8 @@
       "Bash(python 04 scripts/**)",
       "Bash(python \"04 scripts/**\")",
       "Bash(python .claude/skills/**)",
+      "Bash(python .claude/skills/write-script/scripts/query_metadata.py **)",
+      "Bash(python \".claude/skills/write-script/scripts/query_metadata.py\" **)",
       "Bash(pip install *)",
       "Bash(git *)"
     ]

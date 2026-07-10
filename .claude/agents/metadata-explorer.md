@@ -27,6 +27,26 @@ python .claude/skills/write-script/scripts/query_metadata.py <command> [args]
 
 其他辅助命令：`summary`（概览）、`forms`（所有表单）、`visits`（访视结构）、`find-field <SAS名>`（按 SAS 名定位）。
 
+## 兜底：直接读源数据（严格受限）
+
+**默认禁止直接读取源数据**。必须先用尽 `query_metadata.py` 的所有相关命令（`search` / `fields` / `codelist` / `field-codelist` / `find-field` 等）尝试获取信息。
+
+只有当满足以下全部条件时，才允许回退到直接读源数据：
+
+1. **已穷尽元数据查询**：明确执行过相关 `query_metadata.py` 命令，且确认返回结果不足以回答需求（例如字段名对不上、编码值缺失、需看实际样本才能判断）。
+2. **明确质疑的理由**：在输出中说明"为什么元数据不够"，而非笼统说"看看数据"。
+3. **含标题行在内最多 3 行**：使用 `pandas` 读取时必须限定 `nrows=2`（`pd.read_excel` 默认 `header=0`，第一行作表头，`nrows=2` 实际得到 表头 + 2 数据行 = 含标题在内 3 行）。**此上限适用于兜底读取的整个流程**——任何一次读取、任何中间步骤都不得突破"含标题在内 3 行"。**绝对禁止**无 `nrows` 限制的整表读取，也禁止用 `openpyxl` load 整个工作表后遍历全部行（若用 openpyxl，必须 `iter_rows` 到第 3 行即停）。
+4. **只读必要的列**：若仅需确认个别字段，进一步用 `usecols` 限定列范围，避免全量加载。
+
+示例命令（仅供兜底，先用元数据）：
+
+```bash
+# 表头 1 行 + 数据 2 行 = 含标题在内 3 行
+python -c "import pandas as pd; df = pd.read_excel(r'<rawdata 路径>', sheet_name='<sheet>', nrows=2); print(df.to_string())"
+```
+
+> 注：此兜底同样受项目 `constraints.md` 约束——优先走元数据，能不读 raw 就不读。
+
 ## 关键约定
 
 - **sheet 名 = formOID**：`fields` 输出第一行括号中的 OID（如 `AE`、`CM`、`SV`）即 `load_sheet()` 的第一个参数
