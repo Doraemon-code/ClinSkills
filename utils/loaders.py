@@ -5,10 +5,18 @@ utils/loaders.py — 数据读取层
 """
 
 import json
+import warnings
 import pandas as pd
 from config import raw_path
 from pathlib import Path
 from typing import overload
+
+# EDC 导出的 xlsx 无默认样式，openpyxl 每次读取都抛此 UserWarning，与数据无关，静音。
+warnings.filterwarnings(
+    "ignore",
+    message="Workbook contains no default style",
+    category=UserWarning,
+)
 
 _PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
