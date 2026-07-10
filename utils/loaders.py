@@ -8,6 +8,7 @@ import json
 import pandas as pd
 from config import raw_path
 from pathlib import Path
+from typing import overload
 
 _PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
@@ -40,12 +41,12 @@ SYSTEM_COLUMNS: dict[str, dict[str, str]] = {
         "row":        "行号",
     },
     "taimei5": {
-        "center":     "SITEID",
-        "subject":    "SUBJID",
-        "visit_name": "VISIT",
-        "visit_seq":  "VISTREP",
-        "form_name":  "FORMNM",
-        "row":        "RECREP",
+        "center":     "中心编号",
+        "subject":    "受试者",
+        "visit_name": "访视名称",
+        "visit_seq":  "访视号",
+        "form_name":  "页面名称",
+        "row":        "记录号",
     },
     "taimei6": {
         "center":     "SITEID",
@@ -66,6 +67,10 @@ SYSTEM_COLUMNS: dict[str, dict[str, str]] = {
 }
 
 
+@overload
+def system_cols(role: None = None) -> dict: ...
+@overload
+def system_cols(role: str) -> str: ...
 def system_cols(role: str | None = None) -> dict | str:
     """返回当前 EDC 类型的系统列名。
 
@@ -130,7 +135,17 @@ def load_sheet(
         DataFrame
     """
     sheet = _resolve_sheet_name(form_oid, form_name)
-    kwargs = {"header": 0, "usecols": usecols or cols, "dtype": dtype}
+    # 受试者(筛选号)、随机号为 ID 编码，强制 str 读取以保留前导零；
+    # pandas 会忽略 sheet 中不存在的 dtype 键，故对所有 sheet 传入无副作用。
+    # caller 显式传入的 dtype 优先（dict 合并覆盖，或整体替换）。
+    id_dtype = {system_cols("subject"): str, "随机号": str}
+    if isinstance(dtype, dict):
+        eff_dtype = {**id_dtype, **dtype}
+    elif dtype is not None:
+        eff_dtype = dtype
+    else:
+        eff_dtype = id_dtype
+    kwargs = {"header": 0, "usecols": usecols or cols, "dtype": eff_dtype}
     if EDC_TYPE != "clinflash":
         kwargs["skiprows"] = [1]
     return pd.read_excel(raw_path, sheet_name=sheet, **kwargs)

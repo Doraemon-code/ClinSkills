@@ -31,28 +31,30 @@ from utils.loaders import load_sheet
 
 ## 系统列（6 个定位角色）
 
-EDC 导出的 rawdata 中，系统列不在 FormField 元数据里，且随 EDC 类型变（clinflash 中文 `行号`；taimei/cmis 英文 `SUBJID` 等）。**禁止在脚本主体硬编码系统列字面量**——一律经 `utils.loaders.system_cols()` 取值。
+EDC 导出的 rawdata 中，系统列不在 FormField 元数据里，列名随 EDC 类型而变、连语言都可能不同（clinflash / taimei5 为中文列名，cmis / taimei6 登记为英文 SAS 名，一切以 `SYSTEM_COLUMNS` 注册表为准）。**禁止在脚本主体硬编码系统列字面量**——一律经 `utils.loaders.system_cols()` 取值。
 
 6 个角色可完全定位 EDC 中的每一个数据点，同一 EDC 跨研究固定：
 
-| 角色 | 含义 | clinflash | taimei5/6 | cmis |
-|---|---|---|---|---|
-| `center` | 中心编号 | 试验中心编号 | SITEID | SITEID |
-| `subject` | 筛选号 | 受试者编号 | SUBJID | SUBJID |
-| `visit_name` | 访视名称 | 数据节 | VISIT | VISIT |
-| `visit_seq` | 访视序号 | Instance顺序号 | VISTREP | VISITNUM |
-| `form_name` | 表单名称 | 数据页 | FORMNM | FORMNAME |
-| `row` | 字段行号 | 行号 | RECREP | TOPICSEQ |
+| 角色 | 含义 | clinflash | taimei5 | taimei6 | cmis |
+|---|---|---|---|---|---|
+| `center` | 中心编号 | 试验中心编号 | 中心编号 | SITEID | SITEID |
+| `subject` | 筛选号 | 受试者编号 | 受试者 | SUBJID | SUBJID |
+| `visit_name` | 访视名称 | 数据节 | 访视名称 | VISIT | VISIT |
+| `visit_seq` | 访视序号 | Instance顺序号 | 访视号 | VISTREP | VISITNUM |
+| `form_name` | 表单名称 | 数据页 | 页面名称 | FORMNM | FORMNAME |
+| `row` | 字段行号 | 行号 | 记录号 | RECREP | TOPICSEQ |
+
+> taimei5 列名以本仓库实际导出核实（中文表头）；taimei6 一列为注册表登记的英文 SAS 名，尚无真实数据核对，接入 taimei6 项目时须按实际导出复核。
 
 ```python
 from utils.loaders import load_sheet, system_cols
 
-VAR_SUBJ    = system_cols("subject")   # clinflash→受试者编号 / taimei→SUBJID
+VAR_SUBJ    = system_cols("subject")   # 按 EDC 取值，如 clinflash→受试者编号 / taimei5→受试者 / cmis→SUBJID
 VAR_ROW     = system_cols("row")
 VAR_VISIT   = system_cols("visit_name")
 ```
 
-`system_cols()` 按 `EDC_TYPE` 从 `utils/loaders.py` 的 `SYSTEM_COLUMNS` 注册表取值。未登记的 EDC 抛清晰错误，按提示在注册表补一行即可。输出表如需通用中文表头，将读取的 EDC 专属列名 rename 为通用标签（如 `SUBJID`→`筛选号`）。
+`system_cols()` 按 `EDC_TYPE` 从 `utils/loaders.py` 的 `SYSTEM_COLUMNS` 注册表取值。未登记的 EDC 抛清晰错误，按提示在注册表补一行即可。输出表如需通用中文表头，将读取的 EDC 专属列名 rename 为通用标签（如 `受试者`→`筛选号`）。
 
 ## 列名集中管理
 
