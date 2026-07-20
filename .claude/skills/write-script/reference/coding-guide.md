@@ -31,20 +31,20 @@ from utils.loaders import load_sheet
 
 ## 系统列（6 个定位角色）
 
-EDC 导出的 rawdata 中，系统列不在 FormField 元数据里，列名随 EDC 类型而变、连语言都可能不同（clinflash / taimei5 为中文列名，cmis / taimei6 登记为英文 SAS 名，一切以 `SYSTEM_COLUMNS` 注册表为准）。**禁止在脚本主体硬编码系统列字面量**——一律经 `utils.loaders.system_cols()` 取值。
+EDC 导出的 rawdata 中，系统列不在 FormField 元数据里，列名随 EDC 类型而变、连语言都可能不同（clinflash / taimei5 / taimei6 为中文列名，cmis 为英文 SAS 名；均以 `SYSTEM_COLUMNS` 注册表为准）。**禁止在脚本主体硬编码系统列字面量**——一律经 `utils.loaders.system_cols()` 取值。
 
 6 个角色可完全定位 EDC 中的每一个数据点，同一 EDC 跨研究固定：
 
 | 角色 | 含义 | clinflash | taimei5 | taimei6 | cmis |
 |---|---|---|---|---|---|
-| `center` | 中心编号 | 试验中心编号 | 中心编号 | SITEID | SITEID |
-| `subject` | 筛选号 | 受试者编号 | 受试者 | SUBJID | SUBJID |
-| `visit_name` | 访视名称 | 数据节 | 访视名称 | VISIT | VISIT |
-| `visit_seq` | 访视序号 | Instance顺序号 | 访视号 | VISTREP | VISITNUM |
-| `form_name` | 表单名称 | 数据页 | 页面名称 | FORMNM | FORMNAME |
-| `row` | 字段行号 | 行号 | 记录号 | RECREP | TOPICSEQ |
+| `center` | 中心编号 | 试验中心编号 | 中心编号 | 中心编号 | SITEID |
+| `subject` | 筛选号 | 受试者编号 | 受试者 | 受试者编号 | SUBJID |
+| `visit_name` | 访视名称 | 数据节 | 访视名称 | 表单集名称 | VISIT |
+| `visit_seq` | 访视序号 | Instance顺序号 | 访视号 | 表单集记录号 | VISITNUM |
+| `form_name` | 表单名称 | 数据页 | 页面名称 | 表单名称 | FORMNAME |
+| `row` | 字段行号 | 行号 | 记录号 | 字段记录号 | TOPICSEQ |
 
-> taimei5 列名以本仓库实际导出核实（中文表头）；taimei6 一列为注册表登记的英文 SAS 名，尚无真实数据核对，接入 taimei6 项目时须按实际导出复核。
+> taimei5 / taimei6 列名均已按实际导出核实（第 1 行中文、第 2 行英文被跳过）；两者同属太美、表头结构一致，但中文列名不完全相同（如 subject：taimei5 `受试者` / taimei6 `受试者编号`；visit_name：taimei5 `访视名称` / taimei6 `表单集名称`），一律以 `SYSTEM_COLUMNS` 注册表为准。
 
 ```python
 from utils.loaders import load_sheet, system_cols
@@ -60,17 +60,17 @@ VAR_VISIT   = system_cols("visit_name")
 
 导入之后、逻辑之前，用 `# ── 列名集中管理 ──` 引出声明区：
 
-**列名语言规则：列名语言由 `CLAUDE.md` 的表头约定决定（clinflash 用中文列名，taimei/cmis 用英文 SAS 列名）。`IMPORT_*`（EDC 导出的实际列名）与中间 `VAR_*` 全程与 CLAUDE.md 约定一致；只有最终输出结果表的列名（输出 `VAR_*` + `OUTPUT_COLS`）必须 rename 还原为中文。即「内部按约定、输出中文」。**
+**列名语言规则：列名语言由 `CLAUDE.md` 的表头约定决定（clinflash/taimei5/taimei6 用中文列名，cmis 用英文 SAS 列名）。`IMPORT_*`（EDC 导出的实际列名）与中间 `VAR_*` 全程与 CLAUDE.md 约定一致；只有最终输出结果表的列名（输出 `VAR_*` + `OUTPUT_COLS`）必须 rename 还原为中文。即「内部按约定、输出中文」。**
 
 > **clinflash 示例**（中文列名）：`IMPORT_SV = ["受试者编号", "访视日期(VISDAT)"]`，`VAR_SUBJ = "受试者编号"`
-> **taimei/cmis 示例**（英文列名）：`IMPORT_SV = ["SUBJID", "VISDAT"]`，`VAR_SUBJ = "SUBJID"`
+> **cmis 示例**（英文列名）：`IMPORT_SV = ["SUBJID", "VISDAT"]`，`VAR_SUBJ = "SUBJID"`
 
 ```python
 # ── 列名集中管理 ──
 
-# 导入列名（load_sheet 的 usecols）—— 按 CLAUDE.md 约定（clinflash 中文 / taimei英文）
+# 导入列名（load_sheet 的 usecols）—— 按 CLAUDE.md 约定（clinflash/taimei5/taimei6 中文 / cmis 英文）
 # clinflash: IMPORT_SV  = ["受试者编号", "访视日期(VISDAT)"]
-# taimei:    IMPORT_SV  = ["SUBJID", "VISDAT"]
+# cmis:     IMPORT_SV  = ["SUBJID", "VISDAT"]
 IMPORT_SV  = ["受试者编号", "访视日期(VISDAT)"]
 IMPORT_ICF = ["受试者编号", "知情同意书签署日期(DSSTDAT)"]
 

@@ -57,12 +57,12 @@ SYSTEM_COLUMNS: dict[str, dict[str, str]] = {
         "row":        "记录号",
     },
     "taimei6": {
-        "center":     "SITEID",
-        "subject":    "SUBJID",
-        "visit_name": "VISIT",
-        "visit_seq":  "VISTREP",
-        "form_name":  "FORMNM",
-        "row":        "RECREP",
+        "center":     "中心编号",
+        "subject":    "受试者编号",
+        "visit_name": "表单集名称",
+        "visit_seq":  "表单集记录号",
+        "form_name":  "表单名称",
+        "row":        "字段记录号",
     },
     "cmis": {
         "center":     "SITEID",

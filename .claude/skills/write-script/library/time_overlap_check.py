@@ -36,8 +36,8 @@ _SYS_RENAME = {_SU: _OUT_SUBJ, _RO: _OUT_ROW}
 
 CHECK_NAME = "CM用药时间与AE时间重合核查"
 
-VAR_SUBJ    = _SU       # 读取名（clinflash→受试者编号 / taimei→SUBJID）
-VAR_ROW     = _RO       # 读取名（clinflash→行号 / taimei→RECREP）
+VAR_SUBJ    = _SU       # 读取名（clinflash→受试者编号 / taimei5→受试者 / taimei6→受试者编号）
+VAR_ROW     = _RO       # 读取名（clinflash→行号 / taimei5→记录号 / taimei6→字段记录号）
 VAR_TGT_ROW = "目标行号"
 VAR_CHECK   = "核查结果"
 

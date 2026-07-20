@@ -19,7 +19,7 @@
 - [ ] **三区边界混乱**：`IMPORT_*` 只出现在 `load_sheet` 的 `cols` 参数；中间 `VAR_*` 用于逻辑；输出 `VAR_*`（中文）+ `OUTPUT_COLS` 用于最终选列。禁止 `IMPORT_*` 变量出现在筛选/派生逻辑中。
 - [ ] **八步模型标记缺失**：脚本主体缺少 `# ── N 步骤名 ──` 标记（至少应有读取/筛选/输出步骤）。
 - [ ] **变量命名违规**：DataFrame 未用 `df_` 前缀；列名常量未用 `VAR_` / `IMPORT_` 前缀；最终表用裸名 `df`；全大写无前缀变量存 DataFrame。
-- [ ] **输出列名未还原中文**：最终输出表的列名必须为中文。taimei/cmis 项目内部用英文 SAS 名，输出前必须 rename 为中文表头。
+- [ ] **输出列名未还原中文**：最终输出表的列名必须为中文。cmis 项目内部用英文 SAS 名，输出前必须 rename 为中文表头。
 - [ ] **文件头缺少路径引导**：脚本未包含 `sys.path.insert(0, _project_root)` 引导块。
 - [ ] **导入方式错误**：未从 `config` import `output_path`；未从 `utils` import 报表/读取函数；`pd`/`np` 经过中间模块间接 import。
 

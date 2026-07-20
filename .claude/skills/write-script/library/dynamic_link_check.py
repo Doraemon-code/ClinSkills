@@ -46,7 +46,7 @@ LINK_CONFIGS = [
 
 # ── 列名 ──
 
-VAR_SUBJ          = _SU       # 读取名（clinflash→受试者编号 / taimei→SUBJID）
+VAR_SUBJ          = _SU       # 读取名（clinflash→受试者编号 / taimei5→受试者 / taimei6→受试者编号）
 VAR_SRC_LINE      = "源表单行号"
 VAR_SRC_FORM      = "源表单"
 VAR_LINK_FIELD    = "链接字段"

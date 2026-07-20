@@ -53,8 +53,8 @@ COMPANION_MAP = {
 
 # ── 列名 ──
 
-VAR_SUBJ   = _SU       # 读取名（clinflash→受试者编号 / taimei→SUBJID）
-VAR_ROW    = _RO       # 读取名（clinflash→行号 / taimei→RECREP）
+VAR_SUBJ   = _SU       # 读取名（clinflash→受试者编号 / taimei5→受试者 / taimei6→受试者编号）
+VAR_ROW    = _RO       # 读取名（clinflash→行号 / taimei5→记录号 / taimei6→字段记录号）
 VAR_FORM   = "表单"
 VAR_FIELD  = "字段"
 VAR_VALUE  = "选项值"
