@@ -101,9 +101,9 @@ Read ${CLAUDE_PROJECT_DIR}/.claude/skills/build-metadata/reference/project-struc
 
 | EDC 类型 | 替换后的表头约定行 |
 |---|---|
-| clinflash | `- 表头结构：\`header=0\`（单行中文列名，编码字段含 (fieldOID) 后缀；无 skiprows）` |
-| taimei5 / taimei6 | `- 表头结构：\`header=0, skiprows=[1]\`（第 1 行中文列名，第 2 行英文列名被跳过）` |
-| cmis | `- 表头结构：\`header=0, skiprows=[1]\`（第 1 行英文 SAS 列名，第 2 行中文列名被跳过）` |
+| clinflash | `- 表头结构：\`header=0\`（单行字段标签，编码字段含 (fieldOID) 缩写后缀；无 skiprows）` |
+| taimei5 / taimei6 | `- 表头结构：\`header=0, skiprows=[1]\`（第 1 行字段标签，第 2 行 SAS 变量名被跳过）` |
+| cmis | `- 表头结构：\`header=0, skiprows=[1]\`（第 1 行 SAS 变量名，第 2 行字段标签被跳过）` |
 
 替换范围：删除 `<!-- EDC_TYPE_HEADER_START -->` 至 `<!-- EDC_TYPE_HEADER_END -->` 之间的全部行（含注释行和默认占位行），插入对应约定行。
 

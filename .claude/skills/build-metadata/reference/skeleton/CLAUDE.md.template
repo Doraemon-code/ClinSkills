@@ -29,10 +29,10 @@
 
 <!-- EDC_TYPE_HEADER_START -->
 <!-- 根据 Step 1 选择的 EDC 类型，替换下方约定行： -->
-<!-- clinflash: - 表头结构：`header=0`（单行中文列名，编码字段含 `(fieldOID)` 后缀；无 skiprows） -->
-<!-- taimei5/taimei6: - 表头结构：`header=0, skiprows=[1]`（第 1 行中文列名，第 2 行英文列名被跳过） -->
-<!-- cmis: - 表头结构：`header=0, skiprows=[1]`（第 1 行英文 SAS 列名，第 2 行中文列名被跳过） -->
-- 表头结构：`header=0`（单行中文列名，编码字段含 `(fieldOID)` 后缀；无 skiprows）
+<!-- clinflash: - 表头结构：`header=0`（单行字段标签，编码字段含 `(fieldOID)` 缩写后缀；无 skiprows） -->
+<!-- taimei5/taimei6: - 表头结构：`header=0, skiprows=[1]`（第 1 行字段标签，第 2 行 SAS 变量名被跳过） -->
+<!-- cmis: - 表头结构：`header=0, skiprows=[1]`（第 1 行 SAS 变量名，第 2 行字段标签被跳过） -->
+- 表头结构：`header=0`（单行字段标签，编码字段含 `(fieldOID)` 缩写后缀；无 skiprows）
 <!-- EDC_TYPE_HEADER_END -->
 - 报表函数来自 `utils/output_format.py`
 - 数据读取函数来自 `utils/loaders.py`（`load_sheet` / `load_rand` 等）
