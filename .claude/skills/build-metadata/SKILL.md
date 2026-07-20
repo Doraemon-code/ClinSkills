@@ -86,23 +86,24 @@ Read ${CLAUDE_PROJECT_DIR}/.claude/skills/build-metadata/reference/project-struc
 
 **2b. 初始化骨架文件**
 
-检查以下文件是否已存在，不存在则按下表生成。已存在的文件**不覆盖**，仅补充缺失项。
+检查以下文件是否已存在，不存在则从 `reference/skeleton/` **复制对应 `.template` 文件到项目根、去掉 `.template` 后缀**生成（`.gitattributes` / `.gitignore` 目标名需加前导点）。已存在的文件**不覆盖**，仅补充缺失项。
 
-| 文件 | 来源 | 说明 |
+| 目标文件 | 模板来源 | 说明 |
 |------|------|------|
-| `.gitattributes` | `project-structure.md` 中的模板块 | Git 行尾与二进制规则 |
-| `.gitignore` | `project-structure.md` 中的模板块 | Git 忽略规则 |
-| `CLAUDE.md` | `Read .claude/skills/build-metadata/reference/CLAUDE.md.template` | 读取后将 `<!-- EDC_TYPE_HEADER_START -->` 到 `<!-- EDC_TYPE_HEADER_END -->` 区块替换为 Step 1 对应的表头约定行，再写入；提示用户填写 `<项目名>` |
-| `config.py` | `project-structure.md` 中的模板块 | 路径配置加载器 |
-| `config.yaml` | `project-structure.md` 中的模板块 | 数据路径模板（提示用户后续填写具体路径） |
-| `requirements.txt` | `project-structure.md` 中的模板块 | Python 依赖 |
+| `.gitattributes` | `reference/skeleton/gitattributes.template` | 直接复制 |
+| `.gitignore` | `reference/skeleton/gitignore.template` | 直接复制 |
+| `CLAUDE.md` | `reference/skeleton/CLAUDE.md.template` | 复制后将 `<!-- EDC_TYPE_HEADER_START -->` 到 `<!-- EDC_TYPE_HEADER_END -->` 区块替换为 Step 1 对应的表头约定行；提示用户填写 `<项目名>` |
+| `config.py` | `reference/skeleton/config.py.template` | 直接复制 |
+| `config.yaml` | `reference/skeleton/config.yaml.template` | 直接复制（占位待用户后续填写具体路径） |
+| `requirements.txt` | `reference/skeleton/requirements.txt.template` | 直接复制 |
 
 **CLAUDE.md EDC 类型替换规则：**
 
 | EDC 类型 | 替换后的表头约定行 |
 |---|---|
-| clinflash | `- 表头结构：\`header=0\`（单行中文列名，无 skiprows）` |
-| taimei5 / taimei6 / cmis | `- 表头结构：\`header=0, skiprows=[1]\`（第 1 行英文 SAS 列名，第 2 行中文列名被跳过）` |
+| clinflash | `- 表头结构：\`header=0\`（单行中英文拼接列名，无 skiprows）` |
+| taimei5 / taimei6 | `- 表头结构：\`header=0, skiprows=[1]\`（第 1 行中文列名，第 2 行英文列名被跳过）` |
+| cmis | `- 表头结构：\`header=0, skiprows=[1]\`（第 1 行英文 SAS 列名，第 2 行中文列名被跳过）` |
 
 替换范围：删除 `<!-- EDC_TYPE_HEADER_START -->` 至 `<!-- EDC_TYPE_HEADER_END -->` 之间的全部行（含注释行和默认占位行），插入对应约定行。
 

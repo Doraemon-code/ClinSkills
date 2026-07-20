@@ -1,0 +1,15 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Generated output
+03 output/
+
+# Raw data (large / sensitive)
+01 rawdata/
+
+# OS
+.DS_Store
+Thumbs.db
+
+.venv/

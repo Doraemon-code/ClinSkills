@@ -1,0 +1,8 @@
+path:
+  # 各原始数据 Excel 路径（相对项目根），按新项目实际填写
+  raw_path: "01 rawdata/<日期>/<受试者数据导出>.xlsx"
+  pd_path: "01 rawdata/<日期>/<方案偏离>.xlsx"
+  code_path: "01 rawdata/<日期>/<医学编码报告>.xlsx"
+  remark_path: "01 rawdata/<日期>/<备注明细>.xlsx"
+  timewin_path: "01 rawdata/time window.xlsx"
+  output_path: "03 output/<日期>"
