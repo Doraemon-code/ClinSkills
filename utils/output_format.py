@@ -77,7 +77,7 @@ def set_table_width(table, width_cm):
     tblW.set(qn('w:type'), 'dxa')  # dxa表示使用绝对值
     tblPr.append(tblW)
 
-def calculate_column_widths(df, available_width_cm, font_size=10.5):
+def calculate_column_widths(df, available_width_cm):
     """
     根据内容自动计算列宽，并确保总宽度等于可用宽度
     
@@ -86,9 +86,7 @@ def calculate_column_widths(df, available_width_cm, font_size=10.5):
         数据框
     available_width_cm : float
         可用页面宽度（厘米）
-    font_size : float
-        字体大小（磅）
-    
+
     返回：
     list : 每列的宽度（厘米）
     """
@@ -289,7 +287,7 @@ def save_table_to_docx_threeline(df: pd.DataFrame, output_path: str, title: str,
             )
     
     # 添加数据行
-    for idx, row_data in df.iterrows():
+    for pos, (idx, row_data) in enumerate(df.iterrows()):
         data_row = table.add_row()
         set_row_height(data_row, row_height_cm)  # 设置数据行高
         
@@ -299,7 +297,7 @@ def save_table_to_docx_threeline(df: pd.DataFrame, output_path: str, title: str,
                 data_row.cells[i].width = Cm(width)
         
         row_cells = data_row.cells
-        is_last_row = (idx == len(df) - 1)
+        is_last_row = (pos == len(df) - 1)
         
         for i, value in enumerate(row_data):
             cell = row_cells[i]
@@ -401,8 +399,8 @@ def save_table_to_docx_threeline(df: pd.DataFrame, output_path: str, title: str,
             
             # 执行合并（Word表格行索引需要+1，因为第0行是表头）
             for start, end, col in merge_ranges:
-                merged_cell = merge_cells_vertical(table, start + 1, end + 1, col)
-                
+                merge_cells_vertical(table, start + 1, end + 1, col)
+
                 merged_cell = table.rows[start + 1].cells[col]
                 for paragraph in merged_cell.paragraphs:
                     paragraph.alignment = WD_ALIGN_PARAGRAPH.LEFT
@@ -427,12 +425,14 @@ def save_table_to_docx_threeline(df: pd.DataFrame, output_path: str, title: str,
             set_run_font(run, size=9, bold=False)  # 小五号字=9磅
     
     # 保存文档（python-docx生成的文档默认就是可编辑的）
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
     doc.save(output_path)
     print(f"{title}已保存为 '{output_path}'")
 
 
 def export_to_excel_with_format(df, output_path, sheet_name, title_name, add_title=True):
     """将 DataFrame 输出为格式化的 Excel 清单（xlsxwriter）。"""
+    sheet_name = sheet_name.replace("：", "-")  # 全角冒号会触发 Excel 修复提示
     num_cols = df.shape[1]
     num_rows = df.shape[0]
     header_row = 1 if add_title else 0
@@ -485,6 +485,7 @@ def export_to_excel_with_format(df, output_path, sheet_name, title_name, add_tit
 
 def export_to_one_excel_with_format(df, output_path, sheet_name, title_name=None, add_title=True):
     """向指定文件写入一个 sheet（已存在则覆盖，否则新建），使用 openpyxl。"""
+    sheet_name = sheet_name.replace("：", "-")  # 全角冒号会触发 Excel 修复提示
     if os.path.exists(output_path):
         workbook = load_workbook(output_path)
         if sheet_name in workbook.sheetnames:
@@ -580,6 +581,7 @@ def export_to_excel_twoheader(df, output_path, sheet_name, title,
     subject_col : str, optional
         用于计算唯一例数的列名，标题中显示 "(N例次M例)"。
     """
+    sheet_name = sheet_name.replace("：", "-")  # 全角冒号会触发 Excel 修复提示
     total_cols = len(fixed_cols) \
                + sum(len(g['children']) for g in header_groups) \
                + len(trailing_cols or [])
@@ -589,6 +591,7 @@ def export_to_excel_twoheader(df, output_path, sheet_name, title,
     n_rows = len(df)
     n_subj = df[subject_col].nunique() if subject_col else None
 
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
     with pd.ExcelWriter(output_path, engine='xlsxwriter') as writer:
         df.to_excel(writer, sheet_name=sheet_name, startrow=3,
                     index=False, header=False)
