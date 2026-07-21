@@ -17,7 +17,7 @@ if _project_root not in sys.path:
 import pandas as pd
 from config import output_path
 from utils.output_format import export_to_one_excel_with_format
-from utils.loaders import load_sheet, system_cols
+from utils.loaders import load_sheet, system_cols, metadata_dir
 
 # ── 系统列（读取用 EDC 专属名，输出 rename 为通用中文标签）──
 
@@ -51,6 +51,9 @@ COMPANION_MAP = {
     ("AE",      "AEACNOTH"): "AEACNOT",
 }
 
+# 识别"其他"选项的显示值关键词（跨 EDC 语言）——英文项目改为 ("Other",)
+OTHER_TOKENS = ("其他", "其它")
+
 # ── 列名 ──
 
 VAR_SUBJ   = _SU       # 读取名（clinflash→受试者编号 / taimei5→受试者 / taimei6→受试者编号）
@@ -66,7 +69,7 @@ OUTPUT_COLS = [_OUT_SUBJ, _OUT_ROW, VAR_FORM, VAR_FIELD, VAR_VALUE, VAR_TEXT, VA
 
 # ── 1 读取元数据，构建列名 + 已设选项 ──
 
-_meta_dir = Path(_project_root) / "02 metadata"
+_meta_dir = metadata_dir()
 _ff = json.load(open(_meta_dir / "FormField.json", encoding="utf-8"))
 _cl = json.load(open(_meta_dir / "CodeList.json", encoding="utf-8"))
 
@@ -96,9 +99,9 @@ for (fid, foid), comp_oid in COMPANION_MAP.items():
     cl_name = fi["codeListName"]
     cl_items = _cl.get(cl_name, [])
     other_vals = [it["displayValue"] for it in cl_items
-                  if "其他" in it["displayValue"] or "其它" in it["displayValue"]]
+                  if any(t in it["displayValue"] for t in OTHER_TOKENS)]
     preset = [it["displayValue"] for it in cl_items
-              if "其他" not in it["displayValue"] and "其它" not in it["displayValue"]]
+              if not any(t in it["displayValue"] for t in OTHER_TOKENS)]
     _form_fields[fid].append({
         "fieldOID":     foid,
         "itemName":     fi["itemName"],

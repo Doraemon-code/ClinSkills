@@ -6,7 +6,7 @@
 # @tags 日期,时间,UK,UNK,不完整,部分日期,元数据驱动
 # @config DATE_FORMATS, TIME_FORMATS
 
-import sys, os, json, re
+import sys, json, re
 from pathlib import Path
 
 _project_root = str(Path(__file__).resolve().parent.parent.parent)
@@ -16,7 +16,7 @@ if _project_root not in sys.path:
 import pandas as pd
 from config import output_path
 from utils.output_format import export_to_one_excel_with_format
-from utils.loaders import load_sheet, system_cols
+from utils.loaders import load_sheet, system_cols, metadata_dir
 
 # ── 系统列（按 EDC 类型自动解析，勿手填）──
 
@@ -96,7 +96,7 @@ def _describe_parts(val_str, labels, sep):
 
 # ── 1 读取：日期/时间字段元数据 ──
 
-_meta_path = os.path.join(_project_root, "02 metadata", "FormField.json")
+_meta_path = metadata_dir() / "FormField.json"
 with open(_meta_path, encoding="utf-8") as _f:
     _meta = json.load(_f)
 

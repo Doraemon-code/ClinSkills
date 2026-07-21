@@ -28,8 +28,24 @@ warnings.filterwarnings(
     category=UserWarning,
 )
 
+def metadata_dir() -> Path:
+    """定位 metadata 目录（含 FormField.json 等 build-metadata 产物）。
+
+    优先项目根 `02 metadata/`；找不到则向下搜索最近的 `metadata/FormField.json`，
+    以兼容 study 子目录布局。
+    注：与 query_metadata.py 的 `_resolve_metadata_dir` 行为一致——后者独立运行、
+        不 import utils，故两处物理分离，改定位策略须同步两边。
+    """
+    default = _PROJECT_ROOT / "02 metadata"
+    if (default / "FormField.json").exists():
+        return default
+    for p in sorted(_PROJECT_ROOT.glob("**/metadata/FormField.json")):
+        return p.parent
+    return default
+
+
 # 读取 EDC 类型
-_meta_path = _PROJECT_ROOT / "02 metadata" / "FormField.json"
+_meta_path = metadata_dir() / "FormField.json"
 with open(_meta_path, encoding="utf-8") as _f:
     _meta = json.load(_f)
 EDC_TYPE = _meta.get("_meta", {}).get("edcType", "")

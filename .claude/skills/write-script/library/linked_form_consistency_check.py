@@ -33,7 +33,6 @@ _RO = _SYS["row"]
 
 _OUT_SUBJ = "筛选号"
 _OUT_ROW  = "行号"
-_SYS_RENAME = {_SU: _OUT_SUBJ, _RO: _OUT_ROW}
 
 # ── 项目配置（按本项目元数据调整；仅业务字段）──
 
@@ -219,7 +218,6 @@ for _, row in df.iterrows():
 # ── 8 格式化 ──
 
 df_out = pd.DataFrame(results, columns=OUTPUT_COLS) if results else pd.DataFrame(columns=OUTPUT_COLS)
-df_out = df_out.rename(columns=_SYS_RENAME)
 
 n = len(df_out)
 n_abnormal = (df_out["异常标记"] == "异常").sum()

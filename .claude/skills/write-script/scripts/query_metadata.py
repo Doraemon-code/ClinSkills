@@ -28,6 +28,8 @@ def _resolve_metadata_dir():
 
     优先项目根 `02 metadata/`；找不到则向下搜索最近的 `metadata/FormField.json`，
     以兼容 study 子目录布局。
+    注：与 utils/loaders.py 的 `metadata_dir()` 行为一致——本脚本独立运行、不 import
+        utils，故两处物理分离，改定位策略须同步两边。
     """
     project_root = Path(__file__).resolve().parents[4]
     default = project_root / "02 metadata"

@@ -75,6 +75,9 @@ TGT_ENDAT = "转归日期(AEENDAT)"
 TGT_ONGO  = None                       # None = 目标表无 ongoing 列（MH 通常有）
 TGT_LABEL = "AE"
 
+# "是否持续"表示"持续中"的取值（跨 EDC 语言）——英文导出（taimei6 en 等）改为 "Y" / "√"
+ONGO_YES_VAL = "是"
+
 # 输出列序（可增减；None / 空串自动剔除）
 OUTPUT_COLS = [c for c in [
     _OUT_SUBJ,
@@ -137,7 +140,7 @@ print(f"匹配后记录数: {len(df_out)}")
 TODAY = date.today().isoformat()
 
 def _end_eff(endat, ongo):
-    if ongo is not None and str(ongo).strip() == "是":
+    if ongo is not None and str(ongo).strip() == ONGO_YES_VAL:
         return TODAY
     if pd.isna(endat) or str(endat).strip() in ("", "nan", "None"):
         return TODAY

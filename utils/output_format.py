@@ -101,7 +101,7 @@ def calculate_column_widths(df, available_width_cm):
         for value in df[col]:
             max_len = max(max_len, len(str(value)))
         
-        # 估算宽度权重：中文字符约0.5cm，英文字符约0.25cm
+        # 估算宽度：每字符约 0.35cm + 0.5cm 基准（未区分中英文）
         width = max_len * 0.35 + 0.5
         width = max(1.5, width)  # 最小宽度1.5cm
         
@@ -181,6 +181,8 @@ def save_table_to_docx_threeline(df: pd.DataFrame, output_path: str, title: str,
         是否输出脚注，默认True
     merge_columns : list, optional
         需要合并的列名列表，当上下单元格值相同时进行合并，默认None
+    alignment : optional
+        表格整体对齐方式，默认居中（WD_TABLE_ALIGNMENT.CENTER）
     """
     doc = Document()
     
@@ -555,7 +557,7 @@ def export_to_one_excel_with_format(df, output_path, sheet_name, title_name=None
 def export_to_excel_twoheader(df, output_path, sheet_name, title,
                               fixed_cols, header_groups,
                               trailing_cols=None, col_widths=None,
-                              subject_col=None):
+                              subject_col=None, count_suffix=None):
     """导出带两层合并表头的 Excel 清单。
 
     适用于"用药后异常有临床意义"系列清单：固定列 + 分组表头（首次用药前/后）+ 尾列。
@@ -569,7 +571,8 @@ def export_to_excel_twoheader(df, output_path, sheet_name, title,
     sheet_name : str
         工作表名称。
     title : str
-        标题前缀，函数自动追加 " (N例次M例)"。
+        标题前缀。默认按计数自动追加中文量词（DMR 约定："(N例次M例)" 或 "(N条)"）；
+        其他场景/语言用 ``count_suffix`` 覆盖或置空。
     fixed_cols : list[str]
         跨两行合并的固定列名。
     header_groups : list[dict]
@@ -580,6 +583,8 @@ def export_to_excel_twoheader(df, output_path, sheet_name, title,
         列宽定义，每项 ``(start_col, end_col, width)``。
     subject_col : str, optional
         用于计算唯一例数的列名，标题中显示 "(N例次M例)"。
+    count_suffix : str, optional
+        自定义标题计数后缀（覆盖默认中文量词）；传 "" 则标题不加任何后缀。
     """
     sheet_name = sheet_name.replace("：", "-")  # 全角冒号会触发 Excel 修复提示
     total_cols = len(fixed_cols) \
@@ -609,7 +614,9 @@ def export_to_excel_twoheader(df, output_path, sheet_name, title,
         data_fmt = wb.add_format({'border': 1, 'valign': 'vcenter'})
 
         # 标题
-        if n_subj is not None:
+        if count_suffix is not None:
+            title_text = f'{title} {count_suffix}'.rstrip()
+        elif n_subj is not None:
             title_text = f'{title} ({n_rows}例次{n_subj}例)'
         else:
             title_text = f'{title} ({n_rows}条)'

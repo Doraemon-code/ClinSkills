@@ -71,10 +71,12 @@ OUTPUT_COLS = [
     VAR_TARGET_TEXT, VAR_TARGET_DATE, VAR_CHECK_TYPE, VAR_CHECK_DETAIL,
 ]
 
-# ── 链接值解析：AE (行号) 名称 日期，多段以 $ 分隔 ──
-
+# ── 链接值解析：<目标表单> (行号) 名称 日期，多段以 $ 分隔 ──
+# 前缀由 LINK_CONFIGS 的目标表单集合动态生成（勿写死），否则配了非 AE/MH 目标会静默漏检。
+_TGT_FORMS = sorted({cfg[2] for cfg in LINK_CONFIGS}, key=len, reverse=True)
 _LINK_SEG_PAT = re.compile(
-    r"^(AE|MH)\s+\((\d+)\)\s+(.+)\s+(\d{4}-(?:\d{2}|UK|UNK)-(?:\d{2}|UK|UNK))$"
+    r"^(" + "|".join(re.escape(f) for f in _TGT_FORMS)
+    + r")\s+\((\d+)\)\s+(.+)\s+(\d{4}-(?:\d{2}|UK|UNK)-(?:\d{2}|UK|UNK))$"
 )
 
 def parse_link_segments(link_value):

@@ -1,8 +1,11 @@
 path:
-  # 各原始数据 Excel 路径（相对项目根），按新项目实际填写
+  # 各原始数据 Excel 路径（相对项目根），按新项目实际填写。
+  # raw_path / output_path 为通用键；pd_path/code_path/remark_path/timewin_path
+  # 面向「数据审核报告(DMR)」场景，其他类型项目可按需删减
+  # （删减后须同步删除 config.py 中对应的读取行，否则 import 时 KeyError）。
   raw_path: "01 rawdata/<日期>/<受试者数据导出>.xlsx"
   pd_path: "01 rawdata/<日期>/<方案偏离>.xlsx"
   code_path: "01 rawdata/<日期>/<医学编码报告>.xlsx"
   remark_path: "01 rawdata/<日期>/<备注明细>.xlsx"
-  timewin_path: "01 rawdata/time window.xlsx"
+  timewin_path: "01 rawdata/<日期>/<时间窗>.xlsx"
   output_path: "03 output/<日期>"

@@ -1,9 +1,10 @@
 import openpyxl
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
-from copy import copy
 
 
-def summarize_excel(filepath: str) -> None:
+def summarize_excel(filepath: str, summary_title: str = "汇总表",
+                    name_header: str = "核查表名称",
+                    count_header: str = "质疑条数") -> None:
     """
     读取 Excel 文件，统计每个 sheet 的数据行数（不含标题行），
     在第一个位置插入汇总 sheet，并删除空数据 sheet。
@@ -11,6 +12,9 @@ def summarize_excel(filepath: str) -> None:
 
     Args:
         filepath: Excel 文件路径（原地修改）
+        summary_title: 汇总 sheet 名称，默认"汇总表"
+        name_header: 名称列表头，默认"核查表名称"
+        count_header: 计数列表头，默认"质疑条数"（DMR 语境；其他场景按需传入）
     """
     wb = openpyxl.load_workbook(filepath)
 
@@ -22,11 +26,6 @@ def summarize_excel(filepath: str) -> None:
 
     for name in original_sheets:
         ws = wb[name]
-        # max_row 包含标题行，数据行 = max_row - 1
-        # 若 sheet 完全为空（max_row=1 或 None），数据行数为 0
-        max_row = ws.max_row if ws.max_row else 1
-        data_rows = max(0, max_row - 1)
-
         # 检查"数据行"是否真的有内容（排除全空行被 openpyxl 计入的情况）
         actual_data_rows = 0
         for row in ws.iter_rows(min_row=2, max_row=ws.max_row):
@@ -38,11 +37,11 @@ def summarize_excel(filepath: str) -> None:
             sheets_to_delete.append(name)
 
     # 创建汇总 sheet，插入到最前面
-    summary_ws = wb.create_sheet(title="汇总表", index=0)
+    summary_ws = wb.create_sheet(title=summary_title, index=0)
 
     # 写入标题行
-    summary_ws["A1"] = "核查表名称"
-    summary_ws["B1"] = "质疑条数"
+    summary_ws["A1"] = name_header
+    summary_ws["B1"] = count_header
 
     # 标题行样式
     header_font = Font(bold=True, name="Arial", size=11)
