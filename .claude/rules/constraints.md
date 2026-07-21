@@ -8,3 +8,5 @@
 3. **改脚本后必须验证**：`04 scripts/` 下脚本编写或修改后，必须实跑（数据不可用时做语法检查）确认通过，才提醒用户复核；同一错误修复尝试达 2 次仍失败时，停止并将完整报错交给用户定夺。命令与降级路径见 skill Step 5。语法检查用 `python -c "import ast; ast.parse(open(r'<路径>', encoding='utf-8').read()); print('OK')"`。
 
 > **hooks 说明**：`.claude/hooks/` 下的 `raw_read_guard.py` 和 `syntax_check.py` 在 Claude Code 桌面版 / IDE 插件中通过 `PreToolUse`/`PostToolUse` 自动生效；命令行 `claude` 及其他客户端不支持 hooks 时，rawdata 保护依赖 `permission.deny` 规则 + 本约束文件的行为指引，语法检查依赖 skill Step 5 的手动验证。
+
+> **分发同步**：下游项目（全局安装、零 `.claude/`）经 `build-metadata` 的 `CLAUDE.md.template`「强制约束」节获得本约束的精简版并自动加载；改动本文件的约束条目，须同步该模板。
