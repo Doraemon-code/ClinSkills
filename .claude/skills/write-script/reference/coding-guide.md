@@ -87,7 +87,7 @@ OUTPUT_COLS = [VAR_SCREEN_NO, VAR_STUDY_START]
 ```
 
 **三区职责边界：**
-- `IMPORT_*`（EDC 实际列名：标签或 SAS 名）：只出现在 `load_sheet` / `load_rand` 的 `cols` 参数中
+- `IMPORT_*`（EDC 实际列名：标签或 SAS 名）：只出现在 `load_sheet` 的 `usecols`/`cols` 参数中
 - `VAR_*`（中间，与 IMPORT 同）：出现在归一化、筛选、派生、连接步骤的逻辑中
 - `VAR_*`（输出，中文）+ `OUTPUT_COLS`：只出现在 rename 映射和最终选列中；输出表禁止保留 SAS 名或英文列名
 
@@ -143,7 +143,7 @@ _RENAME_MAP = {
 
 | 序号 | 步骤名 | 说明 |
 |---|---|---|
-| 1 | 读取 | `load_sheet` / `load_rand` 调用 |
+| 1 | 读取 | `load_sheet` 调用 |
 | 2 | 归一化 | 日期 parse、类型转换、多表 concat、去重 |
 | 3 | 筛选 | 布尔过滤、组内选行、去重留首/末 |
 | 4 | 变形 | melt / pivot / groupby / crosstab |

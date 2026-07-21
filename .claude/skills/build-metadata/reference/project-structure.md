@@ -24,7 +24,7 @@
 │       └── write-script/        # 脚本编写技能
 ├── utils/                       # 公共工具函数
 │   ├── __init__.py
-│   ├── loaders.py               # 数据读取层（load_sheet / load_rand）
+│   ├── loaders.py               # 数据读取层（load_sheet / system_cols）
 │   └── output_format.py         # 报表输出函数（三线表、xlsx）
 ├── .gitattributes               # Git 行尾与二进制规则
 ├── .gitignore                   # Git 忽略规则

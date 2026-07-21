@@ -1,7 +1,7 @@
 """
 utils/loaders.py — 数据读取层
 
-统一使用 load_sheet / load_rand 读取 EDC 导出的 Excel 数据。
+统一使用 load_sheet 读取 EDC 导出的 Excel 数据；system_cols 解析系统列名。
 """
 
 import json
@@ -192,7 +192,7 @@ def load_sheet(
     # 受试者(筛选号)、随机号为 ID 编码，强制 str 读取以保留前导零；
     # pandas 会忽略 sheet 中不存在的 dtype 键，故对所有 sheet 传入无副作用。
     # 注：此处硬编码的"随机号"是字段标签字面量，仅命中标签恰为"随机号"的表头（clinflash/taimei 常见）；
-    #     cmis（用 SAS 名）或英文标签项目命不中，其随机号列由 load_rand 按实际列名兜底强制 str（见下）。
+    #     cmis（用 SAS 名）或英文标签项目命不中，其随机号列需 caller 显式传 dtype 强制 str。
     # caller 显式传入的 dtype 优先（dict 合并覆盖，或整体替换）。
     id_dtype = {system_cols("subject"): str, "随机号": str}
     if isinstance(dtype, dict):
@@ -205,63 +205,3 @@ def load_sheet(
     if EDC_TYPE != "clinflash":
         kwargs["skiprows"] = [1]
     return pd.read_excel(raw_path, sheet_name=sheet, **kwargs)
-
-
-def load_rand(cols: list[str] | None = None) -> pd.DataFrame:
-    """读取随机入组表（DS_RAND），返回受试者+随机号等。
-
-    Args:
-        cols: 指定读取的列名列表。受试者列由 system_cols("subject") 自动解析；
-              表单字段列（如"随机号"）为示例默认列名（随 EDC 而异），其他 EDC
-              项目需通过 cols 传入对应的表单字段列名。本函数用于读取 ID 类列，
-              cols 中除受试者外的列一律强制 str 读取以保前导零，勿传日期列。
-
-    Returns:
-        DataFrame
-    """
-    default_cols = [system_cols("subject"), "随机号"]
-    usecols = cols or default_cols
-    # 随机号等 ID 列强制 str 保前导零；因随机号列名随 EDC 而异（cmis 用 SAS 名、
-    # 标签也可能是英文，load_sheet 内硬编码的"随机号"命不中），此处按实际 usecols 中非受试者列兜底。
-    _subj = system_cols("subject")
-    _id_dtype = {c: str for c in usecols if c != _subj}
-    return load_sheet("DS_RAND", usecols=usecols, dtype=_id_dtype)
-
-
-def load_completion(cols: list[str] | None = None) -> pd.DataFrame:
-    """读取试验总结表（DS_END），返回受试者+完成状态等。
-
-    Args:
-        cols: 指定读取的列名列表。受试者列由 system_cols("subject") 自动解析；
-              表单字段列（如 taimei 的解码列"受试者是否完成试验_TXT"）为示例默认
-              列名（随 EDC 而异），其他 EDC 项目需通过 cols 传入对应的表单字段列名。
-
-    Returns:
-        DataFrame
-    """
-    default_cols = [system_cols("subject"), "受试者是否完成试验_TXT"]
-    usecols = cols or default_cols
-    return load_sheet("DS_END", usecols=usecols)
-
-
-def load_first_dose(cols: list[str] | None = None) -> pd.DataFrame:
-    """读取试验药物首次用药日期（EC_ED 最早开始日期）。
-
-    Args:
-        cols: 指定读取的列名列表，格式必须为 [受试者列, 开始日期列]（顺序固定）。
-              受试者列由 system_cols("subject") 自动解析；开始日期列（如"开始日期"）
-              为示例默认列名（随 EDC 而异），其他 EDC 项目需通过 cols 传入对应列名。
-
-    Returns:
-        DataFrame with columns [受试者, 首次用药日期]
-    """
-    subj_col = system_cols("subject")
-    default_cols = [subj_col, "开始日期"]
-    usecols = cols or default_cols
-    assert len(usecols) == 2, "cols 必须恰好包含 2 个元素：[受试者列, 开始日期列]"
-    start_date_col = usecols[1]  # 约定：cols[0]=受试者列，cols[1]=日期列
-    df = load_sheet("EC_ED", usecols=usecols)
-    df[start_date_col] = pd.to_datetime(df[start_date_col], errors="coerce")
-    df = df.groupby(subj_col, dropna=False)[start_date_col].min().reset_index()
-    df = df.rename(columns={start_date_col: "首次用药日期"})
-    return df
