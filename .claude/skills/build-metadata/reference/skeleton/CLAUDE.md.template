@@ -30,10 +30,8 @@
 编码规范（变量前缀、列名集中管理、八步操作模型、脚本模板等）详见 `/write-script` skill 的 `SKILL.md`。以下为跨 skill 的通用约定：
 
 <!-- EDC_TYPE_HEADER_START -->
-<!-- 根据 Step 1 选择的 EDC 类型，替换下方约定行： -->
-<!-- clinflash: - 表头结构：`header=0`（单行字段标签，编码字段含 `(fieldOID)` 缩写后缀；无 skiprows） -->
-<!-- taimei5/taimei6: - 表头结构：`header=0, skiprows=[1]`（第 1 行字段标签，第 2 行 SAS 变量名被跳过） -->
-<!-- cmis: - 表头结构：`header=0, skiprows=[1]`（第 1 行 SAS 变量名，第 2 行字段标签被跳过） -->
+<!-- build-metadata Step 2b：按 Step 1 选定的 EDC 类型替换下方约定行， -->
+<!-- 三类取值见 write-script/reference/header-structure.md「写回 CLAUDE.md 的格式」节。 -->
 - 表头结构：`header=0`（单行字段标签，编码字段含 `(fieldOID)` 缩写后缀；无 skiprows）
 <!-- EDC_TYPE_HEADER_END -->
 - 报表函数来自 `utils/output_format.py`

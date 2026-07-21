@@ -1,6 +1,5 @@
 from openpyxl import load_workbook
 from openpyxl.styles import Border, Side, Font
-from openpyxl.utils import get_column_letter
 
 def add_sheet_index(excel_path, index_sheet_name="目录"):
     """

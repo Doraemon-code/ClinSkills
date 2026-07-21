@@ -13,7 +13,6 @@
 
 import sys, re
 from pathlib import Path
-from datetime import date
 
 _project_root = str(Path(__file__).resolve().parent.parent.parent)
 if _project_root not in sys.path:
@@ -145,7 +144,6 @@ df = df_main.merge(
 
 # ── 7 派生：逐行核查 ──
 
-TODAY = date.today().isoformat()
 results = []
 
 for _, row in df.iterrows():

@@ -44,7 +44,6 @@ def summarize_excel(filepath: str, summary_title: str = "汇总表",
     summary_ws["B1"] = count_header
 
     # 标题行样式
-    header_font = Font(bold=True, name="Arial", size=11)
     header_fill = PatternFill("solid", start_color="4472C4", end_color="4472C4")
     header_alignment = Alignment(horizontal="center", vertical="center")
     thin_border = Border(
