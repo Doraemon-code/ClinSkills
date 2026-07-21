@@ -27,6 +27,7 @@ description: |
 | Settings | `.claude/settings.json`、`settings.local.json` |
 | 顶层指令 | `CLAUDE.md`、Memory（`~/.claude/projects/.../memory/`） |
 | 工具层 | `utils/loaders.py`、`utils/output_format.py`（被 skill 依赖的公共接口） |
+| 安装/分发 | `install.ps1`、`install.sh`、`install/*.py`、`README.md`（一键全局安装脚本与说明） |
 
 > **审计范围：永远只审 git 追踪的内容**。未追踪的项目特异性内容——被 gitignore 的
 > `CLAUDE.md`/`config.*`/`04 scripts/`、以及 `~/.claude/` 下的 Memory——**不作为受审对象**，
@@ -43,7 +44,7 @@ description: |
 
 ```bash
 # 仅 git 追踪的 harness 文件 + 行数（未追踪的项目特异性内容自动排除）
-git ls-files '.claude/**' 'utils/*.py' 'CLAUDE.md' \
+git ls-files '.claude/**' 'utils/*.py' 'CLAUDE.md' 'install/**' 'install.ps1' 'install.sh' 'README.md' \
   | while read f; do [ -f "$f" ] && printf "%5s  %s\n" "$(wc -l < "$f")" "$f"; done | sort -rn
 ```
 

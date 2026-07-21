@@ -25,6 +25,7 @@ for sub in skills agents hooks; do
   [ -d "$src" ] || continue
   mkdir -p "$claude_dir/$sub"
   for item in "$src"/*; do
+    [ -e "$item" ] || continue   # 空子目录时 glob 保持字面 *，跳过
     name="$(basename "$item")"
     rm -rf "$claude_dir/$sub/$name"
     cp -R "$item" "$claude_dir/$sub/$name"

@@ -29,11 +29,16 @@ def main() -> int:
 
     settings = {}
     if settings_path.exists():
-        try:
-            settings = json.loads(settings_path.read_text(encoding="utf-8"))
-        except (json.JSONDecodeError, ValueError):
-            print("  ! 现有 settings.json 无法解析，跳过——请手动配置。", file=sys.stderr)
-            return 0
+        text = settings_path.read_text(encoding="utf-8")
+        if text.strip():
+            try:
+                settings = json.loads(text)
+            except (json.JSONDecodeError, ValueError):
+                print("  ! 现有 settings.json 无法解析，跳过——请手动配置。", file=sys.stderr)
+                return 0
+            if not isinstance(settings, dict):
+                print("  ! 现有 settings.json 顶层非对象，跳过——请手动配置。", file=sys.stderr)
+                return 0
 
     changed = False
     hooks = settings.setdefault("hooks", {})
@@ -44,7 +49,7 @@ def main() -> int:
         post.append({
             "matcher": "Edit|Write|MultiEdit",
             "hooks": [{"type": "command",
-                       "command": f'python "{hooks_dir / "syntax_check.py"}"'}],
+                       "command": f'"{sys.executable}" "{hooks_dir / "syntax_check.py"}"'}],
         })
         changed = True
         print("  ✓ 注册 syntax_check (PostToolUse)")
@@ -55,7 +60,7 @@ def main() -> int:
         pre.append({
             "matcher": "Bash|Read|PowerShell",
             "hooks": [{"type": "command",
-                       "command": f'python "{hooks_dir / "raw_read_guard.py"}"'}],
+                       "command": f'"{sys.executable}" "{hooks_dir / "raw_read_guard.py"}"'}],
         })
         changed = True
         print("  ✓ 注册 raw_read_guard (PreToolUse)")
