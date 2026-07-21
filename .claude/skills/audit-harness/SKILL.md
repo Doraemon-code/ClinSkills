@@ -1,10 +1,10 @@
 ---
 name: audit-harness
 description: |
-  对本项目的 Harness 工程（.claude/ 下 skills、agents、hooks、rules、settings，
-  以及 CLAUDE.md、memory、utils/ 工具层）做系统性评估与优化，按 9 个维度逐项检查：
+  对本项目 **git 追踪的** Harness 工程（.claude/ 下 skills、agents、hooks、rules、settings，
+  以及被追踪的 CLAUDE.md、utils/ 工具层）做系统性评估与优化，按 11 个维度逐项检查：
   一致性/漂移、冗余、覆盖缺口、提示词质量、护栏健壮性、最佳实践、稳定性/体量、
-  引用合理性、渐进式披露。评估后交互式逐条确认修改。
+  引用合理性、渐进式披露、泛化性/可复用性、简洁性/死代码。评估后交互式逐条确认修改。
   当用户要求评估/审计/优化 harness、检查 .claude 基建、审查 skill/agent/hook 设计、
   「看看 harness 有没有问题」「skill 写得合不合规」「优化一下工程结构」时触发。
 ---
@@ -28,22 +28,27 @@ description: |
 | 顶层指令 | `CLAUDE.md`、Memory（`~/.claude/projects/.../memory/`） |
 | 工具层 | `utils/loaders.py`、`utils/output_format.py`（被 skill 依赖的公共接口） |
 
+> **审计范围：永远只审 git 追踪的内容**。未追踪的项目特异性内容——被 gitignore 的
+> `CLAUDE.md`/`config.*`/`04 scripts/`、以及 `~/.claude/` 下的 Memory——**不作为受审对象**，
+> 至多作为「现有约定」被读取以避免误判，绝不列入评估表或修改。上表描述的是 harness 的
+> 各**类别**，实际审计集 = 其中被 git 追踪的子集（以 `git ls-files` 为准）。
+
 ## 工作流程
 
 ### 1. 建立清单
 
 先枚举全部 harness 文件并量体量（行数），建立全局视图。这一步串行、在主 skill 内完成，
-因为跨文件维度（一致性、冗余、覆盖缺口）必须先看全貌。
+因为跨文件维度（一致性、冗余、覆盖缺口）必须先看全貌。**只枚举 git 追踪的文件**——
+未追踪内容不入审计集（见上「审计范围」）。
 
 ```bash
-# 各文件行数
-find .claude -type f \( -name "*.md" -o -name "*.py" -o -name "*.json" \) \
-  | while read f; do printf "%5s  %s\n" "$(wc -l < "$f")" "$f"; done
-wc -l CLAUDE.md utils/*.py
+# 仅 git 追踪的 harness 文件 + 行数（未追踪的项目特异性内容自动排除）
+git ls-files '.claude/**' 'utils/*.py' 'CLAUDE.md' \
+  | while read f; do [ -f "$f" ] && printf "%5s  %s\n" "$(wc -l < "$f")" "$f"; done | sort -rn
 ```
 
 同时读取 `CLAUDE.md`、`constraints.md`、各 `SKILL.md` 的 frontmatter 与 Memory 索引，
-掌握现有约定，避免把「遵循约定」误判为「违规」。
+掌握现有约定，避免把「遵循约定」误判为「违规」（这些即使未追踪也可读作上下文，但不受审）。
 
 ### 2. 主扫全局（跨文件维度）
 
@@ -57,7 +62,7 @@ wc -l CLAUDE.md utils/*.py
 ### 3. 逐文件评估（对照 checklist 单文件维度）
 
 对每个 artifact，按 checklist 的**单文件维度**（提示词质量、护栏健壮性、最佳实践、
-稳定性/体量、引用合理性、渐进式披露）逐项判断。
+稳定性/体量、引用合理性、渐进式披露、**泛化性/可复用性**、**简洁性/死代码**）逐项判断。
 
 **按需 spawn**：当某个 SKILL.md 或 reference 文件较大（≥ 阈值的 80%）或逻辑复杂、
 主上下文难以精读时，spawn `general-purpose` Agent 做单文件深审，prompt 中带上
