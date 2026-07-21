@@ -35,16 +35,17 @@ EDC 导出的 rawdata 中，系统列不在 FormField 元数据里，列名随 E
 
 6 个角色可完全定位 EDC 中的每一个数据点，同一 EDC 跨研究固定：
 
-| 角色 | 含义 | clinflash | taimei5 | taimei6 | cmis |
-|---|---|---|---|---|---|
-| `center` | 中心编号 | 试验中心编号 | 中心编号 | 中心编号 | SITEID |
-| `subject` | 筛选号 | 受试者编号 | 受试者 | 受试者编号 | SUBJID |
-| `visit_name` | 访视名称 | 数据节 | 访视名称 | 表单集名称 | VISIT |
-| `visit_seq` | 访视序号 | Instance顺序号 | 访视号 | 表单集记录号 | VISITNUM |
-| `form_name` | 表单名称 | 数据页 | 页面名称 | 表单名称 | FORMNAME |
-| `row` | 字段行号 | 行号 | 记录号 | 字段记录号 | TOPICSEQ |
+| 角色 | 含义 | clinflash | taimei5 | taimei6（中文） | taimei6（英文） | cmis |
+|---|---|---|---|---|---|---|
+| `center` | 中心编号 | 试验中心编号 | 中心编号 | 中心编号 | Site ID | SITEID |
+| `subject` | 筛选号 | 受试者编号 | 受试者 | 受试者编号 | Subject ID | SUBJID |
+| `visit_name` | 访视名称 | 数据节 | 访视名称 | 表单集名称 | Formset Name | VISIT |
+| `visit_seq` | 访视序号 | Instance顺序号 | 访视号 | 表单集记录号 | Formset Repeat No. | VISITNUM |
+| `form_name` | 表单名称 | 数据页 | 页面名称 | 表单名称 | Form Name | FORMNAME |
+| `row` | 字段行号 | 行号 | 记录号 | 字段记录号 | Item Repeat No. | TOPICSEQ |
 
-> taimei5 / taimei6 列名均已按实际导出核实（第 1 行字段标签、第 2 行 SAS 变量名被跳过）；两者同属太美、表头结构一致，但字段标签不完全相同（如 subject：taimei5 `受试者` / taimei6 `受试者编号`；visit_name：taimei5 `访视名称` / taimei6 `表单集名称`），一律以 `SYSTEM_COLUMNS` 注册表为准。
+> taimei5 / taimei6 列名均已按实际导出核实（第 1 行字段标签、第 2 行 SAS 变量名被跳过）；两者同属太美、表头结构一致，但字段标签不完全相同（如 subject：taimei5 `受试者` / taimei6 中文 `受试者编号`；visit_name：taimei5 `访视名称` / taimei6 中文 `表单集名称`），一律以 `SYSTEM_COLUMNS` 注册表为准。
+> taimei6 同时登记中/英两套系统列；`system_cols()` 按 `FormField.json` 的 `itemName` 语言自动选用（`HEADER_LANGUAGE`：`zh` / `en`）。
 > **同步约定**：本表是 `utils/loaders.py` 的 `SYSTEM_COLUMNS` 的文档副本，权威以注册表为准；改动任一处（增删 EDC / 改列名）必须同步另一处。
 
 ```python

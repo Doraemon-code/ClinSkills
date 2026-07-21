@@ -5,11 +5,21 @@ utils/loaders.py — 数据读取层
 """
 
 import json
+import sys
 import warnings
 import pandas as pd
 from config import raw_path
 from pathlib import Path
 from typing import overload
+
+_PROJECT_ROOT = Path(__file__).resolve().parent.parent
+
+# openpyxl MatchPattern 兼容 patch（太美6 AutoFilter ref 不规范等场景）
+_compat_dir = str(_PROJECT_ROOT / ".claude" / "skills" / "build-metadata" / "scripts")
+if _compat_dir not in sys.path:
+    sys.path.insert(0, _compat_dir)
+from _compat import ensure_openpyxl_patch
+ensure_openpyxl_patch()
 
 # EDC 导出的 xlsx 无默认样式，openpyxl 每次读取都抛此 UserWarning，与数据无关，静音。
 warnings.filterwarnings(
@@ -18,14 +28,33 @@ warnings.filterwarnings(
     category=UserWarning,
 )
 
-_PROJECT_ROOT = Path(__file__).resolve().parent.parent
-
 # 读取 EDC 类型
 _meta_path = _PROJECT_ROOT / "02 metadata" / "FormField.json"
 with open(_meta_path, encoding="utf-8") as _f:
     _meta = json.load(_f)
 EDC_TYPE = _meta.get("_meta", {}).get("edcType", "")
 
+
+def _detect_header_language() -> str:
+    """根据 FormField.json 的 itemName 判断表头语言：zh 或 en。
+
+    统计 CJK 与 ASCII 字母占比；相等或无法判断时默认 zh。
+    """
+    cjk = 0
+    ascii_letters = 0
+    for rec in _meta.get("variables", []):
+        name = rec.get("itemName") or ""
+        for ch in name:
+            if "一" <= ch <= "鿿":
+                cjk += 1
+            elif ch.isascii() and ch.isalpha():
+                ascii_letters += 1
+    if cjk == 0 and ascii_letters == 0:
+        return "zh"
+    return "zh" if cjk >= ascii_letters else "en"
+
+
+HEADER_LANGUAGE = _detect_header_language()
 
 # ── 系统列注册表 ──
 # 同一 EDC 系统的 rawdata 系统列跨研究固定，故作确定性知识登记于此。
@@ -40,6 +69,27 @@ EDC_TYPE = _meta.get("_meta", {}).get("edcType", "")
 #   visit_seq   访视序号（标记访视重复）
 #   form_name   表单名称
 #   row         字段行号（标记表单内重复记录）
+#
+# taimei6 同时登记中/英两套系统列；运行时按 FormField itemName 语言自动选用。
+_TAIMEI6_SYSTEM_COLUMNS: dict[str, dict[str, str]] = {
+    "zh": {
+        "center":     "中心编号",
+        "subject":    "受试者编号",
+        "visit_name": "表单集名称",
+        "visit_seq":  "表单集记录号",
+        "form_name":  "表单名称",
+        "row":        "字段记录号",
+    },
+    "en": {
+        "center":     "Site ID",
+        "subject":    "Subject ID",
+        "visit_name": "Formset Name",
+        "visit_seq":  "Formset Repeat No.",
+        "form_name":  "Form Name",
+        "row":        "Item Repeat No.",
+    },
+}
+
 SYSTEM_COLUMNS: dict[str, dict[str, str]] = {
     "clinflash": {
         "center":     "试验中心编号",
@@ -57,14 +107,9 @@ SYSTEM_COLUMNS: dict[str, dict[str, str]] = {
         "form_name":  "页面名称",
         "row":        "记录号",
     },
-    "taimei6": {
-        "center":     "中心编号",
-        "subject":    "受试者编号",
-        "visit_name": "表单集名称",
-        "visit_seq":  "表单集记录号",
-        "form_name":  "表单名称",
-        "row":        "字段记录号",
-    },
+    "taimei6": _TAIMEI6_SYSTEM_COLUMNS.get(
+        HEADER_LANGUAGE, _TAIMEI6_SYSTEM_COLUMNS["zh"]
+    ),
     "cmis": {
         "center":     "SITEID",
         "subject":    "SUBJID",
