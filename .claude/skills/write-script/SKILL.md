@@ -180,4 +180,4 @@ Agent 读取 `review-checklist.md`，按致命项 → 重要项 → 建议项三
 
 ---
 
-文件命名：`清单NN：标题.py` 或 `表格NN：标题.py`（NN 为两位数字序号；`：` 为全角冒号，适用于 Windows NTFS，跨平台部署时需注意）。
+文件命名：`清单NN：标题.py` 或 `表格NN：标题.py`（NN 为两位数字序号；`：` 为全角冒号，适用于 Windows NTFS，跨平台部署时需注意）。此为 **.py 脚本名**；**输出文件**（docx/xlsx）及 Excel sheet 名的命名见 `reference/coding-guide.md`——用连字符 `-`、禁全角冒号。

@@ -13,6 +13,8 @@
 | `linked_form_consistency_check.py` | 主表筛选类型后核查关联表是否有对应记录，输出全量+异常标记（如 AE 药物治疗应有 CM 记录） | 关联行号,一致性,交叉表,CM,AE,过滤,异常标记,全量输出 | 高 | MAIN_FORM/MAIN_FILTER_COL/MAIN_FILTER_INCLUDE/MAIN_FILTER_EXCLUDE, LINK_FORM/LINK_COL/LINK_REASON_*, OUTPUT_COLS |
 
 > 说明：上表「需替换的配置」为**摘要**，完整 `@config` 项以各模板头注为准；模板输出文件名（`{CHECK_NAME}.xlsx`）为占位，复制后请按 `清单NN-标题.xlsx` 规范命名。
+>
+> **列名格式**：各模板 `@config` 的业务列名示例采用 **clinflash 风格**（`{itemName}(fieldOID)`）；taimei5/taimei6/cmis 项目须按 `coding-guide.md` 的列名规则改写（taimei 用解码列 `_TXT`/`_DEC`、cmis 用 SAS 变量名）。系统列不受此限（`system_cols()` 自动解析）。
 
 ## 检索约定
 

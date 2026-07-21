@@ -1,8 +1,8 @@
 #!/usr/bin/env python
-"""PostToolUse 钩子：项目 04 scripts/ 下的 .py 被 Edit/Write/MultiEdit 后自动做语法检查。
+"""PostToolUse 钩子：项目 04 scripts/ 与 utils/ 下的 .py 被 Edit/Write/MultiEdit 后自动做语法检查。
 
 由 .claude/settings.json 的 PostToolUse 钩子调用，读取 stdin 的工具事件 JSON。
-- 仅对项目根 04 scripts/ 目录下的 .py 生效（排除 .claude/skills/**/scripts/ 等同名目录）。
+- 仅对项目根 04 scripts/ 与 utils/ 目录下的 .py 生效（排除 .claude/skills/**/scripts/ 等同名目录）。
 - 语法错误 → 退出码 2：stderr 回灌给模型，要求修复（rule #3 的"语法地板"）。
 - 其余情况一律放行（退出码 0），不打扰。
 
@@ -41,12 +41,12 @@ def main():
     if p.suffix != ".py":
         return 0
 
-    # 仅限项目根 scripts/ 下
+    # 仅限项目根 04 scripts/ 或 utils/ 下
     try:
         rel = p.resolve().relative_to(PROJECT_ROOT)
     except ValueError:
         return 0  # 项目外，放行
-    if not rel.parts or rel.parts[0] != "04 scripts":
+    if not rel.parts or rel.parts[0] not in ("04 scripts", "utils"):
         return 0
 
     try:
