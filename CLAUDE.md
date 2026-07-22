@@ -103,7 +103,7 @@ python -c "import ast; ast.parse(open(r'<path>', encoding='utf-8').read()); prin
 python "04 scripts/<script_name>.py"
 
 # Query metadata — from plugin source repo, skills/ is at CWD root;
-# in clinical project sessions, use "$CLAUDE_PLUGIN_ROOT/skills/..." instead
+# in clinical project sessions, use "$CLAUDE_PLUGIN_ROOT/skills/..." (PowerShell: $env:CLAUDE_PLUGIN_ROOT) instead
 python skills/write-script/scripts/query_metadata.py search <keyword>
 python skills/write-script/scripts/query_metadata.py fields <formOID>
 python skills/write-script/scripts/query_metadata.py codelist <name>

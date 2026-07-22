@@ -25,7 +25,7 @@ tools:
 
 ### 1. 读取审查清单
 
-清单文件在插件 `skills/write-script/reference/review-checklist.md`，使用 `$CLAUDE_PLUGIN_ROOT` 定位：
+清单文件在插件 `skills/write-script/reference/review-checklist.md`，使用 `$CLAUDE_PLUGIN_ROOT` 定位（Read 工具不展开变量，须先解析为绝对路径——PowerShell 取 `$env:CLAUDE_PLUGIN_ROOT`——再读）：
 
 ```bash
 Read "$CLAUDE_PLUGIN_ROOT/skills/write-script/reference/review-checklist.md"
