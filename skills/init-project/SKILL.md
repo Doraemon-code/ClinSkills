@@ -62,7 +62,7 @@ git rev-parse --show-toplevel
 读取标准结构参考文件：
 
 ```bash
-Read ${CLAUDE_PROJECT_DIR}/skills/init-project/reference/project-structure.md
+Read "$CLAUDE_PLUGIN_ROOT/skills/init-project/reference/project-structure.md"
 ```
 
 按以下顺序校验并修正：
@@ -88,7 +88,7 @@ Read ${CLAUDE_PROJECT_DIR}/skills/init-project/reference/project-structure.md
 
 按 `project-structure.md`「骨架文件」表（Step 2 开头已读），从 `reference/skeleton/` **复制对应 `.template` 到项目根、去掉 `.template` 后缀**（`.gitattributes` / `.gitignore` 目标名需加前导点）。已存在的文件**不覆盖**，仅补缺。其中 `CLAUDE.md`：复制后按下方规则替换 EDC header 区块，并提示用户填写 `<项目名>`。
 
-**CLAUDE.md EDC 类型替换规则：** 删除 `<!-- EDC_TYPE_HEADER_START -->` 至 `<!-- EDC_TYPE_HEADER_END -->` 之间的全部行（含注释与默认占位行），插入 Step 1 选定 EDC 对应的表头约定行——**三类取值见 `skills/write-script/reference/header-structure.md`「写回 CLAUDE.md 的格式」节（表头规则的权威表述）**。
+**CLAUDE.md EDC 类型替换规则：** 删除 `<!-- EDC_TYPE_HEADER_START -->` 至 `<!-- EDC_TYPE_HEADER_END -->` 之间的全部行（含注释与默认占位行），插入 Step 1 选定 EDC 对应的表头约定行——**三类取值见 `$CLAUDE_PLUGIN_ROOT/skills/write-script/reference/header-structure.md`「写回 CLAUDE.md 的格式」节（表头规则的权威表述）**。
 
 **2c. 部署工具层 `utils/`**
 

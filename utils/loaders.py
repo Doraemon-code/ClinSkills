@@ -162,6 +162,16 @@ SYSTEM_COLUMNS: dict[str, dict[str, str]] = {
     },
 }
 
+# 额外强制 str 读取的 ID 列（保留前导零）——subject 已单独处理，不在此重复。
+# 值为该 EDC 中随机号/编号等 ID 列的实际列名（字段标签或 SAS 名）；命不中的项目
+# 须在此补本项目的实际列名，否则该列前导零会被 pandas 静默转为整数丢失。
+ID_COLUMNS: dict[str, list[str]] = {
+    "clinflash": ["随机号"],
+    "taimei5":   ["随机号"],
+    "taimei6":   ["随机号"],
+    "cmis":      [],  # cmis 用 SAS 名，随机号列名随项目而定，命中后在此补
+}
+
 
 @overload
 def system_cols(role: None = None) -> dict: ...
@@ -231,12 +241,13 @@ def load_sheet(
         DataFrame
     """
     sheet = _resolve_sheet_name(form_oid, form_name)
-    # 受试者(筛选号)、随机号为 ID 编码，强制 str 读取以保留前导零；
+    # 受试者(筛选号)与随机号/编号等 ID 列为编码，强制 str 读取以保留前导零；
     # pandas 会忽略 sheet 中不存在的 dtype 键，故对所有 sheet 传入无副作用。
-    # 注：此处硬编码的"随机号"是字段标签字面量，仅命中标签恰为"随机号"的表头（clinflash/taimei 常见）；
-    #     cmis（用 SAS 名）或英文标签项目命不中，其随机号列需 caller 显式传 dtype 强制 str。
-    # caller 显式传入的 dtype 优先（dict 合并覆盖，或整体替换）。
-    id_dtype = {system_cols("subject"): str, "随机号": str}
+    # ID 列取自 ID_COLUMNS 注册表（按 EDC 配置，复用者查注册表即可见需改处）；
+    # subject 单独强制 str。caller 显式传入的 dtype 优先（dict 合并覆盖，或整体替换）。
+    id_dtype = {system_cols("subject"): str}
+    for _id_col in ID_COLUMNS.get(EDC_TYPE, []):
+        id_dtype[_id_col] = str
     if isinstance(dtype, dict):
         eff_dtype = {**id_dtype, **dtype}
     elif dtype is not None:

@@ -151,7 +151,7 @@ def _build_visit_forms(wb):
 # ── 入口 ───────────────────────────────────────────────────────
 
 
-def parse(wb, output_dir):
+def parse(wb):
     """解析 ClinFlash SDS Excel，返回要生成的 JSON 文件。
 
     输出（通用命名）:

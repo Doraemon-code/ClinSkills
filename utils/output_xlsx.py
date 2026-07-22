@@ -10,6 +10,9 @@ from openpyxl import load_workbook, Workbook
 from openpyxl.utils import get_column_letter
 from openpyxl.styles import Alignment, Font, PatternFill, Border, Side
 
+# 依赖：使用 engine='xlsxwriter' 的导出函数（export_to_excel_with_format /
+#       export_to_one_excel_with_format）运行期需已装 xlsxwriter（非 pandas 自带）。
+
 
 def export_to_excel_with_format(df, output_path, sheet_name, title_name, add_title=True):
     """将 DataFrame 输出为格式化的 Excel 清单（xlsxwriter）。"""
@@ -19,7 +22,9 @@ def export_to_excel_with_format(df, output_path, sheet_name, title_name, add_tit
     header_row = 1 if add_title else 0
     data_start_row = header_row + 1
 
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    output_dir = os.path.dirname(output_path)
+    if output_dir:
+        os.makedirs(output_dir, exist_ok=True)
 
     with pd.ExcelWriter(output_path, engine='xlsxwriter') as writer:
         workbook = writer.book
@@ -79,7 +84,9 @@ def export_to_one_excel_with_format(df, output_path, sheet_name, title_name=None
             del workbook[sheet_name]
         worksheet = workbook.create_sheet(sheet_name)
     else:
-        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+        output_dir = os.path.dirname(output_path)
+        if output_dir:
+            os.makedirs(output_dir, exist_ok=True)
         workbook = Workbook()
         worksheet = workbook.active
         worksheet.title = sheet_name
@@ -181,7 +188,9 @@ def export_to_excel_twoheader(df, output_path, sheet_name, title,
     n_rows = len(df)
     n_subj = df[subject_col].nunique() if subject_col else None
 
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    output_dir = os.path.dirname(output_path)
+    if output_dir:
+        os.makedirs(output_dir, exist_ok=True)
     with pd.ExcelWriter(output_path, engine='xlsxwriter') as writer:
         df.to_excel(writer, sheet_name=sheet_name, startrow=3,
                     index=False, header=False)

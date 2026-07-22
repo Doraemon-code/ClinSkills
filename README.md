@@ -1,6 +1,6 @@
 # ClinSkills
 
-临床试验数据审核（DMR）报告的 Claude Code **Plugin**：EDC 元数据解析、数据核查脚本编写、改动审查、harness 审计、skill 编写。
+临床试验数据审核（DMR）报告的 Claude Code **Plugin**：项目脚手架、EDC 元数据解析、数据核查脚本编写。
 
 ## 安装
 

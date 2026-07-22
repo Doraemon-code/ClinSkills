@@ -83,7 +83,7 @@ def summarize_excel(filepath: str, summary_title: str = "汇总表",
         del wb[name]
 
     wb.save(filepath)
-    print(f"完成！汇总表已插入为第一个 sheet。")
+    print("完成！汇总表已插入为第一个 sheet。")
     print(f"删除了 {len(sheets_to_delete)} 个空 sheet：{sheets_to_delete}")
     print("各 sheet 统计结果：")
     for name, count in summary_data:

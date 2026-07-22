@@ -52,4 +52,4 @@
 | Agent | 模型 | 用途 | 典型调用场景 |
 |---|---|---|---|
 | `metadata-explorer` | 继承主会话 | 渐进式查询 EDC 元数据（search→fields→codelist），返回结构化结果 | write-script Step 2 自动调用；也可手动 spawn 探索数据形状 |
-| `python-reviewer` | sonnet | Python 脚本编码规范合规审查，对照 review-checklist.md 返回分级违规列表 | write-script Step 5 规范审查；review-changes 中 Python 维度 1/7 深度检查 |
+| `python-reviewer` | 继承主会话 | Python 脚本编码规范合规审查，对照 review-checklist.md 返回分级违规列表 | write-script Step 5 规范审查；review-changes 中 Python 维度 1/7 深度检查 |

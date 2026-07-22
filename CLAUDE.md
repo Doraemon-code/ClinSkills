@@ -12,7 +12,7 @@ The end-user workflow: (1) enter a clinical project directory, (2) run `/clin-sk
 
 This repo is **not itself a clinical project** — it is the source of the installable plugin. Clinical projects created with it have no plugin directory; the plugin is installed globally. The `utils/` directory is the only component that gets copied into clinical projects (via `init-project`'s skeleton mechanism).
 
-Key consequence: `.gitignore` excludes `CLAUDE.md`, `config.py`, `config.yaml`, `requirements.txt`, `01 rawdata/`, `02 metadata/`, `03 output/`, `04 scripts/` — these are downstream project artifacts, not part of the plugin source.
+Key consequence: `.gitignore` excludes `config.py`, `config.yaml`, `requirements.txt`, `01 rawdata/`, `02 metadata/`, `03 output/`, `04 scripts/` — these are downstream project artifacts, not part of the plugin source.
 
 ## Architecture
 

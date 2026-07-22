@@ -55,7 +55,7 @@ def main():
 
     # 各解析模块返回 dict[str, dict]，key 为输出文件名（不含 .json），value 为数据
     output_dir = os.path.dirname(excel_path)
-    results = PARSERS[edc_type](wb, output_dir)
+    results = PARSERS[edc_type](wb)
     wb.close()
 
     if not results:
@@ -75,7 +75,9 @@ def main():
         }
         with open(out_path, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
-        print(f"  → {out_path}")
+        # 记录数 = 主 wrapper 键（非 _meta）的条目数，呼应 SKILL Step 4「各 section 记录数」
+        n_records = sum(len(v) for k, v in data.items() if k != "_meta")
+        print(f"  → {out_path}  ({n_records} 条)")
 
 
 if __name__ == "__main__":

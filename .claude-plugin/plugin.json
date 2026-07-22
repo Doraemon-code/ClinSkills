@@ -2,7 +2,7 @@
   "name": "clin-skills",
   "displayName": "ClinSkills",
   "version": "1.0.0",
-  "description": "临床试验数据审核报告（DMR）技能集：项目脚手架、EDC 元数据解析、数据核查脚本编写、改动审查、harness 审计。支持 4 种 EDC（太美5/6、cmis、clinflash）。",
+  "description": "临床试验数据审核报告（DMR）技能集：项目脚手架、EDC 元数据解析、数据核查脚本编写、改动审查。支持 4 种 EDC（太美5/6、cmis、clinflash）。",
   "author": {
     "name": "Dora",
     "url": "https://github.com/Doraemon-code/ClinSkills"

@@ -4,7 +4,7 @@ from openpyxl.styles import Border, Side, Font
 def add_sheet_index(excel_path, index_sheet_name="目录"):
     """
     为已有 Excel 文件添加目录页（放在最前面），不改变原有 sheet 样式。
-    目录包含两列：序号、sheet 名称（带跳转链接），并加上细框线。
+    目录包含两列：序号、表单名称（带跳转链接），并加上细框线。
     """
 
     wb = load_workbook(excel_path)

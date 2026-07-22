@@ -1,6 +1,6 @@
 # harness-checklist.md
 
-`audit-harness` 的评判标准。11 个维度分两组：**跨文件维度**（需纵览全局，主 skill 完成）
+`audit-harness` 的评判标准。12 个维度分两组：**跨文件维度**（需纵览全局，主 skill 完成）
 与**单文件维度**（逐 artifact 判断，可按需 spawn）。附文件体量软上限与严重度定义。
 
 > **范围**：只评 **git 追踪的**文件；被 gitignore 的 `CLAUDE.md`/`config.*`/`04 scripts/`
@@ -31,6 +31,20 @@
 - 高频/高风险操作是否缺护栏（hook / permission deny / rule）。
 - 是否缺应有的 skill 或 agent（反复手工做的事没有自动化）。
 - 现有 skill 的流程是否有未覆盖的分支（如某 EDC 类型、某异常输入无处理路径）。
+
+### 3a. Plugin 清单合法性
+
+`claude plugin validate <path>` 能否**零错误通过**。这是前置门控——manifest 非法则 plugin 无法安装/加载，
+后续所有维度（skill 触发、hook 注册、agent 可用性）前提全不成立。
+
+- **plugin.json**：`name` / `displayName` / `version` / `description` 必填；`skills` / `agents` / `hooks`
+  路径指向的目录或文件是否实际存在且可解析。
+- **marketplace.json**（如存在）：`name` / `owner.name` / `plugins[].source` 必填且格式正确。
+- **路径不悬空**：`plugin.json` 中 `agents` 列出的每个 `.md`、`hooks` 指向的 `.json`、
+  `skills` 指向的目录下的每个 `SKILL.md` 都实际存在且 frontmatter 完整。
+- **无 skill 泄漏**：`skills/` 目录下的 skill 是否都已通过 plugin.json 的 `skills` 字段声明
+  （反之不要求——plugin.json 声明的 skill 目录存在即可）。
+- **`claude plugin validate` 自身**：作为最终判定；以工具实际输出为准，不手工重复推断。
 
 ---
 

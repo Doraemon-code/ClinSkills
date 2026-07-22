@@ -1,9 +1,9 @@
 ---
 name: audit-harness
 description: |
-  对本项目 **git 追踪的** Harness 工程做系统性评估与优化，按 11 个维度逐项检查：
+  对本项目 **git 追踪的** Harness 工程做系统性评估与优化，按 12 个维度逐项检查：
   一致性/漂移、冗余、覆盖缺口、提示词质量、护栏健壮性、最佳实践、稳定性/体量、
-  引用合理性、渐进式披露、泛化性/可复用性、简洁性/死代码。评估后交互式逐条确认修改。
+  引用合理性、渐进式披露、泛化性/可复用性、简洁性/死代码、Plugin 清单合法性。评估后交互式逐条确认修改。
   当用户要求评估/审计/优化 harness、检查 .claude 基建、审查 skill/agent/hook 设计、
   「看看 harness 有没有问题」「skill 写得合不合规」「优化一下工程结构」时触发。
   仅本仓库开发使用（.claude/skills/），不随 plugin 分发。
@@ -77,6 +77,7 @@ git ls-files \
   CLAUDE.md 的表格/清单是否与实际文件同步。
 - **冗余/重复**：同一信息是否在多处（skill、CLAUDE.md）重复维护、有漂移风险。
 - **覆盖缺口**：是否缺应有的护栏/skill/agent；常见操作是否缺自动化支持。
+- **Plugin 清单合法性（3a）**：运行 `claude plugin validate <path>` 须零错误通过——前置门控，manifest 非法则 skill 触发/hook 注册/agent 可用等后续维度前提全不成立。
 
 ### 3. 逐文件评估（对照 checklist 单文件维度）
 

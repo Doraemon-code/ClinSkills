@@ -62,7 +62,7 @@ def _build_visit_forms(rows):
     return result
 
 
-def parse(wb, output_dir):
+def parse(wb):
     """解析赛美斯 DED Excel，返回要生成的 JSON 文件。
 
     输出（通用命名）:

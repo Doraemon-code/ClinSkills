@@ -20,18 +20,21 @@ query_metadata.py — 元数据查询工具
 """
 
 import json
+import os
 import sys
 from pathlib import Path
 
 def _resolve_metadata_dir():
     """定位 metadata 目录（含 FormField.json）。
 
-    优先项目根 `02 metadata/`；找不到则向下搜索最近的 `metadata/FormField.json`，
-    以兼容 study 子目录布局。
-    注：与 utils/loaders.py 的 `metadata_dir()` 行为一致——本脚本独立运行、不 import
-        utils，故两处物理分离，改定位策略须同步两边。
+    以项目根为锚：优先 Claude Code 注入的 `CLAUDE_PROJECT_DIR`（插件全局安装时仍能
+    定位当前临床项目），未设置则回退当前工作目录（脚本经 `$CLAUDE_PLUGIN_ROOT` 绝对
+    路径调用，CWD 即项目根）。优先项目根 `02 metadata/`；找不到再向下搜最近的
+    `metadata/FormField.json`，兼容 study 子目录布局。
+    注：勿改回以 `__file__` 为锚——插件全局安装时脚本不在项目树内，`parents[N]` 够不到
+        项目 metadata。定位约定与 scripts/ 下两个 hook（CLAUDE_PROJECT_DIR 优先）一致。
     """
-    project_root = Path(__file__).resolve().parents[4]
+    project_root = Path(os.environ.get("CLAUDE_PROJECT_DIR") or Path.cwd())
     default = project_root / "02 metadata"
     if (default / "FormField.json").exists():
         return default
@@ -123,7 +126,7 @@ def cmd_fields(form_name):
             print(f"未精确匹配 '{form_name}'，模糊匹配到表单 '{matched[0]['formName']}':")
         else:
             print(f"未找到表单 '{form_name}'。")
-            _suggest_forms(form_name)
+            _suggest_forms()
             return
     print(f"表单: {matched[0].get('formName', '')}  (共 {len(matched)} 字段)\n")
     print(f"{'SAS字段名':<20} {'字段标签':<30} {'字段格式':<20} {'编码表':<25} {'脚本列名'}")
@@ -309,7 +312,7 @@ def cmd_summary():
     print(f"  含'其他'选项: {with_other}")
 
 
-def _suggest_forms(keyword):
+def _suggest_forms():
     ff = _load("FormField")
     forms = sorted(set(v.get("formName", "") for v in ff.get("variables", []) if v.get("formName")))
     print("可用表单:")
@@ -332,17 +335,7 @@ COMMANDS = {
 
 def main():
     if len(sys.argv) < 2 or sys.argv[1] not in COMMANDS:
-        print("用法: python query_metadata.py <command> [args...]\n")
-        print("命令:")
-        print("  forms                 列出所有表单")
-        print("  fields <formName>     列出指定表单的所有字段")
-        print("  search <keyword>      搜索含关键字的字段")
-        print("  codelist <name>       查看编码表枚举值")
-        print("  codelists             列出所有编码表")
-        print("  visits                列出所有访视及关联表单")
-        print("  find-field <name>     按 SAS 字段名查找")
-        print("  field-codelist <name> 根据字段名查询编码表枚举值")
-        print("  summary               元数据概览")
+        print(__doc__.strip())
         sys.exit(1)
 
     cmd = sys.argv[1]
@@ -355,8 +348,6 @@ def main():
             print(f"错误: '{cmd}' 需要一个参数。")
             sys.exit(1)
         COMMANDS[cmd](args[0])
-    else:
-        COMMANDS[cmd](*args)
 
 
 if __name__ == "__main__":
