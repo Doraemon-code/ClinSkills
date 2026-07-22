@@ -21,6 +21,9 @@ Thumbs.db
 
 .venv/
 
+# Local Trellis workflow state (tasks/runtime; not product code)
+.trellis/
+
 # Project config
 config.yaml
 config.py
