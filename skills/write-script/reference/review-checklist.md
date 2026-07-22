@@ -2,7 +2,7 @@
 
 > **维护说明**：本文件是 `coding-guide.md` 的「可机器执行」检查表版本。
 > 修改 `coding-guide.md` 中的任何规则后，**必须同步更新本文件**；反之亦然。
-> 文件路径：`.claude/skills/write-script/reference/coding-guide.md`
+> 文件路径：`skills/write-script/reference/coding-guide.md`
 
 供 `python-reviewer` Agent 在 write-script Step 5（`mode: full`）使用。逐项检查，返回违规项列表。
 

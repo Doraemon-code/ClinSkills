@@ -62,7 +62,7 @@ git rev-parse --show-toplevel
 读取标准结构参考文件：
 
 ```bash
-Read ${CLAUDE_PROJECT_DIR}/.claude/skills/build-metadata/reference/project-structure.md
+Read ${CLAUDE_PROJECT_DIR}/skills/build-metadata/reference/project-structure.md
 ```
 
 按以下顺序校验并修正：
@@ -88,7 +88,7 @@ Read ${CLAUDE_PROJECT_DIR}/.claude/skills/build-metadata/reference/project-struc
 
 按 `project-structure.md`「骨架文件」表（Step 2 开头已读），从 `reference/skeleton/` **复制对应 `.template` 到项目根、去掉 `.template` 后缀**（`.gitattributes` / `.gitignore` 目标名需加前导点）。已存在的文件**不覆盖**，仅补缺。其中 `CLAUDE.md`：复制后按下方规则替换 EDC header 区块，并提示用户填写 `<项目名>`。
 
-**CLAUDE.md EDC 类型替换规则：** 删除 `<!-- EDC_TYPE_HEADER_START -->` 至 `<!-- EDC_TYPE_HEADER_END -->` 之间的全部行（含注释与默认占位行），插入 Step 1 选定 EDC 对应的表头约定行——**三类取值见 `write-script/reference/header-structure.md`「写回 CLAUDE.md 的格式」节（表头规则的权威表述）**。
+**CLAUDE.md EDC 类型替换规则：** 删除 `<!-- EDC_TYPE_HEADER_START -->` 至 `<!-- EDC_TYPE_HEADER_END -->` 之间的全部行（含注释与默认占位行），插入 Step 1 选定 EDC 对应的表头约定行——**三类取值见 `../write-script/reference/header-structure.md`「写回 CLAUDE.md 的格式」节（表头规则的权威表述）**。
 
 **2c. 部署工具层 `utils/`**
 
@@ -97,7 +97,7 @@ Read ${CLAUDE_PROJECT_DIR}/.claude/skills/build-metadata/reference/project-struc
 - 项目根**无** `utils/` → 从 `reference/skeleton/utils/` 复制全部文件到项目 `utils/`（该目录随全局安装由安装脚本置入）。
 - 已有 `utils/`（源码仓库自身开发），或 `reference/skeleton/utils/` 不存在，则跳过。
 
-> **项目无需自带 `.claude/`**：skills/agents、语法检查 hook、raw 数据保护（deny + raw_read_guard，全局安全版）均由全局安装注册进 `~/.claude/settings.json`，跨项目生效。
+> **项目无需自带 `.claude/`**：skills、agents、语法检查 hook、raw 数据保护均通过 ClinSkills plugin 分发（推荐 `claude plugin install clin-skills`）或在非 plugin 语境下由 legacy `install.ps1` 全局安装，跨项目生效。
 
 **2d. 报告校验结果**
 
@@ -119,7 +119,7 @@ Read ${CLAUDE_PROJECT_DIR}/.claude/skills/build-metadata/reference/project-struc
 ### Step 4: 运行解析脚本
 
 ```bash
-python ${CLAUDE_PROJECT_DIR}/.claude/skills/build-metadata/scripts/build-metadata.py <edcType> <excelPath>
+python ${CLAUDE_PROJECT_DIR}/skills/build-metadata/scripts/build-metadata.py <edcType> <excelPath>
 ```
 
 | 参数 | 值 |

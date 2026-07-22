@@ -1,54 +1,38 @@
 {
   "permissions": {
-    "deny": [
-      "Read(01 rawdata/**)",
-      "Edit(**/*.ipynb)",
-      "Write(**/*.ipynb)",
-      "NotebookEdit(**/*.ipynb)"
-    ],
     "allow": [
       "Read(**)",
       "Glob(**)",
       "Grep(**)",
-      "Edit(04 scripts/**)",
+      "Edit(skills/**)",
+      "Edit(agents/**)",
+      "Edit(hooks/**)",
+      "Edit(scripts/**)",
       "Edit(utils/**)",
       "Edit(config.py)",
       "Edit(config.yaml)",
       "Edit(.gitignore)",
       "Edit(CLAUDE.md)",
       "Edit(.claude/**)",
-      "Write(04 scripts/**)",
+      "Write(skills/**)",
+      "Write(agents/**)",
+      "Write(hooks/**)",
+      "Write(scripts/**)",
       "Write(utils/**)",
-      "Bash(python 04 scripts/**)",
-      "Bash(python \"04 scripts/**\")",
-      "Bash(python .claude/skills/**)",
-      "Bash(python \".claude/skills/write-script/scripts/query_metadata.py\" **)",
+      "Bash(python skills/**)",
+      "Bash(python \"skills/**\")",
+      "Bash(python scripts/**)",
+      "Bash(python \"scripts/**\")",
       "Bash(pip install *)",
       "Bash(git *)"
+    ],
+    "deny": [
+      "Read(01 rawdata/**)",
+      "Edit(**/*.ipynb)",
+      "Write(**/*.ipynb)",
+      "NotebookEdit(**/*.ipynb)"
     ]
   },
-  "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Bash|Read|PowerShell",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "python \"$CLAUDE_PROJECT_DIR/.claude/hooks/raw_read_guard.py\""
-          }
-        ]
-      }
-    ],
-    "PostToolUse": [
-      {
-        "matcher": "Edit|Write|MultiEdit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "python \"$CLAUDE_PROJECT_DIR/.claude/hooks/syntax_check.py\""
-          }
-        ]
-      }
-    ]
-  }
+  "hooks": {},
+  "extraKnownMarketplaces": {}
 }

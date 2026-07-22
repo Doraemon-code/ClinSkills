@@ -205,8 +205,8 @@ def save_table_to_docx_threeline(df: pd.DataFrame, output_path: str, title: str,
     section.left_margin = Cm(2.5)    # 左边距 2.5cm
     section.right_margin = Cm(2)     # 右边距 2cm
     
-    # 计算可用宽度
-    available_width_cm = 29.7 - 2.5 - 2  # 页面宽度 - 左边距 - 右边距 = 25.2cm
+    # 计算可用宽度（从 section 动态取值，避免与页边距硬编码漂移）
+    available_width_cm = section.page_width.cm - section.left_margin.cm - section.right_margin.cm  # = 25.2cm
     
     # 添加标题（居中，宋体，五号字）
     title_para = doc.add_paragraph()
@@ -430,6 +430,8 @@ def save_table_to_docx_threeline(df: pd.DataFrame, output_path: str, title: str,
             set_run_font(run, size=9, bold=False)  # 小五号字=9磅
     
     # 保存文档（python-docx生成的文档默认就是可编辑的）
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    output_dir = os.path.dirname(output_path)
+    if output_dir:
+        os.makedirs(output_dir, exist_ok=True)
     doc.save(output_path)
     print(f"{title}已保存为 '{output_path}'")

@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 """PostToolUse 钩子：项目 04 scripts/ 与 utils/ 下的 .py 被 Edit/Write/MultiEdit 后自动做语法检查。
 
-由 .claude/settings.json 的 PostToolUse 钩子调用，读取 stdin 的工具事件 JSON。
-- 仅对项目根 04 scripts/ 与 utils/ 目录下的 .py 生效（排除 .claude/skills/**/scripts/ 等同名目录）。
+由 hooks/hooks.json 声明，随 ClinSkills plugin 加载；读取 stdin 的工具事件 JSON。
+- 仅对项目根 04 scripts/ 与 utils/ 目录下的 .py 生效（排除 skills/**/scripts/ 等同名目录）。
 - 语法错误 → 退出码 2：stderr 回灌给模型，要求修复（rule #3 的"语法地板"）。
 - 其余情况一律放行（退出码 0），不打扰。
 
@@ -22,8 +22,8 @@ for _stream in (sys.stdout, sys.stderr):
     except (AttributeError, ValueError):
         pass
 
-# 项目根：优先 Claude Code 注入的 CLAUDE_PROJECT_DIR（本 hook 全局安装到 ~/.claude/hooks/
-# 时仍能定位当前项目）；未设置则回退本文件向上三级（本仓库自身作项目时成立）。
+# 项目根：优先 Claude Code 注入的 CLAUDE_PROJECT_DIR（本 hook 随 ClinSkills plugin 安装，
+# 通过 $PLUGIN_ROOT 定位）；未设置则回退本文件向上三级（本仓库自身作项目时成立）。
 PROJECT_ROOT = Path(os.environ.get("CLAUDE_PROJECT_DIR") or Path(__file__).resolve().parents[2])
 
 

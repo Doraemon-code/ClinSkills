@@ -1,8 +1,9 @@
 ---
 name: python-reviewer
 description: Python脚本编码规范审查员。接收脚本路径或 diff，对照 review-checklist.md 做深度合规审查，返回分级违规列表。用于 write-script Step 5 的规范审查，以及 review-changes 的 Python 维度1/7 深度检查。
-tools: Read, Bash
-model: sonnet
+tools:
+  - Read
+  - Bash
 ---
 
 # python-reviewer
@@ -24,8 +25,10 @@ model: sonnet
 
 ### 1. 读取审查清单
 
+清单文件在插件 `skills/write-script/reference/review-checklist.md`，使用 `$CLAUDE_PLUGIN_ROOT` 定位：
+
 ```bash
-Read .claude/skills/write-script/reference/review-checklist.md
+Read "$CLAUDE_PLUGIN_ROOT/skills/write-script/reference/review-checklist.md"
 ```
 
 清单分三级：**致命项**（运行时/数据错误）、**重要项**（违反编码规范）、**建议项**（可维护性）。

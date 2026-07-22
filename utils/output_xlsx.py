@@ -13,7 +13,7 @@ from openpyxl.styles import Alignment, Font, PatternFill, Border, Side
 
 def export_to_excel_with_format(df, output_path, sheet_name, title_name, add_title=True):
     """将 DataFrame 输出为格式化的 Excel 清单（xlsxwriter）。"""
-    sheet_name = sheet_name.replace("：", "-")  # 全角冒号会触发 Excel 修复提示
+    sheet_name = _sanitize_sheet_name(sheet_name)  # 全角冒号会触发 Excel 修复提示
     num_cols = df.shape[1]
     num_rows = df.shape[0]
     header_row = 1 if add_title else 0
@@ -64,9 +64,15 @@ def export_to_excel_with_format(df, output_path, sheet_name, title_name, add_tit
 
     print(f"Sheet '{sheet_name}' 已成功导出至: {output_path}")
 
+
+def _sanitize_sheet_name(name: str) -> str:
+    """清理 Excel sheet name 中的全角冒号（Excel 不支持 `：`）。"""
+    return name.replace("：", "-")
+
+
 def export_to_one_excel_with_format(df, output_path, sheet_name, title_name=None, add_title=True):
     """向指定文件写入一个 sheet（已存在则覆盖，否则新建），使用 openpyxl。"""
-    sheet_name = sheet_name.replace("：", "-")  # 全角冒号会触发 Excel 修复提示
+    sheet_name = _sanitize_sheet_name(sheet_name)  # 全角冒号会触发 Excel 修复提示
     if os.path.exists(output_path):
         workbook = load_workbook(output_path)
         if sheet_name in workbook.sheetnames:
@@ -165,7 +171,7 @@ def export_to_excel_twoheader(df, output_path, sheet_name, title,
     count_suffix : str, optional
         自定义标题计数后缀（覆盖默认中文量词）；传 "" 则标题不加任何后缀。
     """
-    sheet_name = sheet_name.replace("：", "-")  # 全角冒号会触发 Excel 修复提示
+    sheet_name = _sanitize_sheet_name(sheet_name)  # 全角冒号会触发 Excel 修复提示
     total_cols = len(fixed_cols) \
                + sum(len(g['children']) for g in header_groups) \
                + len(trailing_cols or [])

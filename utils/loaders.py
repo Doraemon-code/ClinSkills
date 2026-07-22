@@ -8,18 +8,43 @@ import json
 import sys
 import warnings
 import pandas as pd
-from config import raw_path
+try:
+    from config import raw_path
+except ImportError:
+    sys.exit(
+        "缺少 config.py。请先运行 build-metadata 初始化项目结构，"
+        "或参考 skills/build-metadata/reference/skeleton/config.py.template 创建。"
+    )
 from pathlib import Path
 from typing import overload
 
 _PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 # openpyxl MatchPattern 兼容 patch（太美6 AutoFilter ref 不规范等场景）
-_compat_dir = str(_PROJECT_ROOT / ".claude" / "skills" / "build-metadata" / "scripts")
-if _compat_dir not in sys.path:
+# 优先从 ClinSkills plugin 的 skills/ 目录查找 _compat——适用于 harness 源码仓库自身
+# 或已安装 plugin 的临床项目。
+# 下游临床项目若无 plugin 目录，则从 utils/ 同级查找（_compat.py 需随 utils/ 一并部署：
+# 由 build-metadata Step 2c 或 plugin 安装脚本负责）。
+_COMPAT_CANDIDATES = [
+    _PROJECT_ROOT / "skills" / "build-metadata" / "scripts",
+    _PROJECT_ROOT / "utils",
+]
+_compat_dir = None
+for _cand in _COMPAT_CANDIDATES:
+    if (_cand / "_compat.py").exists():
+        _compat_dir = str(_cand)
+        break
+if _compat_dir is not None and _compat_dir not in sys.path:
     sys.path.insert(0, _compat_dir)
-from _compat import ensure_openpyxl_patch
-ensure_openpyxl_patch()
+
+try:
+    from _compat import ensure_openpyxl_patch
+    ensure_openpyxl_patch()
+except ImportError:
+    # _compat 未部署——openpyxl 读取该 EDC 文件可能因 MatchPattern 不兼容报错，
+    # 但大部分太美5 / cmis / clinflash 场景不受影响。
+    def ensure_openpyxl_patch():
+        pass
 
 # EDC 导出的 xlsx 无默认样式，openpyxl 每次读取都抛此 UserWarning，与数据无关，静音。
 warnings.filterwarnings(

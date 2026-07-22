@@ -75,7 +75,8 @@ skill/agent 的可触发性与可执行性。
 | reference/*.md（单文件） | ≤ 300 行 | 按需加载，但须单一职责，超出即应拆 |
 | library / scripts *.py | ≤ 350 行 | 超出考虑拆模块 |
 | agent *.md | ≤ 150 行 | system prompt 过长稀释指令 |
-| hook *.py | ≤ 150 行 | 单一拦截职责 |
+| hook *.py | ≤ 150 行 | 单一拦截职责（实现在 `scripts/`，不在 `.claude/hooks/`） |
+| `.claude-plugin/plugin.json` | ≤ 50 行 | 纯声明文件，不应膨胀 |
 
 达软上限 **80%** 即标为「关注」，超上限标为「问题」。判断时结合职责：
 单一职责但偏长 < 多职责但未超线。

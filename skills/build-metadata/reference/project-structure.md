@@ -25,7 +25,7 @@
 └── requirements.txt             # Python 依赖
 ```
 
-> harness（skills / agents / hooks / settings）**不在项目内**——全局装在 `~/.claude/`（见 README 一键安装）；项目只含数据、脚本、`utils/` 与配置。
+> harness（skills / agents / hooks / settings）**不在项目内**——通过 ClinSkills plugin 分发（推荐 `claude plugin install clin-skills`）或全局安装 `install.ps1`（legacy）；项目只含数据、脚本、`utils/` 与配置。
 
 ## 目录命名规则
 
@@ -52,7 +52,7 @@
 | `requirements.txt` | `skeleton/requirements.txt.template` | Python 依赖 |
 
 > 模板一律用 `.template` 后缀，避免 `.gitignore` / `config.py` 等在本目录被 git 或工具当作生效文件。
-> **工具层 `utils/`**（不走根 `.template`）：由 build-metadata Step 2c 从 `skeleton/utils/`（全局安装时由安装脚本置入）部署到项目根；源码仓库自身开发时根 `utils/` 已存在，跳过。raw 数据保护与语法检查 hook 均随全局安装注册进 `~/.claude/settings.json`，项目不再自带 `.claude/`。
+> **工具层 `utils/`**（不走根 `.template`）：由 build-metadata Step 2c 从 `skeleton/utils/`（plugin 安装时由安装脚本置入）部署到项目根；源码仓库自身开发时根 `utils/` 已存在，跳过。raw 数据保护与语法检查 hook 随 ClinSkills plugin 加载（通过 `hooks/hooks.json` 声明），项目不再自带 `.claude/hooks/`。
 
 ## 目录重命名时的路径同步清单
 
@@ -63,13 +63,12 @@
 | `config.yaml` | `raw_path` / `pd_path` / `code_path` / `remark_path` / `timewin_path` / `output_path` |
 | `CLAUDE.md` | 目录树、Permissions 节 |
 | `.claude/settings.json` | permission deny / allow 规则 |
-| `.claude/rules/constraints.md` | 强制约束（rawdata 保护、验证规则） |
-| `.claude/hooks/syntax_check.py` | `parts[0]` 检查 + docstring（Claude Code 兼容） |
-| `.claude/hooks/raw_read_guard.py` | `_under_dir()` 参数 + docstring（Claude Code 兼容） |
-| `.claude/skills/write-script/SKILL.md` | 验证命令路径 |
-| `.claude/skills/build-metadata/SKILL.md` | `metadata/` 路径描述 |
-| `.claude/skills/write-script/scripts/query_metadata.py` | `_resolve_metadata_dir()` 默认路径 |
-| `.claude/skills/build-metadata/reference/skeleton/*.template` | `config.yaml` / `gitignore` / `CLAUDE.md` 模板中的目录路径 |
+| `scripts/syntax_check.py` | `parts[0]` 检查 + docstring（Claude Code 兼容） |
+| `scripts/raw_read_guard.py` | `_under_dir()` 参数 + docstring（Claude Code 兼容） |
+| `skills/write-script/SKILL.md` | 验证命令路径 |
+| `skills/build-metadata/SKILL.md` | `metadata/` 路径描述 |
+| `skills/write-script/scripts/query_metadata.py` | `_resolve_metadata_dir()` 默认路径 |
+| `skills/build-metadata/reference/skeleton/*.template` | `config.yaml` / `gitignore` / `CLAUDE.md` 模板中的目录路径 |
 | `.gitignore` | `rawdata/` / `output/` 规则 |
-| `.claude/skills/write-script/reference/coding-guide.md` | `04 scripts/` 引用 |
-| `.claude/skills/build-metadata/reference/project-structure.md` | 目录树 + sync checklist 自身 |
+| `skills/write-script/reference/coding-guide.md` | `04 scripts/` 引用 |
+| `skills/build-metadata/reference/project-structure.md` | 目录树 + sync checklist 自身 |

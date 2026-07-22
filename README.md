@@ -1,8 +1,31 @@
 # ClinSkills
 
-临床试验数据审核（DMR）报告的 Claude Code 技能集：EDC 元数据解析、数据核查脚本编写、改动审查、harness 审计、skill 编写。
+临床试验数据审核（DMR）报告的 Claude Code **Plugin**：EDC 元数据解析、数据核查脚本编写、改动审查、harness 审计、skill 编写。
 
-## 一句话安装（全局，跨项目可用）
+## 安装
+
+### 方式一：Plugin Marketplace（推荐）
+
+```bash
+# 添加 marketplace
+claude plugin marketplace add https://github.com/Doraemon-code/ClinSkills
+
+# 安装
+claude plugin install clin-skills
+```
+
+### 方式二：本地开发 / 离线
+
+```bash
+# 克隆仓库
+git clone https://github.com/Doraemon-code/ClinSkills.git
+
+# 本地安装
+claude plugin install ./ClinSkills
+# 或开发模式：claude --plugin-dir ./ClinSkills
+```
+
+### 方式三：全局一键安装（legacy）
 
 **Windows（PowerShell 7+）：**
 
@@ -16,29 +39,31 @@ irm https://raw.githubusercontent.com/Doraemon-code/ClinSkills/master/install.ps
 curl -fsSL https://raw.githubusercontent.com/Doraemon-code/ClinSkills/master/install.sh | bash
 ```
 
-装完 `~/.claude/` 下会有 skills、agents、hooks，并注册语法检查 + raw 数据保护 hook（全局安全版）。**同名 skill 会被覆盖更新**，重跑即更新。依赖：`git`、`python`（在 PATH 上）。
+> 此方式仅部署 `utils/` 工具层到全局 `~/.claude/`（供 build-metadata 脚手架到临床项目），不注册 plugin。推荐方式一。
 
 ## 包含内容
 
-| 类型 | 名称 |
-|---|---|
-| Skills | `build-metadata`、`write-script`、`review-changes`、`audit-harness`、`build-skill` |
-| Agents | `metadata-explorer`、`python-reviewer` |
-| Hooks | `syntax_check`、`raw_read_guard`（均全局注册；`raw_read_guard` 为**全局安全版**，仅当命令确切指向 raw 时才拦） |
+| 类型 | 名称 | 说明 |
+|---|---|---|
+| Skills | `build-metadata`、`write-script`、`review-changes` | 通过 `/clin-skills:skill-name` 调用 |
+| Agents | `metadata-explorer`、`python-reviewer` | 通过 Agent 工具 subagent_type 调用 |
+| Hooks | `syntax_check`、`raw_read_guard` | 随 plugin 加载自动注册 |
 
 ## 用法
 
-- **新临床项目**：进入项目目录，触发 `build-metadata`——校验/脚手架目录结构、解析 EDC 元数据为 JSON。
-- **写核查脚本**：`write-script`（口述需求或给输出示例）。
-- **提交前审查**：`review-changes`。
-- **审 harness / 写新 skill**：`audit-harness` / `build-skill`。
+- **新临床项目**：进入项目目录，触发 `/clin-skills:build-metadata`——校验/脚手架目录结构、解析 EDC 元数据为 JSON。
+- **写核查脚本**：`/clin-skills:write-script`（口述需求或给输出示例）。
+- **提交前审查**：`/clin-skills:review-changes`。
+
+> Plugin 安装后，skills 可通过 `/clin-skills:skill-name` 调用（namespaced）。若直接放在 `.claude/skills/` 则仍可裸名 `/skill-name` 调用。
 
 ## 卸载
 
-删除 `~/.claude/skills/` 下 `build-metadata`、`write-script`、`review-changes`、`audit-harness`、`build-skill`，`~/.claude/agents/` 下 `metadata-explorer`、`python-reviewer`，`~/.claude/hooks/` 下 `syntax_check.py`、`raw_read_guard.py`，并从 `~/.claude/settings.json` 移除对应的 `hooks` 条目与 `deny Read(01 rawdata/**)`。
+```bash
+claude plugin uninstall clin-skills
+```
 
 ## 设计说明
 
-- **项目无需自带 `.claude/`**：skills / agents、语法检查 hook、raw 数据保护（`deny Read(01 rawdata/**)` + `raw_read_guard`）全部注册进全局 `~/.claude/`，跨项目生效。
-- **全局安全**：`raw_read_guard` 只在命令**确切指向 raw**（出现 `01 rawdata/…xlsx` 字面路径，或读调用 + `raw_path` 变量）时才拦，非临床项目里普通的 `read_excel(` 不受影响；`syntax_check` 只作用于 `04 scripts/` 与 `utils/`。两者优先用 `CLAUDE_PROJECT_DIR` 定位当前项目。
-- `utils/`（`loaders` 读取 / `output_docx`·`output_xlsx` 输出层）是项目运行时被 import 的代码，由 `build-metadata` 脚手架进目标项目（源仓库 `utils/` 单一源，安装时置入 build-metadata skeleton）。
+- **Plugin 分发**：skills / agents / hooks 打包为 Claude Code Plugin，通过 marketplace 或本地目录安装；`utils/`（`loaders` 读取 + `output_docx`·`output_xlsx` 输出层）随插件分发，由 `build-metadata` skill 脚手架进目标临床项目。
+- **全局安全**：`raw_read_guard` hook 只在命令**确切指向 raw** 时才拦，非临床项目不受影响；`syntax_check` 只作用于 `04 scripts/` 与 `utils/`。两者通过 `hooks/hooks.json` 声明，随 plugin 加载自动注册。

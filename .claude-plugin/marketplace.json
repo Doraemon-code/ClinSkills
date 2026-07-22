@@ -1,0 +1,16 @@
+{
+  "name": "clin-skills-marketplace",
+  "owner": {
+    "name": "Doraemon-code"
+  },
+  "description": "ClinSkills Plugin 集市 — 临床试验数据审核报告（DMR）技能集",
+  "plugins": [
+    {
+      "name": "clin-skills",
+      "source": "./",
+      "description": "临床试验数据审核报告（DMR）技能集：EDC 元数据解析、数据核查脚本编写、改动审查。支持 4 种 EDC（太美5/6、cmis、clinflash）。",
+      "version": "1.0.0",
+      "strict": false
+    }
+  ]
+}

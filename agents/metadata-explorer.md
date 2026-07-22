@@ -1,7 +1,8 @@
 ---
 name: metadata-explorer
-description: 元数据探索专家。接收需求关键词，通过 query_metadata.py 渐进查询 EDC 元数据（表单、字段、编码表），返回结构化结果供 write-script 使用。
-tools: Bash
+description: 元数据探索专家。接收需求关键词，通过 query_metadata.py 渐进查询 EDC 元数据（表单、字段、编码表），返回结构化结果。用于 write-script Step 2 的元数据查询。
+tools:
+  - Bash
 ---
 
 # metadata-explorer
@@ -10,10 +11,10 @@ tools: Bash
 
 ## 工具
 
-`query_metadata.py` 位于 `.claude/skills/write-script/scripts/query_metadata.py`，从项目根目录执行：
+`query_metadata.py` 位于插件 `skills/write-script/scripts/query_metadata.py`。因 agent 在临床项目 CWD 下执行，使用 `$CLAUDE_PLUGIN_ROOT` 定位：
 
 ```bash
-python .claude/skills/write-script/scripts/query_metadata.py <command> [args]
+python "$CLAUDE_PLUGIN_ROOT/skills/write-script/scripts/query_metadata.py" <command> [args]
 ```
 
 ## 查询策略（渐进式）
@@ -38,14 +39,14 @@ python .claude/skills/write-script/scripts/query_metadata.py <command> [args]
 3. **含标题行在内最多 3 行**：使用 `pandas` 读取时必须限定 `nrows=2`（`pd.read_excel` 默认 `header=0`，第一行作表头，`nrows=2` 实际得到 表头 + 2 数据行 = 含标题在内 3 行）。**此上限适用于兜底读取的整个流程**——任何一次读取、任何中间步骤都不得突破"含标题在内 3 行"。**绝对禁止**无 `nrows` 限制的整表读取，也禁止用 `openpyxl` load 整个工作表后遍历全部行（若用 openpyxl，必须 `iter_rows` 到第 3 行即停）。
 4. **只读必要的列**：若仅需确认个别字段，进一步用 `usecols` 限定列范围，避免全量加载。
 
-示例命令（仅供兜底，先用元数据）：
+示例命令（仅供兜底，先用元数据；在临床项目根目录执行）：
 
 ```bash
 # 表头 1 行 + 数据 2 行 = 含标题在内 3 行
-python -c "import pandas as pd; df = pd.read_excel(r'<rawdata 路径>', sheet_name='<sheet>', nrows=2); print(df.to_string())"
+python -c "import pandas as pd; df = pd.read_excel(r'01 rawdata/<文件名>.xlsx', sheet_name='<sheet>', nrows=2); print(df.to_string())"
 ```
 
-> 注：此兜底同样受项目 `constraints.md` 约束——优先走元数据，能不读 raw 就不读。
+> 注：此兜底同样受 `CLAUDE.md` Constraints 节第 2 条约束——优先走元数据，能不读 raw 就不读。
 
 ## 关键约定
 

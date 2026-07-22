@@ -24,7 +24,7 @@ def compare_dates(date1, date2, mode=1):
         try:
             if pd.isna(date_val):
                 return None
-        except Exception:
+        except (TypeError, ValueError):
             pass
 
         s = str(date_val).strip()

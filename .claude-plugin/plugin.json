@@ -1,0 +1,28 @@
+{
+  "name": "clin-skills",
+  "displayName": "ClinSkills",
+  "version": "1.0.0",
+  "description": "临床试验数据审核报告（DMR）技能集：EDC 元数据解析、数据核查脚本编写、改动审查、harness 审计。支持 4 种 EDC（太美5/6、cmis、clinflash）。",
+  "author": {
+    "name": "Dora",
+    "url": "https://github.com/Doraemon-code/ClinSkills"
+  },
+  "homepage": "https://github.com/Doraemon-code/ClinSkills",
+  "repository": "https://github.com/Doraemon-code/ClinSkills",
+  "license": "MIT",
+  "keywords": [
+    "临床试验",
+    "EDC",
+    "数据核查",
+    "DMR",
+    "clinical-trial"
+  ],
+  "defaultEnabled": true,
+  "skills": "./skills/",
+  "agents": [
+    "./agents/metadata-explorer.md",
+    "./agents/python-reviewer.md"
+  ],
+  "hooks": "./hooks/hooks.json",
+  "dependencies": []
+}
