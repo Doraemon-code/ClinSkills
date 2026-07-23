@@ -10,17 +10,52 @@ from openpyxl import load_workbook, Workbook
 from openpyxl.utils import get_column_letter
 from openpyxl.styles import Alignment, Font, PatternFill, Border, Side
 
-# 依赖：使用 engine='xlsxwriter' 的导出函数（export_to_excel_with_format /
-#       export_to_one_excel_with_format）运行期需已装 xlsxwriter（非 pandas 自带）。
+
+def _char_width(ch):
+    """估算单个字符在 Excel 中的列宽。CJK 字符约占 2 单位，其余占 1 单位。"""
+    code = ord(ch)
+    if (0x4E00 <= code <= 0x9FFF or 0x3400 <= code <= 0x4DBF
+            or 0xF900 <= code <= 0xFAFF or 0x2E80 <= code <= 0x2FDF
+            or 0x3000 <= code <= 0x303F or 0xFF01 <= code <= 0xFF60
+            or 0xFE30 <= code <= 0xFE4F or 0x2000 <= code <= 0x206F):
+        return 2.0
+    return 1.0
+
+
+def _col_widths(df):
+    """计算 DataFrame 各列自适应宽度（基于前 100 行采样）。"""
+    sample = df.head(100)
+    widths = []
+    for c in df.columns:
+        header_w = sum(_char_width(ch) for ch in str(c))
+        max_w = header_w
+        for val in sample[c]:
+            if pd.isna(val):
+                continue
+            w = sum(_char_width(ch) for ch in str(val))
+            if w > max_w:
+                max_w = w
+        widths.append(min(max_w + 2, 60))
+    return widths
+
+
+def _sanitize_sheet_name(name: str) -> str:
+    """清理 Excel sheet name 中的全角冒号（Excel 不支持 `：`）。"""
+    return name.replace("：", "-")
+
+
+# ── export_to_excel_with_format (xlsxwriter) ──────────────────────────
 
 
 def export_to_excel_with_format(df, output_path, sheet_name, title_name, add_title=True):
     """将 DataFrame 输出为格式化的 Excel 清单（xlsxwriter）。"""
-    sheet_name = _sanitize_sheet_name(sheet_name)  # 全角冒号会触发 Excel 修复提示
+    sheet_name = _sanitize_sheet_name(sheet_name)
     num_cols = df.shape[1]
     num_rows = df.shape[0]
     header_row = 1 if add_title else 0
     data_start_row = header_row + 1
+    col_widths_list = _col_widths(df)
+    text_cols = {i for i, c in enumerate(df.columns) if df[c].dtype == object}
 
     output_dir = os.path.dirname(output_path)
     if output_dir:
@@ -33,7 +68,7 @@ def export_to_excel_with_format(df, output_path, sheet_name, title_name, add_tit
 
         fmt_header = workbook.add_format({
             'bold': True, 'align': 'center', 'valign': 'vcenter',
-            'border': 1, 'bg_color': '#D3D3D3',
+            'border': 1, 'bg_color': '#D3D3D3', 'font_size': 10,
         })
         fmt_title = workbook.add_format({
             'bold': True, 'align': 'center', 'valign': 'vcenter',
@@ -41,6 +76,11 @@ def export_to_excel_with_format(df, output_path, sheet_name, title_name, add_tit
         })
         fmt_data = workbook.add_format({
             'border': 1, 'valign': 'vcenter', 'align': 'left',
+            'font_size': 10,
+        })
+        fmt_text = workbook.add_format({
+            'border': 1, 'valign': 'vcenter', 'align': 'left',
+            'font_size': 10, 'num_format': '@',
         })
 
         if add_title:
@@ -50,18 +90,18 @@ def export_to_excel_with_format(df, output_path, sheet_name, title_name, add_tit
         for c, col_name in enumerate(df.columns):
             worksheet.write(header_row, c, col_name, fmt_header)
 
-        # 数据 + 自动列宽
-        col_max_len = [len(str(col)) for col in df.columns]
+        # 数据
         for r in range(num_rows):
             for c in range(num_cols):
                 val = df.iloc[r, c]
                 if pd.isna(val):
                     val = ''
-                worksheet.write(data_start_row + r, c, val, fmt_data)
-                col_max_len[c] = max(col_max_len[c], len(str(val)))
+                fmt = fmt_text if c in text_cols else fmt_data
+                worksheet.write(data_start_row + r, c, val, fmt)
 
-        for c, width in enumerate(col_max_len):
-            worksheet.set_column(c, c, min(width + 2, 50))
+        # 列宽
+        for c, width in enumerate(col_widths_list):
+            worksheet.set_column(c, c, width)
 
         # 筛选
         if num_rows > 0:
@@ -70,14 +110,12 @@ def export_to_excel_with_format(df, output_path, sheet_name, title_name, add_tit
     print(f"Sheet '{sheet_name}' 已成功导出至: {output_path}")
 
 
-def _sanitize_sheet_name(name: str) -> str:
-    """清理 Excel sheet name 中的全角冒号（Excel 不支持 `：`）。"""
-    return name.replace("：", "-")
+# ── export_to_one_excel_with_format (openpyxl) ────────────────────────
 
 
 def export_to_one_excel_with_format(df, output_path, sheet_name, title_name=None, add_title=True):
     """向指定文件写入一个 sheet（已存在则覆盖，否则新建），使用 openpyxl。"""
-    sheet_name = _sanitize_sheet_name(sheet_name)  # 全角冒号会触发 Excel 修复提示
+    sheet_name = _sanitize_sheet_name(sheet_name)
     if os.path.exists(output_path):
         workbook = load_workbook(output_path)
         if sheet_name in workbook.sheetnames:
@@ -93,13 +131,17 @@ def export_to_one_excel_with_format(df, output_path, sheet_name, title_name=None
 
     num_cols = df.shape[1]
     rows, cols = df.shape
+    col_widths_list = _col_widths(df)
+    text_cols = {i for i, c in enumerate(df.columns) if df[c].dtype == object}
 
     # 样式
-    header_font = Font(bold=True)
+    header_font = Font(bold=True, size=10)
     header_fill = PatternFill(start_color="D3D3D3", end_color="D3D3D3", fill_type="solid")
     header_alignment = Alignment(horizontal="center", vertical="center")
     title_font = Font(bold=True, size=14)
     title_alignment = Alignment(horizontal="center", vertical="center")
+    data_font = Font(size=10)
+    data_alignment = Alignment(vertical="center")
     data_border = Border(
         left=Side(border_style="thin"), right=Side(border_style="thin"),
         top=Side(border_style="thin"), bottom=Side(border_style="thin"),
@@ -121,8 +163,7 @@ def export_to_one_excel_with_format(df, output_path, sheet_name, title_name=None
         cell.fill = header_fill
         cell.alignment = header_alignment
 
-    # 数据 + 自动列宽
-    col_max_len = [len(str(col)) for col in df.columns]
+    # 数据
     data_start = header_row + 1
     for r in range(rows):
         for c in range(cols):
@@ -131,11 +172,15 @@ def export_to_one_excel_with_format(df, output_path, sheet_name, title_name=None
                 val = ""
             cell = worksheet.cell(row=data_start + r, column=c + 1)
             cell.value = val
+            cell.font = data_font
+            cell.alignment = data_alignment
             cell.border = data_border
-            col_max_len[c] = max(col_max_len[c], len(str(val)))
+            if c in text_cols:
+                cell.number_format = '@'
 
-    for c, width in enumerate(col_max_len):
-        worksheet.column_dimensions[get_column_letter(c + 1)].width = min(width + 2, 50)
+    # 列宽
+    for c, width in enumerate(col_widths_list):
+        worksheet.column_dimensions[get_column_letter(c + 1)].width = width
 
     # 筛选
     if rows >= 1 and cols >= 1:
@@ -144,6 +189,9 @@ def export_to_one_excel_with_format(df, output_path, sheet_name, title_name=None
 
     workbook.save(output_path)
     print(f"Sheet '{sheet_name}' 已成功导出至: {output_path}")
+
+
+# ── export_to_excel_twoheader (xlsxwriter) ────────────────────────────
 
 
 def export_to_excel_twoheader(df, output_path, sheet_name, title,
@@ -178,7 +226,7 @@ def export_to_excel_twoheader(df, output_path, sheet_name, title,
     count_suffix : str, optional
         自定义标题计数后缀（覆盖默认中文量词）；传 "" 则标题不加任何后缀。
     """
-    sheet_name = _sanitize_sheet_name(sheet_name)  # 全角冒号会触发 Excel 修复提示
+    sheet_name = _sanitize_sheet_name(sheet_name)
     total_cols = len(fixed_cols) \
                + sum(len(g['children']) for g in header_groups) \
                + len(trailing_cols or [])
@@ -187,6 +235,7 @@ def export_to_excel_twoheader(df, output_path, sheet_name, title,
 
     n_rows = len(df)
     n_subj = df[subject_col].nunique() if subject_col else None
+    text_cols = {i for i, c in enumerate(df.columns) if df[c].dtype == object}
 
     output_dir = os.path.dirname(output_path)
     if output_dir:
@@ -199,13 +248,19 @@ def export_to_excel_twoheader(df, output_path, sheet_name, title,
 
         hdr_fmt = wb.add_format({
             'bold': True, 'align': 'center', 'valign': 'vcenter',
-            'border': 1, 'bg_color': '#D3D3D3',
+            'border': 1, 'bg_color': '#D3D3D3', 'font_size': 10,
         })
         title_fmt = wb.add_format({
             'bold': True, 'align': 'center', 'valign': 'vcenter',
             'font_size': 14,
         })
-        data_fmt = wb.add_format({'border': 1, 'valign': 'vcenter'})
+        data_fmt = wb.add_format({
+            'border': 1, 'valign': 'vcenter', 'font_size': 10,
+        })
+        text_fmt = wb.add_format({
+            'border': 1, 'valign': 'vcenter', 'font_size': 10,
+            'num_format': '@',
+        })
 
         # 标题
         if count_suffix is not None:
@@ -239,13 +294,18 @@ def export_to_excel_twoheader(df, output_path, sheet_name, title,
         if col_widths:
             for start, end, width in col_widths:
                 ws.set_column(start, end, width)
+        else:
+            col_widths_list = _col_widths(df)
+            for c, width in enumerate(col_widths_list):
+                ws.set_column(c, c, width)
 
-        # 数据区边框
+        # 数据区
         for r in range(n_rows):
             for c in range(total_cols):
                 val = df.iloc[r, c]
                 if pd.isna(val):
                     val = ''
-                ws.write(r + 3, c, val, data_fmt)
+                fmt = text_fmt if c in text_cols else data_fmt
+                ws.write(r + 3, c, val, fmt)
 
     print(f'{title}已保存为 \'{output_path}\'')
