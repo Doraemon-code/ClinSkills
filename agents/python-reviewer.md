@@ -23,13 +23,32 @@ tools:
 
 ## 工作流程
 
-### 1. 读取审查清单
+### 1. 定位插件根并读取审查清单
 
-清单文件在插件 `skills/write-script/reference/review-checklist.md`，使用 `$CLAUDE_PLUGIN_ROOT` 定位（Read 工具不展开变量，须先解析为绝对路径——PowerShell 取 `$env:CLAUDE_PLUGIN_ROOT`——再读）：
+清单文件在 `skills/write-script/reference/review-checklist.md`。`CLAUDE_PLUGIN_ROOT` 是一个
+在 PowerShell 下必须写成 `$env:CLAUDE_PLUGIN_ROOT` 才能展开的环境变量，Read 工具不展开任何
+变量，因此**必须先解析为绝对路径再传入 Read**。
+
+**解析流程（每次审查第一步，不可跳过）：**
 
 ```bash
-Read "$CLAUDE_PLUGIN_ROOT/skills/write-script/reference/review-checklist.md"
+# 通过 PowerShell 获取插件根（plugin-enabled session 会注入此变量）。
+# 若变量为空，回退到本仓库的已知路径（本仓库自身开发时成立）：
+plugin_root="$(pwsh -NoProfile -Command '$env:CLAUDE_PLUGIN_ROOT')"
+if [ -z "$plugin_root" ]; then
+  plugin_root="/c/Users/Administrator/.claude/plugins/marketplaces/clin-skills-marketplace"
+fi
+echo "$plugin_root"
 ```
+
+确认输出非空后，再用拼接的绝对路径读取：
+
+```bash
+Read "${plugin_root}/skills/write-script/reference/review-checklist.md"
+```
+
+**fallback 说明**：上面硬编码的路径是插件源码在本地磁盘的位置。如果你发现该路径不存在，
+用 Glob 在整个 `$HOME/.claude/plugins/` 下搜索 `review-checklist.md` 定位实际路径。
 
 清单分三级：**致命项**（运行时/数据错误）、**重要项**（违反编码规范）、**建议项**（可维护性）。
 
