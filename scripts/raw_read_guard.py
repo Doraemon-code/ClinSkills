@@ -1,18 +1,30 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """PreToolUse 钩子：拦截直接读取 raw 原始数据；允许读取 metadata。**全局安全**。
 
-由 hooks/hooks.json 声明，随 ClinSkills plugin 加载（matcher: Bash|Read|PowerShell），读 stdin 的工具事件
-JSON。落地 CLAUDE.md 强制约束第 2 条「查数据形状先用 query_metadata.py」的机制下限。
+由 hooks/hooks.json 声明，随 ClinSkills plugin 加载（matcher: Bash|Read|PowerShell|Grep），读 stdin 的
+工具事件 JSON。落地「查数据形状先用 query_metadata.py」的机制下限。
 
-**全局安全**：本 hook 设计为可注册进用户级 `~/.claude/settings.json`（跨项目生效）而不误伤非临床
-项目——只针对**确切指向 raw 原始数据**的操作判定，绝不因命令里出现裸 `read_excel(` / openpyxl 就拦。
+**全局安全**：可随 plugin 跨项目生效而不误伤非临床项目——只针对**确切指向 raw 原始数据**
+的操作判定，绝不因命令里出现裸 `read_excel(` / openpyxl 就拦。
 
 判定：
 - Read 工具：`02 metadata/` 下表格文件 → 放行；`01 rawdata/` 下 → 硬拒绝。
-  项目根优先取 `CLAUDE_PROJECT_DIR`（随 ClinSkills plugin 安装仍能定位当前项目）。
-- Bash / PowerShell：仅当命令 (a) 出现字面 `01 rawdata/…xlsx|xls|csv` 路径，或 (b)【仅临床项目】有
-  实际读调用（`read_excel(` / `load_workbook(` / `ExcelFile(`）且用了 `raw_path` 配置变量 → 硬拒绝。
-  排除：`query_metadata.py`、`04 scripts/` 脚本、每个读取都带 `nrows≤2` 的兜底读取（constraints #2）。
+  项目根优先取 `CLAUDE_PROJECT_DIR`。
+- Grep 工具：`path` 落在 `01 rawdata/` 下 → 硬拒绝（CSV 等纯文本可被 Grep 直接吐出）。
+- Bash / PowerShell：按 `&&` / `||` / `;` / `|` / 换行 **分段逐条判定**，任一段命中 deny 即拒绝整条
+  （消解「query_metadata.py / 04 scripts/ 子串短路整条命令」的绕过）。段内：
+  (0) 每个读调用都带 `nrows≤2` 的兜底读取（先剥 # 注释再计数）→ 放行；
+  (a) 出现字面 `01 rawdata` 目录引用（裸目录或任意后缀，含 cat/head/rglob/find/cd）→ 硬拒绝；
+  (b) 引号内路径 resolve 后落在 `01 rawdata/`（符号链接回指 raw）→ 硬拒绝；
+  (c)【仅临床项目】有实际读调用且用了 `raw_path` 配置变量 → 硬拒绝；
+  否则该段若是 `query_metadata.py` / `04 scripts/` 脚本运行 → 放行。
+  裸 read_excel(（无 raw 指向）一律不拦。
+
+**已接受残留风险**（不做脆弱的脚本内容扫描）：
+- `python /tmp/x.py` 内部 `read_excel('01 rawdata/...')`——命令串无字面 raw 路径时本 hook 不拦，
+  依赖 Bash 未进 allow 白名单 → 提示用户兜底。
+- 字符串拼接（`'01 '+'rawdata'`）规避字面路径正则——需刻意构造。
+- 朴素分段不解析引号：`echo "a; 01 rawdata/x"` 会被误分段并偏保守 deny（对 guard 可接受）。
 """
 
 import json
@@ -27,28 +39,29 @@ for _stream in (sys.stdout, sys.stderr):
     except (AttributeError, ValueError):
         pass
 
-# 项目根：优先 Claude Code 注入的 CLAUDE_PROJECT_DIR（本 hook 随 ClinSkills plugin 安装，
-# 通过 $CLAUDE_PLUGIN_ROOT 定位）；未设置则回退本文件向上三级（本仓库自身作项目时成立）。
-PROJECT_ROOT = Path(os.environ.get("CLAUDE_PROJECT_DIR") or Path(__file__).resolve().parents[2])
-# 本项目是否为临床数据项目（存在 01 rawdata/）——用于门控只在临床项目才成立的启发式，
-# 使本 hook 全局注册后不误伤普通数据项目（如其中恰有名为 raw_path 的变量）。
+# 项目根：优先 CLAUDE_PROJECT_DIR；未设置则回退本文件向上一级（scripts/ → repo root）。
+PROJECT_ROOT = Path(os.environ.get("CLAUDE_PROJECT_DIR") or Path(__file__).resolve().parents[1])
+try:
+    PROJECT_ROOT = PROJECT_ROOT.resolve()
+except OSError:
+    pass
+# 本项目是否为临床数据项目（存在 01 rawdata/）——门控只在临床项目才成立的启发式。
 _CLINICAL_PROJECT = (PROJECT_ROOT / "01 rawdata").is_dir()
 
 _DATA_SUFFIXES = {".xlsx", ".xls", ".csv"}
 
-# 实际读调用：紧跟左括号，只匹配"调用"而非 import / grep / 源码里的裸标识符。
-_READ_CALL_RE = re.compile(r"(?:read_excel|load_workbook|ExcelFile)\s*\(")
-# 字面 raw 原始数据路径：限项目约定的 "01 rawdata/"（带序号+空格，足够特异），
-# 全局注册也不会误伤别的项目里普通的 raw/ 或 rawdata/ 目录。
-_RAW_PATH_RE = re.compile(r"""01\s+rawdata[/\\][^"'\s]*\.(?:xlsx|xls|csv)""", re.IGNORECASE)
-# raw_path 配置变量：仅当与实际读调用同现时才视为"读 raw"。
+# 实际读调用：紧跟左括号；含 read_csv 使 CSV 的 nrows≤2 兜底与 Excel 对称。
+_READ_CALL_RE = re.compile(r"(?:read_excel|read_csv|load_workbook|ExcelFile)\s*\(")
+# 字面 raw 目录引用：裸目录 `01 rawdata` 或 `01 rawdata/...`（任意后缀）。
+_RAW_DIR_REF_RE = re.compile(r"""01\s+rawdata(?:[/\\]|['"\s]|$)""", re.IGNORECASE)
 _RAW_PATH_VAR_RE = re.compile(r"\braw_path\b")
 _RUN_SCRIPT_RE = re.compile(r"""python[\w.]*\s+["']?(?:04\s+)?scripts[/\\]""")
-# constraints #2 兜底：每个读取都带 nrows≤2（含表头≤3 行）的受控读取放行。
 _BOUNDED_NROWS_RE = re.compile(r"nrows\s*=\s*[012]\b")
+_CMD_SPLIT_RE = re.compile(r"(?:&&|\|\||[;|\n])")
+_PATH_TOKEN_RE = re.compile(r"""['"]([^'"]+)['"]""")
 
 _DENY_RAW_REASON = (
-    "严禁直接读取 raw 原始数据。按项目约定（CLAUDE.md 强制约束第 2 条）应先用 "
+    "严禁直接读取 raw 原始数据。按项目约定应先用 "
     "query_metadata.py 无接触查询字段名/编码表/列名结构（用法见 write-script skill "
     "Step 2），查不到再考虑其他方式。"
 )
@@ -75,24 +88,95 @@ def _is_table_file(path_str):
 
 
 def _under_dir(path_str, dir_name):
-    """检查路径是否在项目根下指定目录内。"""
+    """检查路径是否在项目根下指定目录内（resolve 后比较）。"""
     if not path_str:
         return False
     p = Path(path_str)
     try:
+        if not p.is_absolute():
+            p = PROJECT_ROOT / p
         rel = p.resolve().relative_to(PROJECT_ROOT)
-    except ValueError:
+    except (ValueError, OSError):
         return False
     return bool(rel.parts) and rel.parts[0] == dir_name
 
 
+def _looks_like_raw_path(path_str):
+    """path 是否指向 01 rawdata/（resolve 归属或字面相对路径）。"""
+    if not path_str:
+        return False
+    if _under_dir(path_str, "01 rawdata"):
+        return True
+    normalized = path_str.replace("\\", "/").lstrip("./")
+    return bool(re.match(r"01\s+rawdata(/|$)", normalized, re.IGNORECASE))
+
+
+def _strip_hash_comments(cmd: str) -> str:
+    """剥离 # 注释（尊重引号内的 #），避免 `# nrows=2` 伪造兜底放行。"""
+    out_lines = []
+    for line in cmd.splitlines():
+        result = []
+        in_single = in_double = False
+        for c in line:
+            if c == "'" and not in_double:
+                in_single = not in_single
+                result.append(c)
+            elif c == '"' and not in_single:
+                in_double = not in_double
+                result.append(c)
+            elif c == "#" and not in_single and not in_double:
+                break
+            else:
+                result.append(c)
+        out_lines.append("".join(result))
+    return "\n".join(out_lines)
+
+
 def _all_reads_bounded(cmd: str) -> bool:
-    """命令中每个读取调用都必须配有 nrows≤2；缺一则不放行。"""
-    n_reads = len(_READ_CALL_RE.findall(cmd))
+    """命令中每个读取调用都必须配有 nrows≤2；先剥注释再计数。"""
+    cleaned = _strip_hash_comments(cmd)
+    n_reads = len(_READ_CALL_RE.findall(cleaned))
     if n_reads == 0:
         return False
-    n_bounded = len(_BOUNDED_NROWS_RE.findall(cmd))
+    n_bounded = len(_BOUNDED_NROWS_RE.findall(cleaned))
     return n_bounded >= n_reads
+
+
+def _any_token_resolves_to_raw(cmd: str) -> bool:
+    """引号内路径 token resolve 后是否落在 01 rawdata/（捕获符号链接）。"""
+    for m in _PATH_TOKEN_RE.finditer(cmd):
+        token = m.group(1)
+        if _under_dir(token, "01 rawdata"):
+            return True
+    return False
+
+
+def _segment_denies(seg: str) -> bool:
+    """单段命令是否应被拒绝。
+
+    判定顺序：
+    1) 真 nrows≤2 兜底（剥注释后）→ 放行
+    2) 字面 01 rawdata 引用 / resolve 到 raw → deny（在脚本白名单之前，避免子串洗白）
+    3) query_metadata / 04 scripts → 放行
+    4) 临床项目：读调用 + raw_path 变量 → deny
+    """
+    if _all_reads_bounded(seg):
+        return False
+    if _RAW_DIR_REF_RE.search(seg) or _any_token_resolves_to_raw(seg):
+        return True
+    if "query_metadata.py" in seg or _RUN_SCRIPT_RE.search(seg):
+        return False
+    if _CLINICAL_PROJECT and _READ_CALL_RE.search(seg) and _RAW_PATH_VAR_RE.search(seg):
+        return True
+    return False
+
+
+def _command_denies(cmd: str) -> bool:
+    """整条命令是否应被拒绝：分段后任一段 deny 即拒绝。"""
+    segments = [s.strip() for s in _CMD_SPLIT_RE.split(cmd) if s.strip()]
+    if not segments:
+        return False
+    return any(_segment_denies(seg) for seg in segments)
 
 
 def main():
@@ -107,29 +191,24 @@ def main():
     if tool_name == "Read":
         file_path = tool_input.get("file_path") or ""
         if not _is_table_file(file_path):
-            return 0  # 非表格文件，不干预
+            return 0  # 非表格文件，不干预（全后缀靠 settings deny 兜底）
 
         if _under_dir(file_path, "02 metadata"):
-            return _decide("allow")  # metadata → 显式放行
+            return _decide("allow")
         if _under_dir(file_path, "01 rawdata"):
-            return _decide("deny", _DENY_RAW_REASON)  # raw → 硬拒绝
+            return _decide("deny", _DENY_RAW_REASON)
 
+        return 0
+
+    if tool_name == "Grep":
+        path = tool_input.get("path") or ""
+        if _looks_like_raw_path(path):
+            return _decide("deny", _DENY_RAW_REASON)
         return 0
 
     if tool_name == "Bash" or tool_name == "PowerShell":
         cmd = tool_input.get("command") or ""
-        if "query_metadata.py" in cmd or _RUN_SCRIPT_RE.search(cmd):
-            return 0  # 元数据工具 / scripts 下真实脚本，放行
-        if _all_reads_bounded(cmd):
-            return 0  # 兜底：每个读取都带 nrows≤2 上限（constraints #2），放行
-        # 全局安全：仅当命令确切指向 raw 原始数据才拦——
-        #  (a) 出现字面 "01 rawdata/…xlsx" 路径（自证特异，任何项目都拦）；或
-        #  (b) 有实际读调用且用了 raw_path 配置变量——此启发式**仅在临床项目**（存在 01 rawdata/）
-        #      才生效，避免全局注册后误伤普通数据项目里恰好也叫 raw_path 的变量。
-        #  裸 read_excel(（无 raw 指向）一律不拦。
-        if _RAW_PATH_RE.search(cmd) or (
-            _CLINICAL_PROJECT and _READ_CALL_RE.search(cmd) and _RAW_PATH_VAR_RE.search(cmd)
-        ):
+        if _command_denies(cmd):
             return _decide("deny", _DENY_RAW_REASON)
         return 0
 
