@@ -42,7 +42,7 @@
 ## 强制约束
 
 1. **改脚本前先加载 write-script skill**：编写/修改 `04 scripts/` 下 Python 脚本，必须先触发 `/write-script` 按其流程执行（仅单行拼写/注释修正可跳过）。
-2. **查数据形状用 query_metadata.py，严禁直接读 `01 rawdata/`，严禁回读 `03 output/` 行级报告**：确认字段名/编码表/列名先查元数据（write-script Step 2 走 metadata-explorer）；raw/output 读取已被全局 hook（Bash 分段判定 + Grep + 裸目录拦截）与权限（Read/Grep deny raw 与 output）硬拦。兜底——穷尽元数据仍不够时，才可 `nrows≤2` 受控读（含表头≤3 行，注释伪造无效），仅确认字段/取样。
+2. **查数据形状用 query_metadata.py，严禁直接读 `01 rawdata/`**：确认字段名/编码表/列名先查元数据（write-script Step 2 走 metadata-explorer）；raw 读取已被全局 hook（Bash 分段判定 + Grep 纳管 + 裸目录/任意后缀拦截 + 注释伪造 nrows 无效）与权限（Read/Grep deny raw）硬拦。`03 output/` **允许**读取以便核对脚本产出是否正确。兜底——穷尽元数据仍不够时，才可 `nrows≤2` 受控读（含表头≤3 行），仅确认字段/取样。
 3. **改脚本后必须验证**：`04 scripts/` 脚本写/改后必须实跑（数据不可用时做语法检查）确认通过，才提醒复核；同一错误修 2 次仍失败则停下、将完整报错交用户定夺。
 
 ## Agent 清单

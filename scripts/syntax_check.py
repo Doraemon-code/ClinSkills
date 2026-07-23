@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """PostToolUse 钩子：项目 04 scripts/ 与 utils/ 下的 .py 被 Edit/Write/MultiEdit 后自动做语法检查。
 
 由 hooks/hooks.json 声明，随 ClinSkills plugin 加载；读取 stdin 的工具事件 JSON。

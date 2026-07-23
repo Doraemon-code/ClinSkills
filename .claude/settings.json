@@ -29,8 +29,6 @@
     "deny": [
       "Read(01 rawdata/**)",
       "Grep(01 rawdata/**)",
-      "Read(03 output/**)",
-      "Grep(03 output/**)",
       "Edit(**/*.ipynb)",
       "Write(**/*.ipynb)",
       "NotebookEdit(**/*.ipynb)"
