@@ -127,6 +127,11 @@ claude --plugin-dir .              # Test plugin locally
 
 The `syntax_check.py` hook runs automatically (PostToolUse on Edit/Write) for `.py` files in `04 scripts/` and `utils/`. The `raw_read_guard.py` hook runs automatically (PreToolUse on Bash/Read/PowerShell/Grep) to prevent direct raw data reads. Both hooks locate the project root via `CLAUDE_PROJECT_DIR` env var. Declared in `hooks/hooks.json`.
 
+## Git 工作流（本仓库开发）
+
+1. **用 SSH remote 推送**：`origin` 必须是 `git@github.com:Doraemon-code/ClinSkills.git`（SSH），**不要用 HTTPS**——HTTPS 会绕过已配置的 SSH 密钥、转而索要用户名/令牌导致推送失败。校验：`git remote -v` 应显示 `git@github.com:...`；如为 HTTPS 用 `git remote set-url origin git@github.com:Doraemon-code/ClinSkills.git` 改回。
+2. **每次推送前 bump 版本号**：同步递增**两处**版本字段并保持相等——`.claude-plugin/plugin.json` 的 `version` 与 `.claude-plugin/marketplace.json` 中 `plugins[0].version`。遵循 semver：修 bug / 改文档 → patch；新增 skill / 功能 → minor；破坏性变更 → major。
+
 ## Constraints (invariants)
 
 1. **Before modifying any script under `04 scripts/`**, load the `write-script` skill first (single-line typo/comment fixes excepted).
