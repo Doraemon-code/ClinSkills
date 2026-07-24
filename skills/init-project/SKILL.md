@@ -77,6 +77,7 @@ Read "$CLAUDE_PLUGIN_ROOT/skills/init-project/reference/project-structure.md"
 | `metadata/`、`meta/` | `02 metadata/` |
 | `output/`、`out/`、`reports/` | `03 output/` |
 | `scripts/`、`src/`、`code/` | `04 scripts/` |
+| （无旧名，缺失则创建 `.gitkeep` 占位） | `05 DRP/` |
 
 - 已存在标准名称（如 `01 rawdata/`）→ 跳过
 - 存在旧式名称（如 `raw/`）→ 用 `PowerShell: Rename-Item` 重命名

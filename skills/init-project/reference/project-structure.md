@@ -11,6 +11,7 @@
 ├── 02 metadata/                 # EDC 元数据 Excel + build-metadata 生成的 JSON
 ├── 03 output/                   # 生成的报表（不入 Git）
 ├── 04 scripts/                  # 分析代码（新脚本默认平铺；已有章节目录保持不变）
+├── 05 DRP/                      # 数据审核计划 Excel + parse-drp 生成的 DRP.json
 ├── utils/                       # 公共工具函数
 │   ├── __init__.py
 │   ├── loaders.py               # 数据读取层（load_sheet / system_cols）
@@ -37,6 +38,7 @@
 | 02 | metadata | 元数据 Excel + 解析后的 JSON | 是 |
 | 03 | output | 生成的报表文件 | 否 |
 | 04 | scripts | 数据核查 Python 脚本 | 是 |
+| 05 | DRP | 数据审核计划 Excel + parse-drp 解析的 JSON | 是 |
 
 ## 骨架文件
 

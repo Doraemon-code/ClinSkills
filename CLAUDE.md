@@ -6,13 +6,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ClinSkills is a **Claude Code Plugin** — a suite of skills, agents, hooks, and a shared Python utility layer (`utils/`) for clinical trial data review (DMR) work. The plugin can be installed via `/plugin install clin-skills` (marketplace) or `claude --plugin-dir ./ClinSkills` (dev mode), making skills available with `/clin-skills:skill-name` namespacing.
 
-The end-user workflow: (1) enter a clinical project directory, (2) run `/clin-skills:init-project` to scaffold the project structure and `/clin-skills:build-metadata` to parse EDC metadata Excel → JSON, (3) run `/clin-skills:write-script` to generate data validation Python scripts that output docx tables or xlsx listings.
+The end-user workflow: (1) enter a clinical project directory, (2) run `/clin-skills:init-project` to scaffold the project structure and `/clin-skills:build-metadata` to parse EDC metadata Excel → JSON, (3) optionally run `/clin-skills:parse-drp` to parse the Data Review Plan (DRP) Excel into a structured rule list (`05 DRP/DRP.json`), (4) run `/clin-skills:write-script` to generate data validation Python scripts — from a verbal spec or by consuming `DRP.json` group-by-group — that output docx tables or xlsx listings.
 
 ## This Repo IS the Plugin Source
 
 This repo is **not itself a clinical project** — it is the source of the installable plugin. Clinical projects created with it have no plugin directory; the plugin is installed globally. The `utils/` directory is the only component that gets copied into clinical projects (via `init-project`'s skeleton mechanism).
 
-Key consequence: `.gitignore` excludes `config.py`, `config.yaml`, `requirements.txt`, `01 rawdata/`, `02 metadata/`, `03 output/`, `04 scripts/` — these are downstream project artifacts, not part of the plugin source.
+Key consequence: `.gitignore` excludes `config.py`, `config.yaml`, `requirements.txt`, `01 rawdata/`, `02 metadata/`, `03 output/`, `04 scripts/`, `05 DRP/` — these are downstream project artifacts, not part of the plugin source.
 
 ## Architecture
 
@@ -25,9 +25,13 @@ skills/
 │   ├── SKILL.md
 │   ├── reference/         # edc-sheet-mapping.md
 │   └── scripts/           # build-metadata.py + per-EDC parsers (_compat imported from utils/)
+├── parse-drp/             # DRP (数据审核计划) Excel → 核查规则 JSON (feeds write-script)
+│   ├── SKILL.md
+│   ├── reference/         # schema.md (8 要素 schema + 脏表头映射 + 富化 + 软分组)
+│   └── scripts/           # drp.py (sheets/dump/groups/get/coverage; reuses utils/_compat)
 ├── write-script/         # Data validation script generator
 │   ├── SKILL.md
-│   ├── reference/        # coding-guide.md, header-structure.md, review-checklist.md
+│   ├── reference/        # coding-guide.md, header-structure.md, review-checklist.md, from-drp.md (DRP 逐组消费)
 │   ├── library/          # Reusable script templates
 │   └── scripts/          # query_metadata.py (metadata introspection tool)
 ├── review-changes/       # 7-dimension git diff review

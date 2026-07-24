@@ -2,13 +2,15 @@
 
 ## 1. Data Review Plan 解析与覆盖检查
 
-新增一个 skill（如 `parse-drp`），将 Excel 格式的 Data Review Plan 解析为结构化 JSON，核心能力：
+**解析部分已实现**——见 `skills/parse-drp/`：将 DRP Excel 解析为 `05 DRP/DRP.json`，每条规则含 8 要素（序号、表单名称、表单OID、访视、使用的变量、质疑逻辑、质疑文本、软分组 `group`）。已含：`02 metadata/` 存在时的表单 OID 补全与变量校验（缺失则优雅降级）、以及「同表单可合并」的软分组（不强行，拿不准留 `null`）。
 
-- **解析 DRP Excel**：提取每条核查规则的分类（如"实验室检查""不良事件""合并用药"等）、核查要点、筛选条件、输出字段
-- **按分类聚合**：同一分类下的核查规则合并为一组，识别可共用数据源的规则，减少脚本数量
-- **覆盖检查**：对比 DRP 中的核查要点和已有脚本产出，标识未覆盖的核查项，生成覆盖缺口报告
+**已完成**——parse-drp + write-script DRP 模式 + 覆盖报告，构成完整「DRP → 脚本」链路：
 
-目标：一套 DRP → 一组 JSON → 按分类批量生成脚本，而非逐条手写。
+- **解析**：`drp.py sheets/dump` + parse-drp，DRP Excel → `05 DRP/DRP.json`（8 要素 + 软分组）
+- **逐组消费**：write-script DRP 模式，`drp.py groups/get` 选组，一次一组走完整流程生成脚本（见 `skills/write-script/reference/from-drp.md`）
+- **覆盖缺口报告**：`drp.py coverage`，按脚本头 `# @drp-coverage:` 标记统计 ✅全覆盖/🟨部分/⬜未开始 + 未覆盖清单 + 重复/失效标记
+
+目标已达成：一套 DRP → 一组 JSON → 按分组逐组生成脚本 + 覆盖追踪。
 
 ## 2. 脚本模板库
 

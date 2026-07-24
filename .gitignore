@@ -13,7 +13,9 @@ __pycache__/
 
 # Scripts (local only, not tracked)
 04 scripts/
-05 docs/
+
+# DRP（数据审核计划——下游项目产物，非 plugin 源码）
+05 DRP/
 
 # OS
 .DS_Store
