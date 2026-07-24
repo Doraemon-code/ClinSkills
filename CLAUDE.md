@@ -32,13 +32,14 @@ skills/
 ├── write-script/         # Data validation script generator
 │   ├── SKILL.md
 │   ├── reference/        # coding-guide.md, header-structure.md, review-checklist.md, from-drp.md (DRP 逐组消费)
-│   ├── library/          # Reusable script templates
+│   ├── library/          # Reusable script templates (checks/ 核查 + reports/ 报表, 各带 INDEX.md; 顶层 INDEX.md 总索引)
 │   └── scripts/          # query_metadata.py (metadata introspection tool)
 ├── review-changes/       # 7-dimension git diff review
 └── strip-decode/         # Decode-column dedup for generated scripts (OUTPUT_COLS)
 agents/
 ├── metadata-explorer.md  # Agent wrapper around query_metadata.py
-└── python-reviewer.md    # Coding-standard compliance checker
+├── python-reviewer.md    # Coding-standard compliance checker
+└── reuse-scanner.md      # Scans library/ templates + utils/ funcs for reuse (write-script Step 2B)
 hooks/
 └── hooks.json            # Hook declarations (PreToolUse + PostToolUse)
 scripts/

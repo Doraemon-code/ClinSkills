@@ -1,7 +1,7 @@
 {
   "name": "clin-skills",
   "displayName": "ClinSkills",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "临床试验数据审核报告（DMR）技能集：项目脚手架、EDC 元数据解析、数据核查脚本编写、解码列去重、改动审查。支持 4 种 EDC（太美5/6、cmis、clinflash）。",
   "author": {
     "name": "Dora",
@@ -21,7 +21,8 @@
   "skills": "./skills/",
   "agents": [
     "./agents/metadata-explorer.md",
-    "./agents/python-reviewer.md"
+    "./agents/python-reviewer.md",
+    "./agents/reuse-scanner.md"
   ],
   "hooks": "./hooks/hooks.json",
   "dependencies": []
