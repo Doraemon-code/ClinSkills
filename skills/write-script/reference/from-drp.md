@@ -3,7 +3,7 @@
 write-script 的一种需求来源：不从用户口述起步，而是消费 parse-drp 产出的 `05 DRP/DRP.json`，
 按 `group` **一次一个**生成核查脚本（一组 → 一条脚本 → 一份输出）。
 
-本文件只讲 DRP 特有的部分；元数据查询、编码规范、运行验证、规范审查等**一律沿用 `../SKILL.md` 主流程**。
+本文件只讲 DRP 特有的部分；元数据查询、编码规范、运行验证、规范审查等**一律沿用 `$CLAUDE_PLUGIN_ROOT/skills/write-script/SKILL.md` 主流程**。
 
 ## 前置
 

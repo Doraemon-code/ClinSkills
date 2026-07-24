@@ -4,7 +4,7 @@
 
 > **维护说明**：`review-checklist.md` 是本文件的「可机器执行」检查表版本（供 `python-reviewer` Agent 使用）。
 > 修改本文件中的任何规则后，**必须同步更新 `review-checklist.md`**；反之亦然。
-> 文件路径：`skills/write-script/reference/review-checklist.md`
+> 文件路径：`$CLAUDE_PLUGIN_ROOT/skills/write-script/reference/review-checklist.md`
 
 ---
 

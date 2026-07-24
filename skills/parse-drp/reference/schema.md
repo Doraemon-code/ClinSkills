@@ -1,7 +1,7 @@
 # parse-drp schema 与提取规则
 
 本文件是 parse-drp 的提取细则——8 要素定义、脏表头列映射、富化与软分组规则。
-常规执行流程见 `../SKILL.md`；这里只在提取遇到非规整表格、或需要确认字段语义时查阅。
+常规执行流程见 `$CLAUDE_PLUGIN_ROOT/skills/parse-drp/SKILL.md`；这里只在提取遇到非规整表格、或需要确认字段语义时查阅。
 
 ## 输出 JSON 结构
 

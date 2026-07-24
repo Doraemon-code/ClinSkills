@@ -17,7 +17,7 @@ description: >
 DRP 是人手工编写、**无统一 schema** 的 Excel。write-script 现在从用户口述需求起步；
 有了 DRP JSON，就能「一份计划 → 一组脚本」，逐条对照、不漏项。
 
-分工是本 skill 的关键：xlsx 的稳健读取由薄脚本 `scripts/drp.py` 完成（纯取数）；
+分工是本 skill 的关键：xlsx 的稳健读取由薄脚本 `$CLAUDE_PLUGIN_ROOT/skills/parse-drp/scripts/drp.py` 完成（纯取数）；
 五花八门的**列 → 核查要素**的语义映射由本 skill（LLM）完成（灵活）。
 **本 skill 只负责产出 JSON**；write-script 消费这份 JSON 逐条写脚本是后续迭代。
 
@@ -61,7 +61,7 @@ python "$env:CLAUDE_PLUGIN_ROOT/skills/parse-drp/scripts/drp.py" dump <excelPath
 
 ### Step 4: 列 → 要素映射与提取
 
-据 `reference/schema.md`「列 → 要素映射」，把 dump 出的原始二维数组对齐到 8 个要素
+据 `$CLAUDE_PLUGIN_ROOT/skills/parse-drp/reference/schema.md`「列 → 要素映射」，把 dump 出的原始二维数组对齐到 8 个要素
 （`seq / formName / formOID / visit / variables / queryLogic / queryText / group`）。
 要点：定位真正的表头行、按语义对齐列名同义词、前向填充合并单元格、
 `formOID`/`variables` 按逗号切成数组（一格可含多个 OID）、
@@ -75,7 +75,7 @@ python "$env:CLAUDE_PLUGIN_ROOT/skills/parse-drp/scripts/drp.py" dump <excelPath
 - `formName` 有、`formOID` 空 → 用 `query_metadata.py search <表单名>` 反查补全
 - 用 `query_metadata.py fields <formOID>` 校验 `variables` 是否真实存在，对不上的**单独列出供核对**
 
-命令与匹配细则见 `reference/schema.md`「富化」节。富化只补空、只标记，**绝不覆盖 DRP 原值**。
+命令与匹配细则见 `$CLAUDE_PLUGIN_ROOT/skills/parse-drp/reference/schema.md`「富化」节。富化只补空、只标记，**绝不覆盖 DRP 原值**。
 
 ### Step 6: 软分组（不强行）
 
@@ -116,11 +116,11 @@ python "$env:CLAUDE_PLUGIN_ROOT/skills/parse-drp/scripts/drp.py" coverage "05 DR
 ```
 
 报告按 group 列出「✅ 全覆盖 / 🟨 部分 / ⬜ 未开始」，附未覆盖清单、重复覆盖与失效标记。
-覆盖依据是脚本头的 `# @drp-coverage:` 标记（由 write-script DRP 模式写入，见 `skills/write-script/reference/from-drp.md`）。
+覆盖依据是脚本头的 `# @drp-coverage:` 标记（由 write-script DRP 模式写入，见 `$CLAUDE_PLUGIN_ROOT/skills/write-script/reference/from-drp.md`）。
 
 ## 参考文件
 
 | 文件 | 用途 |
 |------|------|
-| `reference/schema.md` | 8 要素定义、脏表头列映射、富化与软分组规则——提取遇非规整表格时查阅 |
-| `scripts/drp.py` | DRP 工具箱：`sheets`/`dump`（取数）、`groups`/`get`（取组）、`coverage`（覆盖报告），复用 `utils/_compat.py` |
+| `$CLAUDE_PLUGIN_ROOT/skills/parse-drp/reference/schema.md` | 8 要素定义、脏表头列映射、富化与软分组规则——提取遇非规整表格时查阅 |
+| `$CLAUDE_PLUGIN_ROOT/skills/parse-drp/scripts/drp.py` | DRP 工具箱：`sheets`/`dump`（取数）、`groups`/`get`（取组）、`coverage`（覆盖报告），复用 `utils/_compat.py` |

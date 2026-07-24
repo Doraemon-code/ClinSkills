@@ -133,6 +133,16 @@ The `syntax_check.py` hook runs automatically (PostToolUse on Edit/Write) for `.
 1. **用 SSH remote 推送**：`origin` 必须是 `git@github.com:Doraemon-code/ClinSkills.git`（SSH），**不要用 HTTPS**——HTTPS 会绕过已配置的 SSH 密钥、转而索要用户名/令牌导致推送失败。校验：`git remote -v` 应显示 `git@github.com:...`；如为 HTTPS 用 `git remote set-url origin git@github.com:Doraemon-code/ClinSkills.git` 改回。
 2. **每次推送前 bump 版本号**：同步递增**两处**版本字段并保持相等——`.claude-plugin/plugin.json` 的 `version` 与 `.claude-plugin/marketplace.json` 中 `plugins[0].version`。遵循 semver：修 bug / 改文档 → patch；新增 skill / 功能 → minor；破坏性变更 → major。
 
+## 跨文件路径引用约定
+
+skill 的 SKILL.md 与 reference/*.md 中存在大量跨文件引用。为避免 Claude Code 的 Read/Bash 工具调用显示完整绝对路径（如 `C:\Users\Administrator\.claude\plugins\marketplaces\clin-skills-marketplace\...`）造成视觉干扰，**所有插件内部文件引用统一使用 `$CLAUDE_PLUGIN_ROOT` 前缀**：
+
+- 绝对引用（推荐）：`$CLAUDE_PLUGIN_ROOT/skills/<skill>/reference/<file>.md`
+- 禁止裸相对路径：~~`reference/xxx.md`~~、~~`../SKILL.md`~~、~~`coding-guide.md`~~——这些会被模型解析为绝对路径后显示完整路径
+- Bash 中 `$CLAUDE_PLUGIN_ROOT` 在 bash 环境自然展开；PowerShell 中需用 `$env:CLAUDE_PLUGIN_ROOT`（CLAUDE_PLUGIN_ROOT 是 env var 而非 PS 变量）
+- Read 工具不展开变量：须先用 PowerShell `$env:CLAUDE_PLUGIN_ROOT` 取到值、再传入 Read 的绝对路径参数
+- 本约定在编写/修改 skill、reference 或 agent 文件时持续生效
+
 ## Constraints (invariants)
 
 1. **Before modifying any script under `04 scripts/`**, load the `write-script` skill first (single-line typo/comment fixes excepted).

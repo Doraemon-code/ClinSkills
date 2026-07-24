@@ -1,7 +1,7 @@
 # edc-sheet-mapping.md
 
 build-metadata 各 EDC 类型的来源 sheet 与字段处理规则，以及新增 EDC 类型的扩展清单。
-仅在解析异常排查或新增 EDC 类型时需要——常规执行流程见 `../SKILL.md`。
+仅在解析异常排查或新增 EDC 类型时需要——常规执行流程见 `$CLAUDE_PLUGIN_ROOT/skills/build-metadata/SKILL.md`。
 
 ## EDC 类型与 sheet 映射
 

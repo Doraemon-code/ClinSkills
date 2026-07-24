@@ -87,7 +87,7 @@ Read "$CLAUDE_PLUGIN_ROOT/skills/init-project/reference/project-structure.md"
 
 **2b. 初始化骨架文件**
 
-按 `project-structure.md`「骨架文件」表（Step 2 开头已读），从 `reference/skeleton/` **复制对应 `.template` 到项目根、去掉 `.template` 后缀**（`.gitattributes` / `.gitignore` 目标名需加前导点；`.claude/settings.json` 应复制到 `.claude/settings.json`）。已存在的文件**不覆盖**，仅补缺。其中 `CLAUDE.md`：复制后按下方规则替换 EDC header 区块，并提示用户填写 `<项目名>`。
+按 `project-structure.md`「骨架文件」表（Step 2 开头已读），从 `$CLAUDE_PLUGIN_ROOT/skills/init-project/reference/skeleton/` **复制对应 `.template` 到项目根、去掉 `.template` 后缀**（`.gitattributes` / `.gitignore` 目标名需加前导点；`.claude/settings.json` 应复制到 `.claude/settings.json`）。已存在的文件**不覆盖**，仅补缺。其中 `CLAUDE.md`：复制后按下方规则替换 EDC header 区块，并提示用户填写 `<项目名>`。
 
 > `.claude/settings.json` 预授权了临床项目常用操作（Read/Bash/Grep/Edit 等），可大幅减少权限提示。用户后续可按需增减 allow/deny 规则。
 
@@ -99,7 +99,7 @@ Read "$CLAUDE_PLUGIN_ROOT/skills/init-project/reference/project-structure.md"
 
 - 项目根**无** `utils/` → 复制工具层到项目 `utils/`，来源按布局二选一：
   - **plugin 安装（常规）**：从 `$CLAUDE_PLUGIN_ROOT/utils/` 复制全部 `.py`（plugin 自带权威源；先将 `$CLAUDE_PLUGIN_ROOT` 解析为绝对路径——PowerShell 取 `$env:CLAUDE_PLUGIN_ROOT`）。
-  - **裸 skill 布局（legacy）**：上者不存在时，回退从 `reference/skeleton/utils/` 复制（该目录由 legacy `install.ps1` 置入 `~/.claude/skills/` 布局）。
+  - **裸 skill 布局（legacy）**：上者不存在时，回退从 `$CLAUDE_PLUGIN_ROOT/skills/init-project/reference/skeleton/utils/` 复制（该目录由 legacy `install.ps1` 置入 `~/.claude/skills/` 布局）。
 - 已有 `utils/`（源码仓库自身开发），或两个来源都不存在，则跳过并明确告知用户。
 
 > **项目无需自带 `.claude/`**：skills、agents、语法检查 hook、raw 数据保护均通过 ClinSkills plugin 分发（推荐 `claude plugin install clin-skills`）或在非 plugin 语境下由 legacy `install.ps1` 全局安装，跨项目生效。
@@ -123,8 +123,8 @@ Read "$CLAUDE_PLUGIN_ROOT/skills/init-project/reference/project-structure.md"
 
 | 文件 | 用途 |
 |------|------|
-| `reference/project-structure.md` | 标准目录结构 + 骨架文件表 + 重命名同步清单 |
-| `reference/skeleton/` | 骨架 `.template` 文件 |
+| `$CLAUDE_PLUGIN_ROOT/skills/init-project/reference/project-structure.md` | 标准目录结构 + 骨架文件表 + 重命名同步清单 |
+| `$CLAUDE_PLUGIN_ROOT/skills/init-project/reference/skeleton/` | 骨架 `.template` 文件 |
 
 ## 与 build-metadata 的关系
 
