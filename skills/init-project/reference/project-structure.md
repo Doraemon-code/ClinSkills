@@ -52,6 +52,7 @@
 | `config.py` | `skeleton/config.py.template` | 从 config.yaml 读取路径的加载器 |
 | `config.yaml` | `skeleton/config.yaml.template` | 数据路径配置（保留 `<日期>` 等占位，用户后填） |
 | `requirements.txt` | `skeleton/requirements.txt.template` | Python 依赖 |
+| `.claude/settings.json` | `skeleton/settings.json.template` | Claude Code 权限预授权（仅当目标不存在时复制，已存在则不覆盖以免丢失用户自定义） |
 
 > 模板一律用 `.template` 后缀，避免 `.gitignore` / `config.py` 等在本目录被 git 或工具当作生效文件。
 > **工具层 `utils/`**（不走根 `.template`）：由 init-project Step 2c 部署到项目根——plugin 安装时从 `$CLAUDE_PLUGIN_ROOT/utils/`（plugin 自带权威源）复制；裸 skill 布局回退 `skeleton/utils/`（由 legacy install.ps1 置入）。源码仓库自身开发时根 `utils/` 已存在，跳过。raw 数据保护与语法检查 hook 随 ClinSkills plugin 加载（通过 `hooks/hooks.json` 声明），项目不再自带 `.claude/hooks/`。

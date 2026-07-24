@@ -1,0 +1,36 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(**)",
+      "Glob(**)",
+      "Grep(**)",
+      "Bash(python **)",
+      "Bash(python3 **)",
+      "Bash(pip **)",
+      "Bash(git **)",
+      "Bash(git: **)",
+      "Edit(04 scripts/**)",
+      "Write(04 scripts/**)",
+      "Edit(utils/**)",
+      "Write(utils/**)",
+      "Edit(config.py)",
+      "Write(config.py)",
+      "Edit(config.yaml)",
+      "Write(config.yaml)",
+      "Edit(CLAUDE.md)",
+      "Edit(.claude/**)",
+      "Write(.claude/**)",
+      "Edit(03 output/**)",
+      "Write(03 output/**)",
+      "Read(01 rawdata/**)",
+      "WebSearch",
+      "WebFetch"
+    ],
+    "deny": [
+      "Edit(**/*.ipynb)",
+      "Write(**/*.ipynb)",
+      "NotebookEdit(**/*.ipynb)"
+    ]
+  },
+  "hooks": {}
+}

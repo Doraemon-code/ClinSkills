@@ -87,7 +87,9 @@ Read "$CLAUDE_PLUGIN_ROOT/skills/init-project/reference/project-structure.md"
 
 **2b. 初始化骨架文件**
 
-按 `project-structure.md`「骨架文件」表（Step 2 开头已读），从 `reference/skeleton/` **复制对应 `.template` 到项目根、去掉 `.template` 后缀**（`.gitattributes` / `.gitignore` 目标名需加前导点）。已存在的文件**不覆盖**，仅补缺。其中 `CLAUDE.md`：复制后按下方规则替换 EDC header 区块，并提示用户填写 `<项目名>`。
+按 `project-structure.md`「骨架文件」表（Step 2 开头已读），从 `reference/skeleton/` **复制对应 `.template` 到项目根、去掉 `.template` 后缀**（`.gitattributes` / `.gitignore` 目标名需加前导点；`.claude/settings.json` 应复制到 `.claude/settings.json`）。已存在的文件**不覆盖**，仅补缺。其中 `CLAUDE.md`：复制后按下方规则替换 EDC header 区块，并提示用户填写 `<项目名>`。
+
+> `.claude/settings.json` 预授权了临床项目常用操作（Read/Bash/Grep/Edit 等），可大幅减少权限提示。用户后续可按需增减 allow/deny 规则。
 
 **CLAUDE.md EDC 类型替换规则：** 删除 `<!-- EDC_TYPE_HEADER_START -->` 至 `<!-- EDC_TYPE_HEADER_END -->` 之间的全部行（含注释与默认占位行），插入 Step 1 选定 EDC 对应的表头约定行——**三类取值见 `$CLAUDE_PLUGIN_ROOT/skills/write-script/reference/header-structure.md`「写回 CLAUDE.md 的格式」节（表头规则的权威表述；Read 前须将 `$CLAUDE_PLUGIN_ROOT` 解析为绝对路径，PowerShell 取 `$env:CLAUDE_PLUGIN_ROOT`）**。
 

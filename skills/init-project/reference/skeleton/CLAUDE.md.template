@@ -24,6 +24,7 @@
 ## Permissions
 - `04 scripts/`、`utils/`、`config.py`、`config.yaml`：Claude Code 可编辑
 - `01 rawdata/`、`03 output/`：不在 Git 中
+- `.claude/settings.json`：项目级权限预授权（Read/Bash/Python 等），大幅减少批准提示；按需增减 allow/deny 规则
 
 ## Conventions
 
